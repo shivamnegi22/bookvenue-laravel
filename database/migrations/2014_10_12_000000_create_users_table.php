@@ -17,7 +17,7 @@ return new class extends Migration
             $table->longtext('one_time_password')->nullable();
             $table->timestamp('mobile_verified_at')->nullable();
             $table->timestamp('expires_at')->nullable();
-            $table->string('status')->default('active')->nullable();
+            $table->string('status')->default('Active')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('landline')->nullable();
             $table->text('address')->nullable();
             $table->text('interest')->nullable();
-            $table->string('status')->default(true);
+            $table->string('status')->default('Active');
             $table->boolean('verified')->default(false);
             $table->timestamp('verified_at')->nullable();
             $table->string('verified_by')->nullable();

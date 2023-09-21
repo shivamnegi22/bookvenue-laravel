@@ -26,7 +26,7 @@ class RoleTableSeeder extends Seeder
 
         $role_admin->slug = 'admin';
 
-        $role_admin->description = "A user with Admin privilege";
+        $role_admin->description = "A Admin with admin privilege";
 
         $role_admin->permissions = json_encode([
 
@@ -40,13 +40,13 @@ class RoleTableSeeder extends Seeder
 
             'assign-roles' => true,
 
-            'create-vender' => true,
+            'create-vendor' => true,
 
-            'view-vender' => true,
+            'view-vendor' => true,
 
-            'edit-vender' => true,
+            'edit-vendor' => true,
 
-            'delete-vender' => true,
+            'delete-vendor' => true,
 
             'view-profile' => true,
 
@@ -55,17 +55,17 @@ class RoleTableSeeder extends Seeder
         $role_admin->save();
 
 
-        // 2. vender
+        // 2. vendor
 
-        $role_vender = new Role();
+        $role_vendor = new Role();
 
-        $role_vender->name = "Vender";
+        $role_vendor->name = "Vendor";
 
-        $role_vender->slug = 'vender';
+        $role_vendor->slug = 'vendor';
 
-        $role_vender->description = "A Vender with vender privilege";
+        $role_vendor->description = "A Vendor with vendor privilege";
 
-        $role_vender->permissions = json_encode([
+        $role_vendor->permissions = json_encode([
 
             'view-profile' => true,
 
@@ -73,7 +73,7 @@ class RoleTableSeeder extends Seeder
 
 
 
-        $role_vender->save();
+        $role_vendor->save();
 
         // 3. helpdesk
 
@@ -121,7 +121,7 @@ class RoleTableSeeder extends Seeder
 
         $role_user->slug = 'user';
 
-        $role_user->description = "A user with User privilege";
+        $role_user->description = "A User with user privilege";
 
         $role_user->permissions = json_encode([
 

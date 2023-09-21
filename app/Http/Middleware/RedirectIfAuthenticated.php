@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
 
         if (Auth::guard($guard)->check()) {
 
-            if (Auth::user()->hasAnyRoles(['admin', 'vender', 'helpdesk', 'manager', 'user'])) {
+            if (Auth::user()->hasAnyRoles(['admin', 'vendor', 'helpdesk', 'manager', 'user'])) {
 
                 return Redirect::to('dashboard');
 
