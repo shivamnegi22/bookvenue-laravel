@@ -25,7 +25,7 @@ class facilityController extends Controller
         $facility = new facility;
 
         $facility->facility_type = $request->facility_type;
-        $facility->name = $request->name;
+        $facility->official_name = $request->name;
         $facility->alias = $request->alias;
         $facility->address = $request->address;
         $facility->location = $request->location;
@@ -47,6 +47,7 @@ class facilityController extends Controller
        
         $facility->time = json_encode($request->time);
         $facility->description = $request->description;
+        
          if($facility->save())
          {
             $response = [

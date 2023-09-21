@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
 
     public function registerAppPolicies()
     {
-        Gate::define('create-vender', function($user) {
+        Gate::define('create-vendor', function($user) {
             return $user->hasAccess(['create-member']);
         });
 

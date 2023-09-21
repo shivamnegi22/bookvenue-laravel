@@ -20,7 +20,6 @@ return new class extends Migration
             $table->text('location')->nullable();
             $table->longText('images')->nullable();
             $table->string('featured_image')->nullable();
-            $table->string('time')->nullable();
             $table->longText('description')->nullable();
             $table->string('status')->default(true);
             $table->boolean('verified')->default(false);

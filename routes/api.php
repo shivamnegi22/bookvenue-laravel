@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\LoginAuthController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Facility\facilityController;
+use App\Http\Controllers\Api\Management\managementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,15 +18,23 @@ use App\Http\Controllers\Api\Facility\facilityController;
 |
 */
 
+    //login route
+    Route::post('/login', [LoginAuthController::class, 'login']);
+    Route::post('/verify-otp', [LoginAuthController::class, 'verifyOTP']);
 
-Route::post('/login', [LoginAuthController::class, 'login']);
-Route::post('/verify-otp', [LoginAuthController::class, 'verifyOTP']);
+    //signup route
+    Route::post('/register', [RegisterController::class, 'register']);
+    Route::post('/verify-register-user', [RegisterController::class, 'verifyUser']);
 
-Route::post('/register', [RegisterController::class, 'register']);
-Route::post('/verify-register-user', [RegisterController::class, 'verifyUser']);
+    //facility route
+    Route::post('/createFacility', [facilityController::class, 'createFacility']);
 
-Route::post('/createFacility', [facilityController::class, 'createFacility']);
+    //profile update route
+    Route::post('/profileUpdate', [managementController::class, 'profileUpdate']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+
     return $request->user()->getAllPermissions();
+
 });

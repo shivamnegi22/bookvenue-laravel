@@ -7,11 +7,13 @@ use App\Models\Role;
 use App\Models\role_user;
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Crypt;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
+use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -23,7 +25,7 @@ class RegisterController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'mobile' => 'required|max:10|regex:/^[0-9]{10}$/',
-                'name' => 'required|max:255',
+                'role' => 'required',
             ]);
         
             if ($validator->fails()) {
@@ -60,10 +62,12 @@ class RegisterController extends Controller
             $profile->name = $request->name;
 
             if($profile->save()){
+
+                $role_id = Role::where('slug',$request->role)->value('id');
                 
                 $role_user = new role_user;
                 $role_user->user_id =  $user->id;
-                $role_user->role_id = $request->role;
+                $role_user->role_id = $role_id;
 
                 if($role_user->save())
                 {
@@ -97,7 +101,7 @@ class RegisterController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                'mobile' => 'required|max:10|exists:users,mobile|regex:/^[0-9]{10}$/',
+                'mobile' => 'required|max:10|exists:users,phone|regex:/^[0-9]{10}$/',
                 'otp' => 'required|max:6|regex:/^[0-9]{6}$/',
             ]);
         
@@ -136,6 +140,8 @@ class RegisterController extends Controller
 
              if ($decryptedOTP == $request->otp) {
 
+                $token = $user->createToken('auth_token')->plainTextToken;
+
                 $user->update([
                     'verified' => true,
                     'one_time_password' => null,
@@ -146,11 +152,10 @@ class RegisterController extends Controller
 
                 $profile = Profile::where('user_id',$user->id)->first();
 
-                $profile->update([
-                    'approval_status' => 'approved',
-                ]);
 
                 return response([
+                    'token' =>  $token,
+                    'userRole' => $user->getRoleNames(),
                     'message' => 'User registered successfully.'
                 ],200);
 

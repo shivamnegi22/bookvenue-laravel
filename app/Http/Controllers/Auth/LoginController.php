@@ -109,7 +109,7 @@ public function verifyOTP(Request $request)
         
         $user = Auth::user(); 
 
-        if ($user->hasAnyRoles(['admin', 'vender', 'helpdesk', 'manager'])) {
+        if ($user->hasAnyRoles(['admin', 'vendor', 'helpdesk', 'manager'])) {
           
             return redirect('dashboard');
 

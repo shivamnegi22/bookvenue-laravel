@@ -23,7 +23,7 @@ class UserTableSeeder extends Seeder
 
         $role_admin = Role::find(1);
 
-        $role_vender = Role::find(2);
+        $role_vendor = Role::find(2);
 
         $role_helpdesk = Role::find(3);
 
@@ -50,22 +50,22 @@ class UserTableSeeder extends Seeder
             'name' => 'Admin'
         ]);
 
-        // vender
+        // vendor
 
-        $vender = new User();
+        $vendor = new User();
 
-        $vender->phone = "0000000000";
+        $vendor->phone = "0000000000";
 
-        $vender->save();
+        $vendor->save();
 
-        $vender->roles()->attach($role_vender); 
+        $vendor->roles()->attach($role_vendor); 
 
 
 
         Profile::create([
 
             'user_id' => 2,
-            'name' => 'vender'
+            'name' => 'vendor'
         ]);
 
 
