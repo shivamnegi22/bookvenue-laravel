@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Management;
 
 use App\Models\Profile;
+use App\Models\sports;
+use App\Models\venues;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +50,84 @@ class managementController extends Controller
                 return response([
                     'message' => "Token expired please login again to continue user id.",
                 ],401); 
+            }
+
+        }
+        catch(Exception $e){
+
+            return response([
+                'errors' => $e->message(),
+                'message' => "Internal Server Error.",
+            ],500);
+        }
+    }
+
+    public function createSports(Request $request)
+    {
+        try{
+
+            $validator = Validator::make($request->all(), [
+
+                'name' => 'required',
+
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => 'Validation failed',
+                    'errors' => $validator->errors(),
+                ], 422); // 422 is the HTTP status code for unprocessable entity
+            }
+
+            $sports = new sports;
+
+            $sports->name = $request->name;
+            $sports->description = $request->description;
+
+            if($sports->save())
+            {
+                return response([
+                    'message' => "Sport created successfully.",
+                ],200); 
+            }
+
+        }
+        catch(Exception $e){
+
+            return response([
+                'errors' => $e->message(),
+                'message' => "Internal Server Error.",
+            ],500);
+        }
+    }
+
+    public function createVenue(Request $request)
+    {
+        try{
+
+            $validator = Validator::make($request->all(), [
+
+                'name' => 'required',
+
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => 'Validation failed',
+                    'errors' => $validator->errors(),
+                ], 422); // 422 is the HTTP status code for unprocessable entity
+            }
+
+            $venue = new venues;
+
+            $venue->name = $request->name;
+            $venue->description = $request->description;
+
+            if($venue->save())
+            {
+                return response([
+                    'message' => "Venue created successfully.",
+                ],200); 
             }
 
         }
