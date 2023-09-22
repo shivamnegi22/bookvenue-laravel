@@ -26,12 +26,21 @@ use App\Http\Controllers\Api\Management\managementController;
     Route::post('/register', [RegisterController::class, 'register']);
     Route::post('/verify-register-user', [RegisterController::class, 'verifyUser']);
 
+    //create sports route
+    Route::post('/create-sports', [managementController::class, 'createSports']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    
     //facility route
     Route::post('/createFacility', [facilityController::class, 'createFacility']);
 
     //profile update route
     Route::post('/profileUpdate', [managementController::class, 'profileUpdate']);
 
+    //create venue route
+    Route::post('/create-venue', [managementController::class, 'createVenue']);
+
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
