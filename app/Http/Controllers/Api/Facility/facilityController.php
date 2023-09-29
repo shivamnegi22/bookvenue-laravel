@@ -8,6 +8,37 @@ use App\Models\facility;
 
 class facilityController extends Controller
 {
+
+    public function FacilityView()
+    {
+
+        try{
+
+            // $token = PersonalAccessToken::findToken($request->bearerToken());
+            
+            // if(empty($token)){
+            //     return response([
+            //         'message' => "Token expired please login again to continue.",
+            //     ],401); 
+            // } 
+
+            $facility = facility::orderBy('created_at','desc')->where('status','1')->get();
+
+            return response([
+                'data'  => $facility,
+            ],200);
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "something went wrong please try again.",
+                ],500); 
+        }
+
+
+    }
+
+
     public function createFacility(Request $request)
     {
         try{
