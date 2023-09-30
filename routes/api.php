@@ -24,7 +24,7 @@ use App\Http\Controllers\Api\Management\managementController;
 
     //signup route
     Route::post('/register', [RegisterController::class, 'register']);
-    Route::post('/verify-register-user', [RegisterController::class, 'verifyUser']);
+    Route::post('/verify-register-user', [RegisterController::class, 'verifyuser']);
 
         //create sports route
     Route::post('/create-sports', [managementController::class, 'createSports']);

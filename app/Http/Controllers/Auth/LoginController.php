@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\Authenticatesusers;
 use Illuminate\Support\Facades\Crypt;
-use App\Models\User;
+use App\Models\user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
@@ -27,7 +27,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use Authenticatesusers;
 
     /**
      * Where to redirect users after login.
@@ -61,7 +61,7 @@ public function login(Request $request)
     ]);
 
     
-    $user = User::where('phone', $request->{$this->username()})->first();
+    $user = user::where('phone', $request->{$this->username()})->first();
 
     if ($user) {
 
@@ -103,7 +103,7 @@ public function verifyOTP(Request $request)
 
     if ($savedOTP == $request->otp) {
 
-        $user = User::where('phone', $phone)->first();
+        $user = user::where('phone', $phone)->first();
 
         Auth::login($user);
         

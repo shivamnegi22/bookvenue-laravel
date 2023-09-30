@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\MSG91;
-use App\Models\User;
+use App\Models\user;
+use Firebase\JWT\JWT;
+use Dotenv\Dotenv;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,12 +15,12 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\Authenticatesusers;
 
 class LoginAuthController extends Controller
 {
     
-    use AuthenticatesUsers;
+    use Authenticatesusers;
 
     protected $redirectTo = RouteServiceProvider::HOME;
 
@@ -47,7 +49,7 @@ class LoginAuthController extends Controller
         ], 422); // 422 is the HTTP status code for unprocessable entity
     }
   
-    $user = User::where('phone', $request->{$this->username()})->first();
+    $user = user::where('phone', $request->{$this->username()})->first();
 
     if ($user) {
 
@@ -114,11 +116,11 @@ public function verifyOTP(Request $request)
         ], 422); // 422 is the HTTP status code for unprocessable entity
     }
 
-    $user = User::where('phone',$request->mobile)->first();
+    $user = user::where('phone',$request->mobile)->first();
 
     if(!$user){
         return response()->json([
-            'error' => 'User not varified yet.',
+            'error' => 'user not varified yet.',
         ], 401);
     }
 
@@ -148,10 +150,24 @@ public function verifyOTP(Request $request)
         ]);
 
 
+        $secretKey = $_ENV['JWT_SECRET'];
+
+        $jwtData = new \stdClass();
+        $jwtData->token = $token;
+        $jwtData->userRole = $user->getRoleNames();
+        $jwtData->userRole = $jwtData->userRole[0];
+
+        $payload = [
+    
+            "token" => $jwtData->token,
+            "userRole" => $jwtData->userRole,
+        ];
+
+        $jwtToken = $jwtToken = JWT::encode($payload, $secretKey, 'HS256');
+
         return response([
-            'token' =>  $token,
-            'userRole' => $user->getRoleNames(),
-            'message' => 'User logged in successfully.'
+            'token' =>  $jwtToken,
+            'message' => 'user logged in successfully.'
         ],200);
   
        
