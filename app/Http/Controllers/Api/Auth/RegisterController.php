@@ -152,7 +152,6 @@ class RegisterController extends Controller
 
                 return response([
                     'token' =>  $token,
-                    'userRole' => $user->getRoleNames(),
                     'message' => 'user registered successfully.'
                 ],200);
 

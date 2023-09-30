@@ -8,9 +8,8 @@ use Illuminate\Foundation\Auth\user as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class user extends Authenticatable implements JWTSubject
+class user extends Authenticatable 
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -43,20 +42,12 @@ class user extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
 
     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
      *
      * @return array
      */
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
 
     public function authorizeRoles($roles)
 
