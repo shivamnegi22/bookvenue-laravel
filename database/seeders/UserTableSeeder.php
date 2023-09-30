@@ -36,7 +36,7 @@ class userTableSeeder extends Seeder
 
         $admin = new user();
 
-        $admin->phone = "8532977853";
+        $admin->phone = "7876787876";
 
         $admin->save();
 

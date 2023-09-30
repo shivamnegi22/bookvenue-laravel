@@ -64,14 +64,10 @@ class LoginAuthController extends Controller
 
     if($user->update()){
 
-    $response = [
+    return response([
         'OTPStatus' => $otpStatus,
         'mobile' => $request->mobile,
         'message' => 'OTP send successfully.',
-    ];
-
-    return response([
-        'data' => $response,
     ],200);
 
     }
@@ -105,6 +101,7 @@ public function verifyOTP(Request $request)
     try{
 
         $validator = Validator::make($request->all(), [
+            'mobile' => 'required|max:10|exists:users,phone|regex:/^[0-9]{10}$/',
             'otp' => 'required|digits:6', 
         ]);
  
