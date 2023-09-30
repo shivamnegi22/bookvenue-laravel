@@ -32,12 +32,17 @@ use App\Http\Controllers\Api\Management\managementController;
     //create venue route
     Route::post('/create-venue', [managementController::class, 'createVenue']);
     
-    //facility route
-    Route::get('/Facility', [facilityController::class, 'FacilityView']);
+    //facility get route
+    Route::get('/get-recent-facility/{count}', [facilityController::class, 'recentFacility']);
+    Route::get('/get-featured-facility/{count}', [facilityController::class, 'featuredFacility']);
+
     Route::post('/createFacility', [facilityController::class, 'createFacility']);
 
     //profile update route
     Route::post('/profileUpdate', [managementController::class, 'profileUpdate']);
+
+    //get user role route
+    Route::get('/get-user-role', [managementController::class, 'getUserRole']);
 
 Route::middleware('auth:sanctum')->group(function () {
 

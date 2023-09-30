@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Management;
 use App\Models\Profile;
 use App\Models\sports;
 use App\Models\venues;
+use App\Models\Role;
+use App\Models\role_user;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -128,6 +130,46 @@ class managementController extends Controller
                 return response([
                     'message' => "Venue created successfully.",
                 ],200); 
+            }
+
+        }
+        catch(Exception $e){
+
+            return response([
+                'errors' => $e->message(),
+                'message' => "Internal Server Error.",
+            ],500);
+        }
+    }
+
+    public function getUserRole(Request $request)
+    {
+        try{
+
+            $token = PersonalAccessToken::findToken($request->bearerToken());
+
+            if(empty($token)){
+                return response([
+                    'message' => "Token expired please login again to continue.",
+                ],401); 
+            } 
+
+            $userId = $token->tokenable->id;
+
+            if($userId){
+
+                $role_id = role_user::where('user_id',$userId)->value('role_id');
+                $role = Role::where('id',$role_id)->value('name');
+              
+                    return response([
+                        'role' => $role,
+                    ],200); 
+               
+            }
+            else{
+                return response([
+                    'message' => "Token expired please login again to continue user id.",
+                ],401); 
             }
 
         }

@@ -149,24 +149,8 @@ public function verifyOTP(Request $request)
             'expires_at' => null,
         ]);
 
-
-        $secretKey = $_ENV['JWT_SECRET'];
-
-        $jwtData = new \stdClass();
-        $jwtData->token = $token;
-        $jwtData->userRole = $user->getRoleNames();
-        $jwtData->userRole = $jwtData->userRole[0];
-
-        $payload = [
-    
-            "token" => $jwtData->token,
-            "userRole" => $jwtData->userRole,
-        ];
-
-        $jwtToken = $jwtToken = JWT::encode($payload, $secretKey, 'HS256');
-
         return response([
-            'token' =>  $jwtToken,
+            'token' =>  $token,
             'message' => 'user logged in successfully.'
         ],200);
   
