@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 use App\MSG91;
-use App\Models\User;
+use App\Models\user;
 use App\Models\Role;
 use App\Models\role_user;
 use App\Models\Profile;
@@ -36,7 +36,7 @@ class RegisterController extends Controller
 
         }
 
-        $userExist = User::where('phone',$request->mobile)->first();
+        $userExist = user::where('phone',$request->mobile)->first();
 
         if($userExist){
             return response()->json([
@@ -47,14 +47,14 @@ class RegisterController extends Controller
 
         $otp = mt_rand(100000, 999999);
 
-        $user = new User;
+        $user = new user;
         $user->phone = $request->mobile;
         $user->one_time_password = Crypt::encrypt($otp);
         $user->expires_at = now()->addMinutes(5);
         
         if($user->save()){
 
-            // $user->assignRole('User');
+            // $user->assignRole('user');
 
             $profile = new Profile;
             $profile->user_id = $user->id;
@@ -96,7 +96,7 @@ class RegisterController extends Controller
     }
     }
 
-    public function verifyUser(Request $request)
+    public function verifyuser(Request $request)
     {
         try {
 
@@ -112,11 +112,11 @@ class RegisterController extends Controller
                 ], 422); // 422 is the HTTP status code for unprocessable entity
             }
 
-            $user = User::where('phone',$request->mobile)->first();
+            $user = user::where('phone',$request->mobile)->first();
             
             if(!$user){
                 return response()->json([
-                    'error' => 'User not found.',
+                    'error' => 'user not found.',
                 ], 401);
             }
 
@@ -152,11 +152,10 @@ class RegisterController extends Controller
 
                 $profile = Profile::where('user_id',$user->id)->first();
 
-
                 return response([
                     'token' =>  $token,
                     'userRole' => $user->getRoleNames(),
-                    'message' => 'User registered successfully.'
+                    'message' => 'user registered successfully.'
                 ],200);
 
                 }
