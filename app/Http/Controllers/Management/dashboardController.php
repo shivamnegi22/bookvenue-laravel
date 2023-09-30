@@ -34,7 +34,7 @@ class dashboardController extends Controller
     
         foreach ($request->file('images') as $image) {
             $path = $image->store('public/facility');
-            $images[] = $path;
+            $images[] = str_replace('public','storage',$path);
         }
     
         // Encode the entire array as JSON without escaping slashes
@@ -42,7 +42,9 @@ class dashboardController extends Controller
     }
     
        if ($request->hasFile('featured_image')) {
-        $facility->featured_image = $request->featured_image->store('public/facility');
+
+        $url = $request->featured_image->store('public/facility');
+        $facility->featured_image = str_replace('public','storage',$url);
         }
       
        $facility->description = $request->description;
