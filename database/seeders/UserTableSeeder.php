@@ -5,11 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use App\Models\User;
+use App\Models\user;
 use App\Models\Role;
 use App\Models\Profile;
 
-class UserTableSeeder extends Seeder
+class userTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -32,9 +32,9 @@ class UserTableSeeder extends Seeder
         $role_manager = Role::find(5);
 
 
-        // Admin
+        // admin
 
-        $admin = new User();
+        $admin = new user();
 
         $admin->phone = "7876787876";
 
@@ -47,12 +47,12 @@ class UserTableSeeder extends Seeder
         Profile::create([
 
             'user_id' => 1,
-            'name' => 'Admin'
+            'name' => 'admin'
         ]);
 
         // vendor
 
-        $vendor = new User();
+        $vendor = new user();
 
         $vendor->phone = "0000000000";
 
@@ -72,7 +72,7 @@ class UserTableSeeder extends Seeder
 
         // helpdesk
 
-        $helpdesk = new User();
+        $helpdesk = new user();
 
         $helpdesk->phone = "1111111111";
 
@@ -91,7 +91,7 @@ class UserTableSeeder extends Seeder
 
                 // manager
 
-                $manager = new User();
+                $manager = new user();
 
                 $manager->phone = "8279472977";
         
@@ -110,7 +110,7 @@ class UserTableSeeder extends Seeder
 
         // user
 
-        $user = new User();
+        $user = new user();
 
         $user->phone = "1234567890";
 

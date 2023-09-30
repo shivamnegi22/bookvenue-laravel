@@ -18,15 +18,15 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
 
-        // 1. Admin
+        // 1. admin
 
         $role_admin = new Role();
 
-        $role_admin->name = "Admin";
+        $role_admin->name = "admin";
 
         $role_admin->slug = 'admin';
 
-        $role_admin->description = "A Admin with admin privilege";
+        $role_admin->description = "A admin with admin privilege";
 
         $role_admin->permissions = json_encode([
 
@@ -59,11 +59,11 @@ class RoleTableSeeder extends Seeder
 
         $role_vendor = new Role();
 
-        $role_vendor->name = "Vendor";
+        $role_vendor->name = "vendor";
 
         $role_vendor->slug = 'vendor';
 
-        $role_vendor->description = "A Vendor with vendor privilege";
+        $role_vendor->description = "A vendor with vendor privilege";
 
         $role_vendor->permissions = json_encode([
 
@@ -79,11 +79,11 @@ class RoleTableSeeder extends Seeder
 
         $role_helpdesk = new Role();
 
-        $role_helpdesk->name = "Helpdesk";
+        $role_helpdesk->name = "helpdesk";
 
         $role_helpdesk->slug = 'helpdesk';
 
-        $role_helpdesk->description = "A Helpdesk with helpdesk privilege";
+        $role_helpdesk->description = "A helpdesk with helpdesk privilege";
 
         $role_helpdesk->permissions = json_encode([
 
@@ -98,11 +98,11 @@ class RoleTableSeeder extends Seeder
 
         $role_manager = new Role();
 
-        $role_manager->name = "Manager";
+        $role_manager->name = "manager";
 
         $role_manager->slug = 'manager';
 
-        $role_manager->description = "A Manager with manager privilege";
+        $role_manager->description = "A manager with manager privilege";
 
         $role_manager->permissions = json_encode([
 
@@ -113,15 +113,15 @@ class RoleTableSeeder extends Seeder
 
         $role_manager->save();
 
-        // 4. User
+        // 4. user
 
         $role_user = new Role();
 
-        $role_user->name = "User";
+        $role_user->name = "user";
 
         $role_user->slug = 'user';
 
-        $role_user->description = "A User with user privilege";
+        $role_user->description = "A user with user privilege";
 
         $role_user->permissions = json_encode([
 
