@@ -75,13 +75,11 @@ class RegisterController extends Controller
                 $MSG91 = new MSG91();
                 $otpStatus =    $MSG91->sendDltSms('62385ab87f0231333a04e445', '91'.$request->mobile, 'OTP', [$otp]);
 
-                $response = [
+                return response([
                     'OTPStatus' => $otpStatus,
                     'mobile' => $request->mobile,
                     'message' => 'OTP send successfully.',
-                ];
-
-                return response($response,200);
+                ],200);
             }
 
         }
