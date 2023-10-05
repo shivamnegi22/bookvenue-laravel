@@ -23,7 +23,7 @@ class dashboardController extends Controller
 
     public function createFacilityView()
     {
-        return view('createFacility');
+        return view('facility.createFacility');
     }
 
     public function createFacility(Request $request)
@@ -65,7 +65,7 @@ class dashboardController extends Controller
 
     public function viewSports()
     {
-        return view('sports');
+        return view('facility.createSports');
     }
 
     public function Sports(Request $request)
@@ -82,7 +82,7 @@ class dashboardController extends Controller
 
     public function viewVenue()
     {
-        return view('sports');
+        return view('facility.createVenues');
     }
 
     public function Venues(Request $request)
@@ -90,21 +90,23 @@ class dashboardController extends Controller
 
         $venue = new venues;
 
-        $venues->name = $request->name;
-        $venues->description = $request->description;
-        $venues->save();
+        $venue->name = $request->name;
+        $venue->description = $request->description;
+        $venue->save();
 
         return redirect()->back();
     }
 
     public function facilitySportsView()
     {
-        return view('Facility_sports');
+        $facility = facility::get();
+        $sports = sports::get();
+        return view('facility.facilitySport',compact('facility','sports'));
     }
 
     public function facilitySports(Request $request)
     {
-        $facility_sports = new facility_sports;
+            $facility_sports = new facility_sports;
 
             $facility_sports->facility_id = $request->facility_id;
             $facility_sports->sports_id = $request->sports_id;
@@ -123,7 +125,9 @@ class dashboardController extends Controller
 
     public function facilityVenueView()
     {
-        return view('Facility_venue');
+        $facility = facility::get();
+        $venues = venues::get();
+        return view('facility.facilityVenue',compact('facility','venues'));
     }
 
     public function facilityVenue(Request $request)
@@ -137,7 +141,7 @@ class dashboardController extends Controller
         $facilty_venue->close_time = $request->close_time;
         $facilty_venue->location = $request->location;
         $facilty_venue->slot_time = $request->slot_time;
-        $facilty_venue->start_price = $request->start_price;
+        $facilty_venue->slot_price = $request->slot_price;
         $facilty_venue->court_count = $request->court_count;
         $facilty_venue->breaktime_start = $request->breaktime_start;
         $facilty_venue->breaktime_end = $request->breaktime_end;
@@ -149,4 +153,6 @@ class dashboardController extends Controller
         return redirect()->back();
 
     }
+
+
 }

@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('verified_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

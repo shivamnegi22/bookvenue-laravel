@@ -312,7 +312,6 @@ class facilityController extends Controller
                 ],500); 
         }
     }
-    
 
     public function createFaciltiySportsCourt(Request $request)
     {
