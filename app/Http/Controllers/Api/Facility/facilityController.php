@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Facility;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\facility;
+use Illuminate\Support\Str;
 
 class facilityController extends Controller
 {
@@ -86,6 +87,11 @@ class facilityController extends Controller
 
         $facility->facility_type = $request->facility_type;
         $facility->official_name = $request->name;
+
+        $slug = Str::slug($request->name);
+        $randomString = Str::random(5);
+
+        $facility->slug = $slug . '-' . $randomString;
         $facility->alias = $request->alias;
         $facility->address = $request->address;
         $facility->location = $request->location;

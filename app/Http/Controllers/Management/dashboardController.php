@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use App\Models\facility;
+use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 
@@ -27,6 +28,10 @@ class dashboardController extends Controller
        $facility->facility_type = $request->facility_type;
        $facility->official_name = $request->name;
        $facility->alias = $request->alias;
+       $slug = Str::slug($request->name);
+       $randomString = Str::random(5);
+
+       $facility->slug = $slug . '-' . $randomString;
        $facility->address = $request->address;
        $facility->location = $request->location;
        if ($request->hasFile('images')) {
