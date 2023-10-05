@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use App\Models\facility;
+use App\Models\sports;
+use App\Models\venues;
+use App\Models\facility_venue;
+use App\Models\facility_sports;
+use App\Models\facility_sports_court;
+use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 
@@ -27,6 +33,10 @@ class dashboardController extends Controller
        $facility->facility_type = $request->facility_type;
        $facility->official_name = $request->name;
        $facility->alias = $request->alias;
+       $slug = Str::slug($request->name);
+       $randomString = Str::random(5);
+
+       $facility->slug = $slug . '-' . $randomString;
        $facility->address = $request->address;
        $facility->location = $request->location;
        if ($request->hasFile('images')) {
@@ -51,5 +61,92 @@ class dashboardController extends Controller
         $facility->save();
 
         return redirect()->back();
+    }
+
+    public function viewSports()
+    {
+        return view('sports');
+    }
+
+    public function Sports(Request $request)
+    {
+
+        $sport = new sports;
+
+        $sport->name = $request->name;
+        $sport->description = $request->description;
+        $sport->save();
+
+        return redirect()->back();
+    }
+
+    public function viewVenue()
+    {
+        return view('sports');
+    }
+
+    public function Venues(Request $request)
+    {
+
+        $venue = new venues;
+
+        $venues->name = $request->name;
+        $venues->description = $request->description;
+        $venues->save();
+
+        return redirect()->back();
+    }
+
+    public function facilitySportsView()
+    {
+        return view('Facility_sports');
+    }
+
+    public function facilitySports(Request $request)
+    {
+        $facility_sports = new facility_sports;
+
+            $facility_sports->facility_id = $request->facility_id;
+            $facility_sports->sports_id = $request->sports_id;
+            $facility_sports->amenities = $request->amenities;
+            $facility_sports->start_time = $request->start_time;
+            $facility_sports->close_time = $request->close_time;
+            $facility_sports->location = $request->location;
+            $facility_sports->slot_time = $request->slot_time;
+            $facility_sports->holiday = json_encode($request->holiday);
+            $facility_sports->description = $request->description;
+
+            $facility_sports->save();
+
+            return redirect()->back();
+    }
+
+    public function facilityVenueView()
+    {
+        return view('Facility_venue');
+    }
+
+    public function facilityVenue(Request $request)
+    {
+        $facilty_venue = new facility_venue;
+
+        $facilty_venue->facility_id = $request->facility_id;
+        $facilty_venue->venue_id = $request->venue_id;
+        $facilty_venue->amenities = $request->amenities;
+        $facilty_venue->start_time = $request->start_time;
+        $facilty_venue->close_time = $request->close_time;
+        $facilty_venue->location = $request->location;
+        $facilty_venue->slot_time = $request->slot_time;
+        $facilty_venue->start_price = $request->start_price;
+        $facilty_venue->court_count = $request->court_count;
+        $facilty_venue->breaktime_start = $request->breaktime_start;
+        $facilty_venue->breaktime_end = $request->breaktime_end;
+        $facilty_venue->holiday = json_encode($request->holiday);
+        $facilty_venue->description = $request->description;
+
+        $facilty_venue->save();
+
+        return redirect()->back();
+
     }
 }

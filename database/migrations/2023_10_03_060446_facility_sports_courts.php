@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('facility', function (Blueprint $table) {
+        Schema::create('facility_sports_court', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('facility_type')->nullable();
-            $table->string('official_name')->nullable();
-            $table->string('slug')->nullable()->unique();
-            $table->string('alias')->nullable();
-            $table->text('address')->nullable();
-            $table->text('location')->nullable();
-            $table->longText('images')->nullable();
-            $table->string('featured_image')->nullable();
+            $table->unsignedBigInteger('facility_id');
+            $table->unsignedBigInteger('sports_id');
+            $table->unsignedBigInteger('facility_sports_id');
+            $table->string('name')->nullable();
+            $table->string('slot_price')->nullable();
+            $table->string('breaktime_start')->nullable();
+            $table->string('breaktime_end')->nullable();
             $table->longText('description')->nullable();
-            $table->string('status')->default(true);
             $table->boolean('verified')->default(false);
             $table->timestamp('verified_at')->nullable();
             $table->string('verified_by')->nullable();
@@ -37,8 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('facility');
+        Schema::dropIfExists('facility_sports_court');
     }
-
-    
 };
