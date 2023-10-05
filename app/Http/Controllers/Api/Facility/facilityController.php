@@ -65,7 +65,6 @@ class facilityController extends Controller
                 ],500); 
         }
 
-
     }
 
 

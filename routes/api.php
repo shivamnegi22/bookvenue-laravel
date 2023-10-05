@@ -44,6 +44,18 @@ use App\Http\Controllers\Api\Management\managementController;
     //get user role route
     Route::get('/get-user-role', [managementController::class, 'getUserRole']);
 
+    //get facilty venue route
+    Route::get('/facility-venue', [managementController::class, 'getFacilityVenue']);
+    Route::post('/facility-venue', [managementController::class, 'createFacilityVenue']);
+
+    //get facilty sports route
+    Route::get('/facility-sports', [managementController::class, 'getFacilitySports']);
+    Route::post('/facility-sports', [managementController::class, 'createFaciltiySports']);
+
+    //get facilty sports route
+    Route::get('/facility-sports-courts', [managementController::class, 'getFacilitySportsCourt']);
+    Route::post('/facility-sports-courts', [managementController::class, 'createFaciltiySportsCourt']);
+
 Route::middleware('auth:sanctum')->group(function () {
 
 
