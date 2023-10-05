@@ -23,7 +23,7 @@ class dashboardController extends Controller
 
     public function createFacilityView()
     {
-        return view('createFacility');
+        return view('facility.createFacility');
     }
 
     public function createFacility(Request $request)

@@ -711,21 +711,30 @@ canvas {
 /*    Widget Five
 ---------------------------*/
 .stat-widget-five {
-    min-height: 60px; }
-    .stat-widget-five .stat-icon {
-      font-size: 50px;
-      line-height: 50px;
-      position: absolute;
-      left: 30px;
-      top: 20px; }
-    .stat-widget-five .stat-content {
-      margin-left: 100px; }
-    .stat-widget-five .stat-text {
-      color: #455a64;
-      font-size: 20px; }
-    .stat-widget-five .stat-heading {
-      color: #99abb4;
-      font-size: 14px; }
+    min-height: 60px;
+}
+
+.stat-widget-five .stat-icon {
+    font-size: 50px;
+    line-height: 50px;
+    position: absolute;
+    left: 30px;
+    top: 20px;
+}
+
+.stat-widget-five .stat-content {
+    margin-left: 100px;
+}
+
+.stat-widget-five .stat-text {
+    color: #455a64;
+    font-size: 20px;
+}
+
+.stat-widget-five .stat-heading {
+    color: #99abb4;
+    font-size: 14px;
+}
 
 /* Global Styles */
 /* Main Styles */
@@ -1419,7 +1428,34 @@ header .form-inline .search-form.close {
     display: flex;
     -webkit-box-pack: end;
     -ms-flex-pack: end;
-    justify-content: flex-end;
+    justify-content: space-between;
+}
+
+.header-menu .header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-menu .header-right .cd-breadcrumb {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.header-menu .header-right .cd-breadcrumb li::after {
+    display: inline-block;
+    content: '\00bb';
+    margin: 0 .6em;
+    color: #959fa5;
+}
+
+.header-menu .header-right .cd-breadcrumb li.current>* {
+    color: #03a9f3;
+}
+
+.header-menu .header-right .cd-breadcrumb li.current::after {
+    display: none; /* This will hide the after icon */
 }
 
 .header-menu .dropdown {

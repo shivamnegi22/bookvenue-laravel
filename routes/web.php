@@ -32,6 +32,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/createFacility', 'App\Http\Controllers\Management\dashboardController@createFacilityView');
     Route::post('/createFacility', 'App\Http\Controllers\Management\dashboardController@createFacility');
 
+<<<<<<< HEAD
+    Route::get('/createSports', 'App\Http\Controllers\Management\dashboardController@createSportsView');
+    Route::get('/createVenues', 'App\Http\Controllers\Management\dashboardController@createVenuesView');
+
+    Route::get('/facilitySport', 'App\Http\Controllers\Management\dashboardController@facilitySport');
+    Route::get('/facilityVenue', 'App\Http\Controllers\Management\dashboardController@facilityVenue');
+=======
     Route::get('/sports', 'App\Http\Controllers\Management\dashboardController@viewSports');
     Route::post('/sports', 'App\Http\Controllers\Management\dashboardController@Sports');
 
@@ -43,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/venue-facility', 'App\Http\Controllers\Management\dashboardController@facilityVenueView');
     Route::post('/venue-facility', 'App\Http\Controllers\Management\dashboardController@facilityVenue');
+>>>>>>> fc29d5c0240c304d1c0fdff1ca3c69e29ec52cf4
 });
 
 
