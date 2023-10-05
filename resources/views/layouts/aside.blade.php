@@ -49,10 +49,10 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="{{ url('/createFacility') }}">Create Facility</a>
                             </li>
-                            <li><i class="fa fa-table"></i><a href="{{'/createSports'}}">Create Sports</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{'/createVenues'}}">Create Venues</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{'/facilitySport'}}">Facility Sports</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{'/facilityVenue'}}">Facility Venues</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{'/sports'}}">Create Sports</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{'/Venues'}}">Create Venues</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{'/sports-facility'}}">Facility Sports</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{'/venue-facility'}}">Facility Venues</a></li>
                         </ul>
                     </li>
                     <!-- <li class="menu-item-has-children dropdown">
@@ -76,7 +76,7 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="./">
                         <!-- <img src="images/logo.png" alt="Logo"> -->
-                        GIKS - BookVenue
+                        BookVenue
                     </a>
                     <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>

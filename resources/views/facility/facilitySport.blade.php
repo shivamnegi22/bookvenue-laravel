@@ -1,26 +1,26 @@
 @extends('layouts.aside')
 @section('content')
 
-<form method="post" action="{{url('#')}}" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" action="{{ url('sports-facility') }}">
     @csrf
     <div class="container">
         <div class="row form">
             <div class="col-md-6">
                 <label>Facility</label>
-                <select class="inputField">
-                    <option value="By the way">BTW</option>
-                    <option value="Talk to you later">TTYL</option>
-                    <option value="To be honest">TBH</option>
-                    <option value=" I don’t know">IDK</option>
+                <select class="inputField" name="facility_id">
+                    <option value="By the way">Choose Facility</option>
+                    @foreach($facility as $data)
+                    <option value="{{ $data->id }}">{{ $data->official_name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-6">
                 <label>Sport</label>
-                <select class="inputField">
-                    <option value="By the way">BTW</option>
-                    <option value="Talk to you later">TTYL</option>
-                    <option value="To be honest">TBH</option>
-                    <option value=" I don’t know">IDK</option>
+                <select class="inputField" name="sports_id">
+                <option value="By the way">Choose Sport</option>
+                @foreach($sports as $sport)
+                    <option value="{{$sport->id}}">{{ $sport->name }}</option>
+                @endforeach
                 </select>
             </div>
             <div class="col-md-4">
@@ -41,20 +41,11 @@
             </div>
             <div class="col-md-6">
                 <label>Slot Time</label>
-                <input type="time" name="slot_time" placeholder="slot_time" class="inputField">
-            </div>
-            <div class="col-md-6">
-                <label>Status</label>
-                <select class="inputField">
-                    <option value="By the way">BTW</option>
-                    <option value="Talk to you later">TTYL</option>
-                    <option value="To be honest">TBH</option>
-                    <option value=" I don’t know">IDK</option>
-                </select>
+                <input type="text" name="slot_time" placeholder="slot_time" class="inputField">
             </div>
             <div class="col-md-6">
                 <label>Holiday</label>
-                <input type="file" name="slot_time" placeholder="slot_time" class="form-control-file">
+                <input type="text" name="holiday[]" placeholder="slot_time" class="form-control-file">
             </div>
             <div class="col-md-12">
                 <label>Description</label>

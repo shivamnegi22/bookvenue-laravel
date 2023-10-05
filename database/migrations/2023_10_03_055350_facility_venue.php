@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('close_time')->nullable();
             $table->string('location')->nullable();
             $table->string('slot_time')->nullable();
-            $table->string('start_price')->nullable();
+            $table->string('slot_price')->nullable();
             $table->string('court_count')->nullable();
             $table->string('status')->default(true);
             $table->string('breaktime_start')->nullable();

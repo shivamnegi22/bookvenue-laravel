@@ -1,7 +1,7 @@
 @extends('layouts.aside')
 @section('content')
 
-<form method="post" action="{{url('#')}}" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" action="{{ url('Venues') }}">
     @csrf
     <div class="container">
         <div class="row form">

@@ -1,26 +1,26 @@
 @extends('layouts.aside')
 @section('content')
 
-<form method="post" action="{{url('#')}}" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" action="{{ url('venue-facility') }}">
     @csrf
     <div class="container">
         <div class="row form">
             <div class="col-md-6">
                 <label>Facility</label>
-                <select class="inputField">
-                    <option value="By the way">BTW</option>
-                    <option value="Talk to you later">TTYL</option>
-                    <option value="To be honest">TBH</option>
-                    <option value=" I don’t know">IDK</option>
+                <select class="inputField" name="facility_id">
+                <option value="By the way">Choose Facility</option>
+                    @foreach($facility as $data)
+                    <option value="{{ $data->id }}">{{ $data->official_name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-6">
-                <label>Sport</label>
-                <select class="inputField">
-                    <option value="By the way">BTW</option>
-                    <option value="Talk to you later">TTYL</option>
-                    <option value="To be honest">TBH</option>
-                    <option value=" I don’t know">IDK</option>
+                <label>Venue</label>
+                <select class="inputField" name="venue_id">
+                <option value="">Choose Venue</option>
+                @foreach($venues as $venue)
+                    <option value="{{$venue->id}}">{{ $venue->name }}</option>
+                @endforeach
                 </select>
             </div>
             <div class="col-md-4">
@@ -41,20 +41,27 @@
             </div>
             <div class="col-md-6">
                 <label>Slot Time</label>
-                <input type="time" name="slot_time" placeholder="slot_time" class="inputField">
+                <input type="text" name="slot_price" placeholder="slot_time" class="inputField">
             </div>
             <div class="col-md-6">
-                <label>Status</label>
-                <select class="inputField">
-                    <option value="By the way">BTW</option>
-                    <option value="Talk to you later">TTYL</option>
-                    <option value="To be honest">TBH</option>
-                    <option value=" I don’t know">IDK</option>
-                </select>
+                <label>Slot Price</label>
+                <input type="text" name="slot_time" placeholder="slot price" class="inputField">
+            </div>
+            <div class="col-md-6">
+                <label>Court Count</label>
+                <input type="text" name="court_count" placeholder="court count" class="inputField">
+            </div>
+            <div class="col-md-6">
+                <label>Breaktime Start</label>
+                <input type="time" name="breaktime_start" placeholder="breaktime start" class="inputField">
+            </div>
+            <div class="col-md-6">
+                <label>Breaktime End</label>
+                <input type="time" name="breaktime_end" placeholder="breaktime end" class="inputField">
             </div>
             <div class="col-md-6">
                 <label>Holiday</label>
-                <input type="file" name="slot_time" placeholder="slot_time" class="form-control-file">
+                <input type="text" name="holiday[]" placeholder="slot_time" class="form-control-file">
             </div>
             <div class="col-md-12">
                 <label>Description</label>
