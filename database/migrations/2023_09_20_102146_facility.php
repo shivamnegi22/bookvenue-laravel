@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('facility_type')->nullable();
             $table->string('official_name')->nullable();
-            $table->string('slug')->nullable();
+            $table->string('slug')->nullable()->unique();
             $table->string('alias')->nullable();
             $table->text('address')->nullable();
             $table->text('location')->nullable();
@@ -39,4 +39,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('facility');
     }
+
+    
 };

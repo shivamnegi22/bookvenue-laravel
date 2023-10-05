@@ -45,16 +45,16 @@ use App\Http\Controllers\Api\Management\managementController;
     Route::get('/get-user-role', [managementController::class, 'getUserRole']);
 
     //get facilty venue route
-    Route::get('/facility-venue', [managementController::class, 'getFacilityVenue']);
-    Route::post('/facility-venue', [managementController::class, 'createFacilityVenue']);
+    Route::get('/facility-venue', [facilityController::class, 'getFacilityVenue']);
+    Route::post('/facility-venue', [facilityController::class, 'createFacilityVenue']);
 
     //get facilty sports route
-    Route::get('/facility-sports', [managementController::class, 'getFacilitySports']);
-    Route::post('/facility-sports', [managementController::class, 'createFaciltiySports']);
+    Route::get('/facility-sports', [facilityController::class, 'getFacilitySports']);
+    Route::post('/facility-sports', [facilityController::class, 'createFaciltiySports']);
 
     //get facilty sports route
-    Route::get('/facility-sports-courts', [managementController::class, 'getFacilitySportsCourt']);
-    Route::post('/facility-sports-courts', [managementController::class, 'createFaciltiySportsCourt']);
+    Route::get('/facility-sports-courts', [facilityController::class, 'getFacilitySportsCourt']);
+    Route::post('/facility-sports-courts', [facilityController::class, 'createFaciltiySportsCourt']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
