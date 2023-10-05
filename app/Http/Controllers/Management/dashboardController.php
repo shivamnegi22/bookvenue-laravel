@@ -17,7 +17,7 @@ class dashboardController extends Controller
 
     public function createFacilityView()
     {
-        return view('createFacility');
+        return view('facility.createFacility');
     }
 
     public function createFacility(Request $request)
@@ -51,5 +51,25 @@ class dashboardController extends Controller
         $facility->save();
 
         return redirect()->back();
+    }
+
+    public function createSportsView()
+    {
+        return view('facility.createSports');
+    }
+
+    public function createVenuesView()
+    {
+        return view('facility.createVenues');
+    }
+
+    public function facilitySport()
+    {
+        return view('facility.facilitySport');
+    }
+
+    public function facilityVenue()
+    {
+        return view('facility.facilityVenue');
     }
 }

@@ -31,6 +31,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', 'App\Http\Controllers\Management\dashboardController@index');
     Route::get('/createFacility', 'App\Http\Controllers\Management\dashboardController@createFacilityView');
     Route::post('/createFacility', 'App\Http\Controllers\Management\dashboardController@createFacility');
+
+    Route::get('/createSports', 'App\Http\Controllers\Management\dashboardController@createSportsView');
+    Route::get('/createVenues', 'App\Http\Controllers\Management\dashboardController@createVenuesView');
+
+    Route::get('/facilitySport', 'App\Http\Controllers\Management\dashboardController@facilitySport');
+    Route::get('/facilityVenue', 'App\Http\Controllers\Management\dashboardController@facilityVenue');
 });
 
 
