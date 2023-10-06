@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Auth\LoginAuthController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Facility\facilityController;
 use App\Http\Controllers\Api\Management\managementController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ use App\Http\Controllers\Api\Management\managementController;
     //signup route
     Route::post('/register', [RegisterController::class, 'register']);
     Route::post('/verify-register-user', [RegisterController::class, 'verifyuser']);
+    Route::post('/searchLocation', [SearchController::class, 'searchLocation']);
 
         //create sports route
     Route::post('/create-sports', [managementController::class, 'createSports']);
