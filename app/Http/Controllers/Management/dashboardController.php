@@ -154,5 +154,10 @@ class dashboardController extends Controller
 
     }
 
+    public function allSports()
+    {
+        return view('facility.allSports');
+    }
+
 
 }
