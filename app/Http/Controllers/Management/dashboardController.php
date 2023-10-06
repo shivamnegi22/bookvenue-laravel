@@ -11,6 +11,7 @@ use App\Models\facility_venue;
 use App\Models\facility_sports;
 use App\Models\facility_sports_court;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
 
@@ -72,9 +73,22 @@ class dashboardController extends Controller
     public function Sports(Request $request)
     {
 
+        $this->validate($request,[
+        
+            'featured_image'      =>  'mimes:png,svg|max:500',
+            'icon'                =>  'mimes:png,svg|max:200',
+
+            ]);
+
         $sport = new sports;
 
         $sport->name = $request->name;
+        if ($request->hasFile('featured_image')) {
+        $sport->featured_image = $request->featured_image;
+        }
+        if ($request->hasFile('icon')) {
+        $sport->featured_image = $request->icon;
+        }
         $sport->description = $request->description;
         $sport->save();
 
@@ -89,9 +103,22 @@ class dashboardController extends Controller
     public function Venues(Request $request)
     {
 
+        $this->validate($request,[
+        
+            'featured_image'      =>  'mimes:png,svg|max:500',
+            'icon'                =>  'mimes:png,svg|max:200',
+
+            ]);
+
         $venue = new venues;
 
         $venue->name = $request->name;
+        if ($request->hasFile('featured_image')) {
+        $venue->featured_image = $request->featured_image;
+        }
+        if ($request->hasFile('icon')) {
+        $venue->featured_image = $request->icon;
+        }
         $venue->description = $request->description;
         $venue->save();
 
