@@ -36,10 +36,6 @@
                 <input type="time" name="close_time" placeholder="Close Time" class="inputField">
             </div>
             <div class="col-md-6">
-                <label>Location</label>
-                <input type="text" name="location" placeholder="Location" class="inputField">
-            </div>
-            <div class="col-md-6">
                 <label>Slot Time</label>
                 <input type="text" name="slot_time" placeholder="slot_time" class="inputField">
             </div>

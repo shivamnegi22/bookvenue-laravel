@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('amenities')->nullable();
             $table->string('start_time')->nullable();
             $table->string('close_time')->nullable();
-            $table->string('location')->nullable();
             $table->string('slot_time')->nullable();
             $table->string('slot_price')->nullable();
             $table->string('court_count')->nullable();

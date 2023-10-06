@@ -94,7 +94,8 @@ class facilityController extends Controller
         $facility->slug = $slug . '-' . $randomString;
         $facility->alias = $request->alias;
         $facility->address = $request->address;
-        $facility->location = $request->location;
+        $facility->lat = $request->lat;
+        $facility->long = $request->long;
         if ($request->hasFile('images')) {
          $images = [];
      
@@ -190,7 +191,6 @@ class facilityController extends Controller
             $facilty_venue->amenities = $request->amenities;
             $facilty_venue->start_time = $request->start_time;
             $facilty_venue->close_time = $request->close_time;
-            $facilty_venue->location = $request->location;
             $facilty_venue->slot_time = $request->slot_time;
             $facilty_venue->start_price = $request->start_price;
             $facilty_venue->court_count = $request->court_count;
@@ -266,7 +266,6 @@ class facilityController extends Controller
             $facility_sports->amenities = $request->amenities;
             $facility_sports->start_time = $request->start_time;
             $facility_sports->close_time = $request->close_time;
-            $facility_sports->location = $request->location;
             $facility_sports->slot_time = $request->slot_time;
             $facility_sports->holiday = json_encode($request->holiday);
             $facility_sports->description = $request->description;

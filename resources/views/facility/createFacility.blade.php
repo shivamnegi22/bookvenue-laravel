@@ -30,13 +30,17 @@
                 <label>Alias</label>
                 <input type="text" name="alias" placeholder="Alias" class="inputField">
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Address</label>
                 <input type="text" name="address" placeholder="Address" class="inputField">
             </div>
-            <div class="col-md-6">
-                <label>Location</label>
-                <input type="text" name="location" placeholder="Location" class="inputField">
+            <div class="col-md-4">
+                <label>Lat</label>
+                <input type="text" name="lat" placeholder="lat" class="inputField">
+            </div>
+            <div class="col-md-4">
+                <label>Long</label>
+                <input type="text" name="long" placeholder="long" class="inputField">
             </div>
             <div class="col-md-6">
                 <label>Featured Image</label>
