@@ -43,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/venue-facility', 'App\Http\Controllers\Management\dashboardController@facilityVenueView');
     Route::post('/venue-facility', 'App\Http\Controllers\Management\dashboardController@facilityVenue');
+
+    Route::get('/allsports', 'App\Http\Controllers\Management\dashboardController@allSports');
+
 });
 
 
