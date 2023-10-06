@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\Auth\LoginAuthController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Facility\facilityController;
 use App\Http\Controllers\Api\Management\managementController;
-use App\Http\Controllers\SearchController;
+use App\Http\Controllers\Api\Search\SearchController;
 
 /*
 |--------------------------------------------------------------------------

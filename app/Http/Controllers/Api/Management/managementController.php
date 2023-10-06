@@ -190,23 +190,24 @@ class managementController extends Controller
     public function uploads(Request $request)
     {
         try {
+
             $currentYear = date('Y');
             $currentMonth = date('m');
             $imageUrls = [];
     
             // Check if the request contains multiple images
             if ($request->hasFile('images')) {
-    
-                foreach ($request->images as $image) {
-                    $url = $image->store("public/uploads/$currentYear/$currentMonth");
+             
+                    $url = $request->images->store("public/uploads/$currentYear/$currentMonth");
                     $imageUrls[] = json_encode($url);
-                }
+           
             }
     
             return response([
                 'image_url' => $imageUrls,
                 'message' => 'Files uploaded successfully.',
             ], 200);
+
         } catch (Exception $e) {
     
             return response([
