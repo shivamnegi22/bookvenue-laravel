@@ -17,6 +17,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class managementController extends Controller
 {
@@ -184,5 +186,36 @@ class managementController extends Controller
             ],500);
         }
     }
+
+    public function uploads(Request $request)
+    {
+        try {
+
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+            $imageUrls = [];
+    
+            // Check if the request contains multiple images
+            if ($request->hasFile('images')) {
+             
+                    $url = $request->images->store("public/uploads/$currentYear/$currentMonth");
+                    $imageUrls[] = json_encode($url);
+           
+            }
+    
+            return response([
+                'image_url' => $imageUrls,
+                'message' => 'Files uploaded successfully.',
+            ], 200);
+
+        } catch (Exception $e) {
+    
+            return response([
+                'errors' => $e->getMessage(),
+                'message' => "Internal Server Error.",
+            ], 500);
+        }
+    }
+    
 
    }
