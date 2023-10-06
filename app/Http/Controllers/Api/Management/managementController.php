@@ -199,22 +199,22 @@ class managementController extends Controller
     
                 foreach ($request->images as $image) {
                     $url = $image->store("public/uploads/$currentYear/$currentMonth");
-                    $imageUrls[] = asset('storage/' . $url); // Adjust the path based on your storage configuration
+                    $imageUrls[] = json_encode($url);
                 }
             }
     
             return response([
-                'image_urls' => $imageUrls,
+                'image_url' => $imageUrls,
                 'message' => 'Files uploaded successfully.',
             ], 200);
-        }
-        catch(Exception $e){
-
+        } catch (Exception $e) {
+    
             return response([
-                'errors' => $e->message(),
+                'errors' => $e->getMessage(),
                 'message' => "Internal Server Error.",
-            ],500);
+            ], 500);
         }
     }
+    
 
    }
