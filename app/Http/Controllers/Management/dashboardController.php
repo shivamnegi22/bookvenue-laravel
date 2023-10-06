@@ -38,13 +38,14 @@ class dashboardController extends Controller
 
        $facility->slug = $slug . '-' . $randomString;
        $facility->address = $request->address;
-       $facility->location = $request->location;
+       $facility->lat = $request->lat;
+       $facility->long = $request->long;
        if ($request->hasFile('images')) {
         $images = [];
     
         foreach ($request->file('images') as $image) {
             $path = $image->store('public/facility');
-            $images[] = str_replace('public','storage',$path);
+            $images[] = json_encode(str_replace('public','storage',$path));
         }
     
         // Encode the entire array as JSON without escaping slashes
@@ -54,7 +55,7 @@ class dashboardController extends Controller
        if ($request->hasFile('featured_image')) {
 
         $url = $request->featured_image->store('public/facility');
-        $facility->featured_image = str_replace('public','storage',$url);
+        $facility->featured_image = json_encode(str_replace('public','storage',$url));
         }
       
        $facility->description = $request->description;
@@ -113,7 +114,6 @@ class dashboardController extends Controller
             $facility_sports->amenities = $request->amenities;
             $facility_sports->start_time = $request->start_time;
             $facility_sports->close_time = $request->close_time;
-            $facility_sports->location = $request->location;
             $facility_sports->slot_time = $request->slot_time;
             $facility_sports->holiday = json_encode($request->holiday);
             $facility_sports->description = $request->description;
@@ -139,7 +139,6 @@ class dashboardController extends Controller
         $facilty_venue->amenities = $request->amenities;
         $facilty_venue->start_time = $request->start_time;
         $facilty_venue->close_time = $request->close_time;
-        $facilty_venue->location = $request->location;
         $facilty_venue->slot_time = $request->slot_time;
         $facilty_venue->slot_price = $request->slot_price;
         $facilty_venue->court_count = $request->court_count;

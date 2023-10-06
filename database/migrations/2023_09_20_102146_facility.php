@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('slug')->nullable()->unique();
             $table->string('alias')->nullable();
             $table->text('address')->nullable();
-            $table->text('location')->nullable();
+            $table->string('lat')->nullable();
+            $table->string('long')->nullable();
             $table->longText('images')->nullable();
             $table->string('featured_image')->nullable();
             $table->longText('description')->nullable();
