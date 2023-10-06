@@ -5,9 +5,17 @@
     @csrf
     <div class="container">
         <div class="row form">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Name</label>
                 <input type="text" name="name" placeholder="Name" class="inputField">
+            </div>
+            <div class="col-md-4">
+                <label>Featured Image</label>
+                <input type="file" name="featured_image" placeholder="Name" class="inputField">
+            </div>
+            <div class="col-md-4">
+                <label>Icon</label>
+                <input type="file" name="icon" placeholder="icon" class="inputField">
             </div>
             <div class="col-md-12">
                 <label>Description</label>

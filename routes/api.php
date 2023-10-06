@@ -56,6 +56,10 @@ use App\Http\Controllers\Api\Management\managementController;
     Route::get('/facility-sports-courts', [facilityController::class, 'getFacilitySportsCourt']);
     Route::post('/facility-sports-courts', [facilityController::class, 'createFaciltiySportsCourt']);
 
+
+    // Uploads api
+    Route::post('/uploads', [managementController::class, 'uploads']);
+
 Route::middleware('auth:sanctum')->group(function () {
 
 

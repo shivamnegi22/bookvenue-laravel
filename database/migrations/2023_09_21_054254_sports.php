@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('sports', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
+            $table->string('featured_image')->nullable();
+            $table->string('icon')->nullable();
             $table->longText('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
