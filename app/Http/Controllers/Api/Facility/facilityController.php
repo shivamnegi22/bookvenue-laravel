@@ -5,7 +5,13 @@ namespace App\Http\Controllers\Api\Facility;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\facility;
+use App\Models\sports;
+use App\Models\venues;
+use App\Models\facility_venue;
+use App\Models\facility_sports;
+use App\Models\facility_sports_court;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class facilityController extends Controller
 {
@@ -272,6 +278,22 @@ class facilityController extends Controller
 
             if($facility_sports->save())
             {
+                $formDataArray = $request->all();
+                $numEntries = count($formDataArray['name']);
+                for ($index = 0; $index < $numEntries; $index++) {
+                    $facility_sports_court = new facility_sports_court;
+
+                    $facility_sports_court->facility_id = $request->facility_id;
+                    $facility_sports_court->sports_id = $request->sports_id;
+                    $facility_sports_court->facility_sports_id = $facility_sports->id;
+                    $facility_sports_court->name = $formDataArray['name'][$index];
+                    $facility_sports_court->slot_price = $formDataArray['slot_price'][$index];
+                    $facility_sports_court->breaktime_start = $formDataArray['breaktime_start'][$index];
+                    $facility_sports_court->breaktime_end = $formDataArray['breaktime_end'][$index];
+                    $facility_sports_court->description = $formDataArray['court_description'][$index];
+
+                    $facility_sports_court->save();
+                }
                 return response([
                     'message' => "Sports facility created successfully.",
                 ],200); 
@@ -312,52 +334,8 @@ class facilityController extends Controller
         }
     }
 
-    public function createFaciltiySportsCourt(Request $request)
-    {
-        try{
-
-            $validator = Validator::make($request->all(), [
-
-                'facility_id' => 'required',
-                'sports_id' => 'required',
-
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'error' => 'Validation failed',
-                    'errors' => $validator->errors(),
-                ], 422); // 422 is the HTTP status code for unprocessable entity
-            }
-
-            $facility_sports_court = new facility_sports_court;
-
-            $facility_sports_court->facility_id = $request->facility_id;
-            $facility_sports_court->sports_id = $request->sports_id;
-            $facility_sports_court->facility_sports_id = $request->facility_sports_id;
-            $facility_sports_court->name = $request->name;
-            $facility_sports_court->breaktime_start = $request->breaktime_start;
-            $facility_sports_court->breaktime_end = $request->breaktime_end;
-            $facility_sports_court->name = $request->name;
-            $facility_sports_court->slot_price = $request->slot_price;
-            $facility_sports_court->description = $request->description;
-
-            if($facility_sports->save())
-            {
-                return response([
-                    'message' => "Sports facility court created successfully.",
-                ],200); 
-            }
-
-        }
-        catch(Exception $e){
-
-            return response([
-                'errors' => $e->message(),
-                'message' => "Internal Server Error.",
-            ],500);
-        }
-    }
-
-
+   
 }
+
+
+

@@ -55,6 +55,7 @@
                             <li><i class="fa fa-table"></i><a href="{{'/sports'}}">Create Sports</a></li>
                             <li><i class="fa fa-table"></i><a href="{{'/allsports'}}">All Sports</a></li>
                             <li><i class="fa fa-table"></i><a href="{{'/Venues'}}">Create Venues</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{'/uploads'}}">Uploads</a></li>
                             <li><i class="fa fa-table"></i><a href="{{'/sports-facility'}}">Facility Sports</a></li>
                             <li><i class="fa fa-table"></i><a href="{{'/venue-facility'}}">Facility Venues</a></li>
                         </ul>
