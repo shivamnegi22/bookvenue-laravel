@@ -56,7 +56,6 @@ use App\Http\Controllers\Api\Search\SearchController;
 
     //get facilty sports route
     Route::get('/facility-sports-courts', [facilityController::class, 'getFacilitySportsCourt']);
-    Route::post('/facility-sports-courts', [facilityController::class, 'createFaciltiySportsCourt']);
 
 
     // Uploads api

@@ -27,6 +27,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')->name('login.submit');
 Route::post('/verify-otp', 'App\Http\Controllers\Auth\LoginController@verifyOTP')->name('verify.otp');
 
+
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', 'App\Http\Controllers\Management\dashboardController@index');
     Route::get('/createFacility', 'App\Http\Controllers\Management\dashboardController@createFacilityView');
@@ -45,6 +48,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/venue-facility', 'App\Http\Controllers\Management\dashboardController@facilityVenue');
 
     Route::get('/allsports', 'App\Http\Controllers\Management\dashboardController@allSports');
+
+    Route::get('/uploads', 'App\Http\Controllers\Management\dashboardController@uploadsView');
+    Route::Post('/uploads', 'App\Http\Controllers\Management\dashboardController@uploads');
+
 
 });
 
