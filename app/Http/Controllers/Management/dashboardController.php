@@ -56,7 +56,7 @@ class dashboardController extends Controller
        if ($request->hasFile('featured_image')) {
 
         $url = $request->featured_image->store('public/facility');
-        $facility->featured_image = json_encode(str_replace('public','storage',$url));
+        $facility->featured_image = str_replace('public','storage',$url);
         }
       
        $facility->description = $request->description;
@@ -145,7 +145,26 @@ class dashboardController extends Controller
             $facility_sports->holiday = json_encode($request->holiday);
             $facility_sports->description = $request->description;
 
-            $facility_sports->save();
+            if($facility_sports->save())
+            {
+                $formDataArray = $request->all();
+                $numEntries = count($formDataArray['name']);
+                for ($index = 0; $index < $numEntries; $index++) {
+                    $facility_sports_court = new facility_sports_court;
+
+                    $facility_sports_court->facility_id = $request->facility_id;
+                    $facility_sports_court->sports_id = $request->sports_id;
+                    $facility_sports_court->facility_sports_id = $facility_sports->id;
+                    $facility_sports_court->name = $formDataArray['name'][$index];
+                    $facility_sports_court->slot_price = $formDataArray['slot_price'][$index];
+                    $facility_sports_court->breaktime_start = $formDataArray['breaktime_start'][$index];
+                    $facility_sports_court->breaktime_end = $formDataArray['breaktime_end'][$index];
+                    $facility_sports_court->description = $formDataArray['court_description'][$index];
+
+                    $facility_sports_court->save();
+                }
+
+            }
 
             return redirect()->back();
     }
@@ -185,5 +204,28 @@ class dashboardController extends Controller
         return view('facility.allSports');
     }
 
+    public function uploadsView()
+    {
+        return view('uploadImage');
+    }
 
+    public function uploads(Request $request)
+    {
+        
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+            $imageUrls = [];
+    
+            // Check if the request contains multiple images
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $image) {
+                    // Store each image and get its URL
+                    $url = $image->store("public/uploads/$currentYear/$currentMonth");
+                    $imageUrls[] = asset(str_replace('public/', 'storage/', $url));
+                }
+            }
+    
+            return redirect()->back();
+
+    }
 }
