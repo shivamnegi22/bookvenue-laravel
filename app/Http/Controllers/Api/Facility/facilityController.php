@@ -105,7 +105,7 @@ class facilityController extends Controller
          }
      
          // Encode the entire array as JSON without escaping slashes
-         $facility->images = json_encode($images, JSON_UNESCAPED_SLASHES);
+         $facility->images = json_encode($images);
      }
      
         if ($request->hasFile('featured_image')) {

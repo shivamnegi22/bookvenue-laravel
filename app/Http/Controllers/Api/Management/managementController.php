@@ -197,10 +197,12 @@ class managementController extends Controller
     
             // Check if the request contains multiple images
             if ($request->hasFile('images')) {
-             
-                    $url = $request->images->store("public/uploads/$currentYear/$currentMonth");
+                foreach ($request->file('images') as $file) {
+                    $path = $file->store('uploads', 'public'); // Store in the "public" disk under the "uploads" directory
+                    // You can also store file information in your database if needed.
+                    $url = $file->store("public/uploads/$currentYear/$currentMonth");
                     $imageUrls[] = json_encode($url);
-           
+                }
             }
     
             return response([

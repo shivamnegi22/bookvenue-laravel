@@ -25,7 +25,7 @@ class SearchController extends Controller
                 '(6371 * acos(cos(radians(?)) * cos(radians(`lat`)) * cos(radians(`long`) - radians(?)) + sin(radians(?)) * sin(radians(`lat`)))) AS distance',
                 [$inputLat, $inputLong, $inputLat]
             )
-            ->having('distance', '<=', 100)
+            ->having('distance', '<=', 50)
             ->get();
         
             return response()->json(['facility' => $facility]);
