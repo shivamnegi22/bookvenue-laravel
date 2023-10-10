@@ -57,7 +57,7 @@
             </div>
             <div class="col-md-6">
                 <label>Holiday</label>
-                <input type="text" name="holiday[]" placeholder="slot_time" class="form-control-file">
+                <input type="text" name="holiday[]" placeholder="Holiday" class="inputField">
             </div>
             <div class="col-md-12">
                 <label>Description</label>

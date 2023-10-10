@@ -190,34 +190,67 @@ class managementController extends Controller
     public function uploads(Request $request)
     {
         try {
-
             $currentYear = date('Y');
             $currentMonth = date('m');
             $imageUrls = [];
     
             // Check if the request contains multiple images
             if ($request->hasFile('images')) {
-                foreach ($request->file('images') as $file) {
-                    $path = $file->store('uploads', 'public'); // Store in the "public" disk under the "uploads" directory
-                    // You can also store file information in your database if needed.
-                    $url = $file->store("public/uploads/$currentYear/$currentMonth");
-                    $imageUrls[] = json_encode($url);
+                foreach ($request->file('images') as $image) {
+                    // Store each image and get its URL
+                    $url = $image->store("public/uploads/$currentYear/$currentMonth");
+                    $imageUrls[] = asset(str_replace('public/', 'storage/', $url));
                 }
             }
     
             return response([
-                'image_url' => $imageUrls,
+                'image_urls' => $imageUrls,
                 'message' => 'Files uploaded successfully.',
             ], 200);
-
         } catch (Exception $e) {
-    
             return response([
                 'errors' => $e->getMessage(),
                 'message' => "Internal Server Error.",
             ], 500);
         }
     }
+
+    public function getAllSports(Request $request){
+        try{
+
+            $sports = sports::orderBy('created_at','desc')->get();
+
+            return response([
+                'data'  => $sports,
+            ],200);
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "something went wrong please try again.",
+                ],500); 
+        }
+    }
+
+    public function getAllVenues(Request $request){
+        try{
+
+            $venues = venues::orderBy('created_at','desc')->get();
+
+            return response([
+                'data'  => $venues,
+            ],200);
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "something went wrong please try again.",
+                ],500); 
+        }
+    }
+
+    
+    
     
 
    }

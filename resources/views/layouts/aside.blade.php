@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{asset('assest/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('assest/css/form.css')}}">
 </head>
@@ -52,6 +55,7 @@
                             <li><i class="fa fa-table"></i><a href="{{'/sports'}}">Create Sports</a></li>
                             <li><i class="fa fa-table"></i><a href="{{'/allsports'}}">All Sports</a></li>
                             <li><i class="fa fa-table"></i><a href="{{'/Venues'}}">Create Venues</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{'/uploads'}}">Uploads</a></li>
                             <li><i class="fa fa-table"></i><a href="{{'/sports-facility'}}">Facility Sports</a></li>
                             <li><i class="fa fa-table"></i><a href="{{'/venue-facility'}}">Facility Venues</a></li>
                         </ul>
@@ -231,11 +235,26 @@
     <!-- /#right-panel -->
 
     <!-- Scripts -->
+    <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
     <script src="{{asset('assest/js/main.js')}}"></script>
+    <script>
+        let table = new DataTable('#myTable', {
+    responsive: true,
+    columnDefs: [
+        { responsivePriority: 1, targets: 0 },
+        { responsivePriority: 2, targets: -1 }
+    ]
+});
+    </script>
 </body>
 
 </html>
