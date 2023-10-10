@@ -1,11 +1,11 @@
 @extends('layouts.aside')
 @section('content')
 
-<form method="POST" enctype="multipart/form-data" action="{{ url('venue-facility') }}">
+<form method="POST" enctype="multipart/form-data" action="#">
     @csrf
     <div class="container">
         <div class="row form">
-        <div class="col-md-12 m20"><h1>Create Facility Venue</h1></div>
+        <div class="col-md-12 m20"><h1>Update Facility Venue</h1></div>
             <div class="col-md-6">
                 <label>Facility</label>
                 <select class="inputField" name="facility_id">

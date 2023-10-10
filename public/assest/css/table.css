@@ -1,0 +1,10 @@
+.tableStyle{
+    background-color: #fff;
+    padding: 2rem 1.5rem;
+    box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
+    border-radius: 5px;
+    font-family: 'Roboto Condensed', sans-serif;
+    padding: 20px;
+    margin-bottom: 10px;
+    overflow-x: auto;
+}

@@ -1,11 +1,11 @@
 @extends('layouts.aside')
 @section('content')
 
-<form method="POST" enctype="multipart/form-data" action="{{ url('sports') }}">
+<form method="POST" enctype="multipart/form-data" action="#">
     @csrf
     <div class="container">
         <div class="row form">
-        <div class="col-md-12 m20"><h1>Create Sports</h1></div>
+        <div class="col-md-12 m20"><h1>Update Sports</h1></div>
             <div class="col-md-4">
                 <label>Name</label>
                 <input type="text" name="name" placeholder="Name" class="inputField">

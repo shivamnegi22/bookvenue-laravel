@@ -1,11 +1,11 @@
 @extends('layouts.aside')
 @section('content')
 
-<form method="post" action="{{url('createFacility')}}" enctype="multipart/form-data">
+<form method="post" action="#" enctype="multipart/form-data">
     @csrf
     <div class="container">
         <div class="row form">
-            <div class="col-md-12 m20"><h1>Create Facility</h1></div>
+            <div class="col-md-12 m20"><h1>Update Facility</h1></div>
             <div class="col-md-12 m20">
                 <label>Facility Type</label>
                 <div class="d-flex justify-content-between">
