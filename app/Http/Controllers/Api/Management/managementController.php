@@ -214,6 +214,42 @@ class managementController extends Controller
             ], 500);
         }
     }
+
+    public function getAllSports(Request $request){
+        try{
+
+            $sports = sports::orderBy('created_at','desc')->get();
+
+            return response([
+                'data'  => $sports,
+            ],200);
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "something went wrong please try again.",
+                ],500); 
+        }
+    }
+
+    public function getAllVenues(Request $request){
+        try{
+
+            $venues = venues::orderBy('created_at','desc')->get();
+
+            return response([
+                'data'  => $venues,
+            ],200);
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "something went wrong please try again.",
+                ],500); 
+        }
+    }
+
+    
     
     
 

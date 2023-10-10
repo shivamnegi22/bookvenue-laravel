@@ -37,6 +37,7 @@ use App\Http\Controllers\Api\Search\SearchController;
     //facility get route
     Route::get('/get-recent-facility/{count}', [facilityController::class, 'recentFacility']);
     Route::get('/get-featured-facility/{count}', [facilityController::class, 'featuredFacility']);
+    Route::get('/get-facility-by-slug/{slug}', [facilityController::class, 'getFacilityBySlug']);
 
     Route::post('/createFacility', [facilityController::class, 'createFacility']);
 
@@ -65,6 +66,11 @@ use App\Http\Controllers\Api\Search\SearchController;
 
     // Uploads api
     Route::post('/uploads', [managementController::class, 'uploads']);
+
+    Route::get('/get-all-sports', [managementController::class, 'getAllSports']);
+    Route::get('/get-all-venues', [managementController::class, 'getAllVenues']);
+    
+    
 
 Route::middleware('auth:sanctum')->group(function () {
 
