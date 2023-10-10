@@ -60,7 +60,8 @@ use App\Http\Controllers\Api\Search\SearchController;
 
     //update facility route
     Route::post('/update-facility', [facilityController::class, 'updateFacility']);
-
+    
+    // delete facility routeph
     Route::get('/delete-facility', [facilityController::class, 'deleteFacility']);
 
 

@@ -58,6 +58,7 @@
                             <li><i class="fa fa-table"></i><a href="{{'/uploads'}}">Uploads</a></li>
                             <li><i class="fa fa-table"></i><a href="{{'/sports-facility'}}">Facility Sports</a></li>
                             <li><i class="fa fa-table"></i><a href="{{'/venue-facility'}}">Facility Venues</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{'/book-facility/'}}">Book  Facility</a></li>
                         </ul>
                     </li>
                     <!-- <li class="menu-item-has-children dropdown">
