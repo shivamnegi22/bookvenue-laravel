@@ -16,6 +16,23 @@ use Illuminate\Support\Facades\Validator;
 class facilityController extends Controller
 {
 
+    public function getFacilityBySlug($slug){
+        try{
+
+            $facility = facility::where('slug',$slug)->first();
+
+            return response([
+                'facility'  => $facility,
+            ],200);
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "something went wrong please try again.",
+                ],500); 
+        }
+    }
+    
     public function recentFacility($count)
     {
 
@@ -32,7 +49,7 @@ class facilityController extends Controller
             $facility = facility::orderBy('created_at','desc')->where('status','1')->take($count)->get();
 
             return response([
-                'data'  => $facility,
+                'facility'  => $facility,
             ],200);
 
          }
@@ -62,7 +79,7 @@ class facilityController extends Controller
             $facility = facility::where('status','1')->inRandomOrder()->take($count)->get();
 
             return response([
-                'data'  => $facility,
+                'facility'  => $facility,
             ],200);
 
          }
@@ -107,11 +124,12 @@ class facilityController extends Controller
      
          foreach ($request->file('images') as $image) {
              $path = $image->store('public/facility');
-             $images[] = str_replace('public','storage',$path);
+             $cleanedString = str_replace(['\\', '"'], '', $path);
+             $images[] = str_replace('public','storage',$cleanedString);
          }
      
          // Encode the entire array as JSON without escaping slashes
-         $facility->images = json_encode($images, JSON_UNESCAPED_SLASHES);
+         $facility->images = json_encode($images);
      }
      
         if ($request->hasFile('featured_image')) {
