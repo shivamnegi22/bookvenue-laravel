@@ -1,22 +1,10 @@
 @extends('layouts.aside')
 @section('content')
-<style>
-        /* Add your custom CSS styling here */
-        .form {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        .remove {
-            color: red;
-            cursor: pointer;
-        }
-    </style>
-
 <form method="POST" enctype="multipart/form-data" action="{{ url('sports-facility') }}">
     @csrf
     <div class="container">
         <div class="row form">
+        <div class="col-md-12 m20"><h1>Create Facility Sport</h1></div>
             <div class="col-md-6">
                 <label>Facility</label>
                 <select class="inputField" name="facility_id">
@@ -102,7 +90,9 @@
                         <label>Description</label>
                         <textarea name="court_description[${index}]" placeholder="Description" class="inputField"></textarea>
                     </div>
-                    <span class="remove" onclick="removeForm(${index})">Remove</span>
+                    <div class="col-md-12 mb-3">
+                        <span class="formButton delete" onclick="removeForm(${index})">Remove</span>
+                    </div>
                 </div>
             `;
         }

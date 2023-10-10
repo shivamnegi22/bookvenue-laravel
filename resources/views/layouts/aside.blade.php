@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="{{asset('assest/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('assest/css/form.css')}}">
+    <link rel="stylesheet" href="{{asset('assest/css/table.css')}}">
 </head>
 
 <body>
@@ -236,10 +237,7 @@
     <!-- /#right-panel -->
 
     <!-- Scripts -->
-    <script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
@@ -249,11 +247,7 @@
     <script src="{{asset('assest/js/main.js')}}"></script>
     <script>
         let table = new DataTable('#myTable', {
-    responsive: true,
-    columnDefs: [
-        { responsivePriority: 1, targets: 0 },
-        { responsivePriority: 2, targets: -1 }
-    ]
+    responsive: true
 });
     </script>
 </body>
