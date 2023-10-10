@@ -76,8 +76,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/delete-venue/{id}', 'App\Http\Controllers\Management\dashboardController@deleteVenue');
 
 
-    Route::get('/book-facility', 'App\Http\Controllers\Management\dashboardController@bookFacility');
+    Route::get('/book-facility', 'App\Http\Controllers\Management\dashboardController@bookFacilityView');
     Route::post('/book-facility', 'App\Http\Controllers\Management\dashboardController@bookFacility');
+
+    Route::get('/facility-image/{facility_id}', 'App\Http\Controllers\Management\dashboardController@facilityImage');
+
+    Route::get('/sport-court/{facility_id}/{sport_id}', 'App\Http\Controllers\Management\dashboardController@sport_court');
+
+    Route::get('allBooking', 'App\Http\Controllers\Management\dashboardController@allBooking');
 
 });
 

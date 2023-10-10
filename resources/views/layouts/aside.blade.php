@@ -59,7 +59,14 @@
                             <li><i class="fa fa-table"></i><a href="{{'/uploads'}}">Uploads</a></li>
                             <li><i class="fa fa-table"></i><a href="{{'/sports-facility'}}">Facility Sports</a></li>
                             <li><i class="fa fa-table"></i><a href="{{'/venue-facility'}}">Facility Venues</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{'/book-facility/'}}">Book  Facility</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Booking Management</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="{{'/book-facility/'}}">Create Booking</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{'/allBooking'}}">All Booking</a></li>
                         </ul>
                     </li>
                     <!-- <li class="menu-item-has-children dropdown">

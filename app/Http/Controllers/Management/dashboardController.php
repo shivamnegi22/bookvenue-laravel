@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use App\Models\facility;
+use Illuminate\Support\Facades\Auth;
 use App\Models\sports;
 use App\Models\venues;
 use App\Models\facility_venue;
 use App\Models\facility_sports;
+use App\Models\BookFacility;
 use App\Models\facility_sports_court;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -419,8 +421,52 @@ class dashboardController extends Controller
 
     }
 
-    public function bookFacility()
+    public function bookFacilityView()
     {
-        return view('facility.bookFacility');
+        $facility = facility::get();
+        $venue = venues::get();
+        $sport = sports::get();
+        return view('facility.bookFacility',compact('facility','venue','sport'));
+    }
+
+    public function bookFacility(Request $request)
+    {
+        $obj = new BookFacility;
+
+        $obj->facility_id = $request->facility_id;
+        $obj->user_id = Auth::user()->id;
+        $obj->facility_type = $request->facility_type;
+        $obj->sport_court_id = $request->sports_court_id;
+        $obj->sport_id = $request->sports;
+        $obj->venue_id = $request->venues;
+        $obj->date = $request->date;
+        $obj->start_time = $request->start_time;
+        $obj->duration = $request->duration;
+
+        $obj->save();
+
+        return redirect()->back();
+    }
+
+    public function facilityImage($facility_id)
+    {
+        $image = facility::where('id', $facility_id)->value('featured_image');
+
+        return $image;
+        
+    }
+
+    public function sport_court($facility_id,$sport_id)
+    {
+        // return $sport_id;
+        $courts = facility_sports_court::where('facility_id',$facility_id)->where('sports_id',$sport_id)->get();
+
+        return $courts;
+    }
+
+    public function allBooking()
+    {
+        $booking = BookFacility::orderBy('created_at','desc')->get();
+        return view('facility.allBooking',compact('booking'));
     }
 }
