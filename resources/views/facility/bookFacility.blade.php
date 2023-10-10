@@ -2,38 +2,42 @@
 @section('content')
 
 <style>
-.qty{
-    display:flex;
-    justify-content:space-between;
-    position:relative;
+.qty {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
 }
 
-.qty .plus{
-    position:absolute;
-    right:0;
-    background-color:cornflowerblue;
-    padding:7px 10px;
-    color:#fff;
-    font-weight:bold;
+.qty .plus {
+    position: absolute;
+    right: 0;
+    background-color: cornflowerblue;
+    padding: 7px 10px;
+    color: #fff;
+    font-weight: bold;
 }
-.qty .minus{
-    position:absolute;
-    left:0;
-    background-color:cornflowerblue;
-    padding:7px 10px;
-    color:#fff;
-    font-weight:bold;
+
+.qty .minus {
+    position: absolute;
+    left: 0;
+    background-color: cornflowerblue;
+    padding: 7px 10px;
+    color: #fff;
+    font-weight: bold;
 }
-.qty .inputField{
-    padding:0 40px;
+
+.qty .inputField {
+    padding: 0 40px;
 }
-.formButton{
-    width:100%;
-    padding:7px;
+
+.imgpreview {
+    border: 1px solid #f2f2f2;
+    height: 225px;
 }
-.imgpreview{
-    border:1px solid #f2f2f2;
-    height:225px;
+
+.imgpreview img {
+    width: 100%;
+    height: 225px;
 }
 </style>
 
@@ -50,7 +54,7 @@
                         <label>Facility</label>
                         <select class="inputField" name="facility_id" id="facilitySelect">
                             <option value="">Choose Facility</option>
-                            @foreach($facility as $facilities) 
+                            @foreach($facility as $facilities)
                             <option value="{{$facilities->id}}">{{$facilities->official_name}}</option>
                             @endforeach
                         </select>
@@ -61,7 +65,7 @@
                             <option value="">Choose facility type</option>
                             <option value="Venue">Venue</option>
                             <option value="Sport">Sport</option>
-                      
+
                         </select>
                     </div>
 
@@ -69,7 +73,7 @@
                         <label>Sports</label>
                         <select class="inputField" name="sports" id="sports" disabled>
                             <option value="">Choose Sport</option>
-                            @foreach($sport as $sports) 
+                            @foreach($sport as $sports)
                             <option value="{{$sports->id}}">{{$sports->name}}</option>
                             @endforeach
                         </select>
@@ -79,7 +83,7 @@
                         <label>Venue</label>
                         <select class="inputField" name="venues" id="venue" disabled>
                             <option value="">Choose Venue</option>
-                            @foreach($venue as $venues) 
+                            @foreach($venue as $venues)
                             <option value="{{$venues->id}}">{{$venues->name}}</option>
                             @endforeach
                         </select>
@@ -93,28 +97,27 @@
                             <option value="1">1</option>
                         </select>
                     </div>
-                    
+
                     <div class="col-md-6">
                         <label>Start Time</label>
                         <input type="time" name="start_time" placeholder="Start Time" class="inputField">
                     </div>
-                  
+
                     <div class="col-md-6">
                         <label>Date</label>
                         <input type="date" name="date" placeholder="Date" class="inputField">
                     </div>
                     <div class="col-md-6">
-    <label>Duration</label>
-    <div class="qty">
-        <span class="minus">-</span>
-        <input type="text" class="inputField count" name="duration" value="0">
-        <span class="plus">+</span>
-    </div>
-</div>
+                        <label>Duration</label>
+                        <div class="qty">
+                            <span class="minus">-</span>
+                            <input type="text" class="inputField count" name="duration" value="0">
+                            <span class="plus">+</span>
+                        </div>
+                    </div>
 
 
-                    <div class="col-md-6">
-                        <label></label>
+                    <div class="col-md-12">
                         <button type="submit" class="formButton submit" name="submit">Save</button>
                     </div>
                 </div>
@@ -140,15 +143,15 @@ $(document).ready(function() {
         var facilityId = $('#facilitySelect').val();
 
         $.ajax({
-            url: '/facility-image/'+ facilityId, 
-            method: 'GET', 
+            url: '/facility-image/' + facilityId,
+            method: 'GET',
             success: function(response) {
-             
+
                 var imageUrl = response;
                 var img = $('<img>').attr('src', imageUrl);
 
-            // Append the img element to the imgpreview div
-            $('.imgpreview').empty().append(img);
+                // Append the img element to the imgpreview div
+                $('.imgpreview').empty().append(img);
 
             },
             error: function(error) {
@@ -164,30 +167,30 @@ $(document).ready(function() {
 
         $.ajax({
             url: '/sport-court/' + facilityId + '/' + sport_id,
-            method: 'GET', 
+            method: 'GET',
             success: function(response) {
-             
+
                 var courtSelect = $('#court');
 
-            // Clear any existing options
-            courtSelect.empty();
+                // Clear any existing options
+                courtSelect.empty();
 
-            // Add a default "Choose Court" option
-            courtSelect.append($('<option>', {
-                value: '',
-                text: 'Choose Court'
-            }));
-
-            // Loop through the response data and add options to the select element
-            $.each(response, function(index, court) {
+                // Add a default "Choose Court" option
                 courtSelect.append($('<option>', {
-                    value: court.id,
-                    text: court.name
+                    value: '',
+                    text: 'Choose Court'
                 }));
-            });
 
-            // Enable the court select element
-            courtSelect.prop('disabled', false);
+                // Loop through the response data and add options to the select element
+                $.each(response, function(index, court) {
+                    courtSelect.append($('<option>', {
+                        value: court.id,
+                        text: court.name
+                    }));
+                });
+
+                // Enable the court select element
+                courtSelect.prop('disabled', false);
             },
             error: function(error) {
                 console.error('AJAX Error:', error);
@@ -195,42 +198,41 @@ $(document).ready(function() {
         });
     });
 });
-
 </script>
 
 
 <script>
-    // Get references to the select elements
-    const facilityTypeSelect = document.getElementById('facilityTypeSelect');
-    const sportsSelect = document.getElementById('sports');
-    const venueSelect = document.getElementById('venue');
-    const courtSelect = document.getElementById('court');
+// Get references to the select elements
+const facilityTypeSelect = document.getElementById('facilityTypeSelect');
+const sportsSelect = document.getElementById('sports');
+const venueSelect = document.getElementById('venue');
+const courtSelect = document.getElementById('court');
 
-    // Add an event listener to the facility_type select element
-    facilityTypeSelect.addEventListener('change', function() {
-        // Disable all select elements initially
-        sportsSelect.disabled = true;
-        venueSelect.disabled = true;
-        courtSelect.disabled = true;
+// Add an event listener to the facility_type select element
+facilityTypeSelect.addEventListener('change', function() {
+    // Disable all select elements initially
+    sportsSelect.disabled = true;
+    venueSelect.disabled = true;
+    courtSelect.disabled = true;
 
-        // Enable the select element based on the selected option
-        if (facilityTypeSelect.value === 'Venue') {
-            venueSelect.disabled = false;
-        } else if (facilityTypeSelect.value === 'Sport') {
-            sportsSelect.disabled = false;
-            courtSelect.disabled = false;
-        }
-    });
+    // Enable the select element based on the selected option
+    if (facilityTypeSelect.value === 'Venue') {
+        venueSelect.disabled = false;
+    } else if (facilityTypeSelect.value === 'Sport') {
+        sportsSelect.disabled = false;
+        courtSelect.disabled = false;
+    }
+});
 </script>
 
 <script>
-$(document).ready(function () {
+$(document).ready(function() {
     // Initialize the initial value as a number
     var countInput = $('.count');
     var initialValue = parseInt(countInput.val());
 
     // Handle the minus button click
-    $('.minus').click(function () {
+    $('.minus').click(function() {
         if (initialValue > 0) {
             initialValue--;
             countInput.val(initialValue);
@@ -238,20 +240,19 @@ $(document).ready(function () {
     });
 
     // Handle the plus button click
-    $('.plus').click(function () {
+    $('.plus').click(function() {
         initialValue++;
         countInput.val(initialValue);
     });
 
     // You can also handle input changes manually if needed
-    countInput.change(function () {
+    countInput.change(function() {
         var newValue = parseInt(countInput.val());
         if (!isNaN(newValue)) {
             initialValue = newValue;
         }
     });
 });
-
 </script>
 
 
