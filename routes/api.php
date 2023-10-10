@@ -58,6 +58,12 @@ use App\Http\Controllers\Api\Search\SearchController;
     //get facilty sports route
     Route::get('/facility-sports-courts', [facilityController::class, 'getFacilitySportsCourt']);
 
+    //update facility route
+    Route::post('/update-facility', [facilityController::class, 'updateFacility']);
+    
+    // delete facility routeph
+    Route::get('/delete-facility', [facilityController::class, 'deleteFacility']);
+
 
     // Uploads api
     Route::post('/uploads', [managementController::class, 'uploads']);

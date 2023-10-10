@@ -352,6 +352,110 @@ class facilityController extends Controller
         }
     }
 
+    public function updateFacility(Request $request, $id)
+    {
+        try{
+
+            $validator = Validator::make($request->all(), [
+                'facility_type' => 'required',
+            ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'error' => 'Validation failed',
+            'errors' => $validator->errors(),
+        ], 422); // 422 is the HTTP status code for unprocessable entity
+    }
+        $facility = facility::where('id',$id)->where('status','1')->first();
+
+        $facility->facility_type = $request->facility_type;
+        $facility->official_name = $request->name;
+
+        $slug = Str::slug($request->name);
+        $randomString = Str::random(5);
+
+        $facility->slug = $slug . '-' . $randomString;
+        $facility->alias = $request->alias;
+        $facility->address = $request->address;
+        $facility->lat = $request->lat;
+        $facility->long = $request->long;
+        if ($request->hasFile('images')) {
+         $images = [];
+     
+         foreach ($request->file('images') as $image) {
+             $path = $image->store('public/facility');
+             $images[] = str_replace('public','storage',$path);
+         }
+     
+         // Encode the entire array as JSON without escaping slashes
+         $facility->images = json_encode($images, JSON_UNESCAPED_SLASHES);
+     }
+     
+        if ($request->hasFile('featured_image')) {
+            $url = $request->featured_image->store('public/facility');
+            $facility->featured_image = str_replace('public','storage',$url);
+         }
+       
+        $facility->time = json_encode($request->time);
+        $facility->description = $request->description;
+        
+         if($facility->update())
+         {
+            $response = [
+                'message' => 'Facility have been updated successfully.',
+            ];
+        
+            return response([
+                'data' => $response,
+            ],200);
+         }
+
+         return response([
+            'error' => "Unable to update facility.",
+        ],400);
+         
+    }
+    catch(Exception $e){
+
+        return response([
+            'errors' => $e->message(),
+            'message' => "Internal Server Error.",
+        ],500);
+    }  
+  }
+
+    public function deleteFacility($id)
+    {
+        try{
+
+            // $token = PersonalAccessToken::findToken($request->bearerToken());
+            
+            // if(empty($token)){
+            //     return response([
+            //         'message' => "Token expired please login again to continue.",
+            //     ],401); 
+            // } 
+
+            $facility = facility::find($id);
+
+            if (!$facility) {
+                return response()->json(['message' => 'Record not found'], 404);
+            }
+
+            if($facility->delete())
+            {
+                return response([
+                    'message' => "Venue facility created successfully.",
+                ],200); 
+            }
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "something went wrong please try again.",
+                ],500); 
+        }
+    }
    
 }
 
