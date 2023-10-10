@@ -77,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::get('/book-facility', 'App\Http\Controllers\Management\dashboardController@bookFacility');
+    Route::post('/book-facility', 'App\Http\Controllers\Management\dashboardController@bookFacility');
 
 });
 
