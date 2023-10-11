@@ -27,7 +27,7 @@
     </div>
 
     <!-- Submit button -->
-    <button type="submit" class="btn btn-primary">Verify OTP</button>
+    <button type="submit" class="btn btn-primary mt-3">Verify OTP</button>
 </form>
 
 
