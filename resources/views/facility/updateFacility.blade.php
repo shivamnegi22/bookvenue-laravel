@@ -1,7 +1,7 @@
 @extends('layouts.aside')
 @section('content')
 
-<form method="post" action="#" enctype="multipart/form-data">
+<form method="post" action="{{url('update-facility/'.$facility->id)}}" enctype="multipart/form-data">
     @csrf
     <div class="container">
         <div class="row form">
@@ -10,7 +10,7 @@
                 <label>Facility Type</label>
                 <div class="d-flex justify-content-between">
                     <div>
-                        <input type="radio" id="sports" name="facility_type" value="sports" class="">
+                        <input type="radio" id="sports" name="facility_type" value="" class="">
                         <label for="html">Sports</label>
                     </div>
                     <div>
@@ -25,11 +25,11 @@
             </div>
             <div class="col-md-6">
                 <label>Name</label>
-                <input type="text" name="name" placeholder="Name" class="inputField">
+                <input type="text" name="name" placeholder="Name" value="{{$facility->official_name}}" class="inputField">
             </div>
             <div class="col-md-6">
                 <label>Alias</label>
-                <input type="text" name="alias" placeholder="Alias" class="inputField">
+                <input type="text" name="alias" placeholder="Alias"  class="inputField">
             </div>
             <div class="col-md-4">
                 <label>Address</label>

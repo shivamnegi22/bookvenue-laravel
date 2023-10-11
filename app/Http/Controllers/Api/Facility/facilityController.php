@@ -240,6 +240,58 @@ class facilityController extends Controller
         }
     }
 
+    public function updateFacilityVenue(Request $request, $id)
+    {
+    
+        try{
+
+            $validator = Validator::make($request->all(), [
+
+                'facility_id' => 'required',
+                'venue_id' => 'required',
+
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => 'Validation failed',
+                    'errors' => $validator->errors(),
+                ], 422); // 422 is the HTTP status code for unprocessable entity
+            }
+
+            $facilty_venue = facility_venue::where('id',$id)->first();
+
+            $facilty_venue->facility_id = $request->facility_id;
+            $facilty_venue->venue_id = $request->venue_id;
+            $facilty_venue->amenities = $request->amenities;
+            $facilty_venue->start_time = $request->start_time;
+            $facilty_venue->close_time = $request->close_time;
+            $facilty_venue->slot_time = $request->slot_time;
+            $facilty_venue->start_price = $request->start_price;
+            $facilty_venue->court_count = $request->court_count;
+            $facilty_venue->breaktime_start = $request->breaktime_start;
+            $facilty_venue->breaktime_end = $request->breaktime_end;
+            $facilty_venue->holiday = json_encode($request->holiday);
+            $facilty_venue->description = $request->description;
+
+            if($facilty_venue->update())
+            {
+                return response([
+                    'message' => "Venue facility updated successfully.",
+                ],200); 
+            }
+
+        }
+        catch(Exception $e){
+
+            return response([
+                'errors' => $e->message(),
+                'message' => "Internal Server Error.",
+            ],500);
+        }
+
+    }
+
 
     public function getFacilitySports()
     {
@@ -442,20 +494,34 @@ class facilityController extends Controller
                 return response()->json(['message' => 'Record not found'], 404);
             }
 
+            $facilityVenuCount = facility_venue::where('facility_id', $id)->count();
+            $facilitySportCount = facility_sports::where('facility_id', $id)->count();
+            $facilitySportCourtCount = facility_sports_court::where('facility_id', $id)->count();
+    
+            if ($facilityVenuCount > 0 || $facilitySportCount > 0 || $facilitySportCourtCount > 0) {
+
+                return response([
+                    'message' => "Facility has related records and cannot be deleted.",
+                ],404); 
+
+            }
+
             if($facility->delete())
             {
                 return response([
-                    'message' => "Venue facility created successfully.",
+                    'message' => "Facility deleted successfully.",
                 ],200); 
             }
 
          }
          catch(\Exception $e){
             return response([
-                    'message' => "something went wrong please try again.",
+                    'message' => "Something went wrong please try again.",
                 ],500); 
         }
     }
+ 
+    
    
 }
 

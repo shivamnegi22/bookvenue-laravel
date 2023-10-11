@@ -28,19 +28,34 @@ use App\Http\Controllers\Api\Search\SearchController;
     Route::post('/verify-register-user', [RegisterController::class, 'verifyuser']);
     Route::post('/searchLocation', [SearchController::class, 'searchLocation']);
 
-        //create sports route
+
+     //facility get route
+     Route::get('/get-recent-facility/{count}', [facilityController::class, 'recentFacility']);
+     Route::get('/get-featured-facility/{count}', [facilityController::class, 'featuredFacility']);
+     Route::get('/get-facility-by-slug/{slug}', [facilityController::class, 'getFacilityBySlug']);
+ 
+     // create facility route
+     Route::post('/createFacility', [facilityController::class, 'createFacility']);
+ 
+     //update facility route
+     Route::post('/update-facility', [facilityController::class, 'updateFacility']);
+     
+     // delete facility route
+     Route::get('/delete-facility', [facilityController::class, 'deleteFacility']);
+ 
+
+    //sports api
     Route::post('/create-sports', [managementController::class, 'createSports']);
+    Route::get('/get-all-sports', [managementController::class, 'getAllSports']);
+    Route::post('/update-sports/{sport_id}', [managementController::class, 'updateSports']);
+    Route::get('/delete-sports/{sport_id}', [managementController::class, 'deleteSports']);
 
-    //create venue route
+    //venue route
     Route::post('/create-venue', [managementController::class, 'createVenue']);
+    Route::get('/get-all-venues', [managementController::class, 'getAllVenues']);
+    Route::post('/update-venue/{venue_id}', [managementController::class, 'updateVenue']);
+    Route::get('/delete-venues/{venue_id}', [managementController::class, 'deleteVenue']);
     
-    //facility get route
-    Route::get('/get-recent-facility/{count}', [facilityController::class, 'recentFacility']);
-    Route::get('/get-featured-facility/{count}', [facilityController::class, 'featuredFacility']);
-    Route::get('/get-facility-by-slug/{slug}', [facilityController::class, 'getFacilityBySlug']);
-
-    Route::post('/createFacility', [facilityController::class, 'createFacility']);
-
     //profile update route
     Route::post('/profileUpdate', [managementController::class, 'profileUpdate']);
 
@@ -50,6 +65,8 @@ use App\Http\Controllers\Api\Search\SearchController;
     //get facilty venue route
     Route::get('/facility-venue', [facilityController::class, 'getFacilityVenue']);
     Route::post('/facility-venue', [facilityController::class, 'createFacilityVenue']);
+    Route::post('/update-facility-venue/{facility_venue_id}', [facilityController::class, 'updateFacilityVenue']);
+
 
     //get facilty sports route
     Route::get('/facility-sports', [facilityController::class, 'getFacilitySports']);
@@ -58,18 +75,8 @@ use App\Http\Controllers\Api\Search\SearchController;
     //get facilty sports route
     Route::get('/facility-sports-courts', [facilityController::class, 'getFacilitySportsCourt']);
 
-    //update facility route
-    Route::post('/update-facility', [facilityController::class, 'updateFacility']);
-    
-    // delete facility routeph
-    Route::get('/delete-facility', [facilityController::class, 'deleteFacility']);
-
-
     // Uploads api
     Route::post('/uploads', [managementController::class, 'uploads']);
-
-    Route::get('/get-all-sports', [managementController::class, 'getAllSports']);
-    Route::get('/get-all-venues', [managementController::class, 'getAllVenues']);
     
     
 
