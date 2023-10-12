@@ -521,7 +521,30 @@ class facilityController extends Controller
         }
     }
  
-    
+    public function deleteFacilityVenue($id)
+    {
+        try{
+
+            $facility_venue = facility_venue::find($id);
+
+            if (!$facility_venue) {
+                return response()->json(['message' => 'Record not found'], 404);
+            }
+            
+            if($facility_venue->delete())
+            {
+                return response([
+                    'message' => "Facility deleted successfully.",
+                ],200); 
+            }
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "Something went wrong please try again.",
+                ],500); 
+        }
+    }
    
 }
 

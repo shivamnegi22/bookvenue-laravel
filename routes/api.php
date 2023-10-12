@@ -29,6 +29,12 @@ use App\Http\Controllers\Api\Search\SearchController;
     Route::post('/searchLocation', [SearchController::class, 'searchLocation']);
 
 
+   
+    
+    
+
+Route::middleware('auth:sanctum')->group(function () {
+
      //facility get route
      Route::get('/get-recent-facility/{count}', [facilityController::class, 'recentFacility']);
      Route::get('/get-featured-facility/{count}', [facilityController::class, 'featuredFacility']);
@@ -62,10 +68,11 @@ use App\Http\Controllers\Api\Search\SearchController;
     //get user role route
     Route::get('/get-user-role', [managementController::class, 'getUserRole']);
 
-    //get facilty venue route
+    //venue Facility crud
     Route::get('/facility-venue', [facilityController::class, 'getFacilityVenue']);
     Route::post('/facility-venue', [facilityController::class, 'createFacilityVenue']);
     Route::post('/update-facility-venue/{facility_venue_id}', [facilityController::class, 'updateFacilityVenue']);
+    Route::get('/delete-facility-venue/{facility_venue_id}', [facilityController::class, 'deleteFacilityVenue']);
 
 
     //get facilty sports route
@@ -77,12 +84,6 @@ use App\Http\Controllers\Api\Search\SearchController;
 
     // Uploads api
     Route::post('/uploads', [managementController::class, 'uploads']);
-    
-    
-
-Route::middleware('auth:sanctum')->group(function () {
-
-
 
 });
 

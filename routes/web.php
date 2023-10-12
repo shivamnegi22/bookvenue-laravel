@@ -30,7 +30,7 @@ Route::post('/verify-otp', 'App\Http\Controllers\Auth\LoginController@verifyOTP'
 
 
 
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', 'App\Http\Controllers\Management\dashboardController@index');
 
 
@@ -85,7 +85,7 @@ Route::post('/verify-otp', 'App\Http\Controllers\Auth\LoginController@verifyOTP'
 
     Route::get('allBooking', 'App\Http\Controllers\Management\dashboardController@allBooking');
 
-// });
+});
 
 
 
