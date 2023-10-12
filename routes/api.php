@@ -28,17 +28,12 @@ use App\Http\Controllers\Api\Search\SearchController;
     Route::post('/verify-register-user', [RegisterController::class, 'verifyuser']);
     Route::post('/searchLocation', [SearchController::class, 'searchLocation']);
 
-
-   
-    
-    
-
-Route::middleware('auth:sanctum')->group(function () {
-
      //facility get route
-     Route::get('/get-recent-facility/{count}', [facilityController::class, 'recentFacility']);
-     Route::get('/get-featured-facility/{count}', [facilityController::class, 'featuredFacility']);
-     Route::get('/get-facility-by-slug/{slug}', [facilityController::class, 'getFacilityBySlug']);
+    Route::get('/get-all-facility', [facilityController::class, 'getAllFacility']);
+    Route::get('/get-recent-facility/{count}', [facilityController::class, 'recentFacility']);
+    Route::get('/get-featured-facility/{count}', [facilityController::class, 'featuredFacility']);
+    Route::get('/get-facility-by-slug/{slug}', [facilityController::class, 'getFacilityBySlug']);
+
  
      // create facility route
      Route::post('/createFacility', [facilityController::class, 'createFacility']);
@@ -84,6 +79,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Uploads api
     Route::post('/uploads', [managementController::class, 'uploads']);
+
+    //get all facility 
+    Route::get('/get-all-services', [managementController::class, 'getAllServices']);
+    
+
+Route::middleware('auth:sanctum')->group(function () {
+
+
 
 });
 

@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Api\Management;
 
 use App\Models\Profile;
-use App\Models\sports;
-use App\Models\venues;
 use App\Models\Role;
 use App\Models\role_user;
+use App\Models\Service;
+use App\Models\Service_type;
+use App\Models\Facility_service;
 use Illuminate\Http\Request;
-use App\Models\facility_venue;
-use App\Models\facility_sports;
-use App\Models\facility_sports_court;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
@@ -432,6 +430,22 @@ class managementController extends Controller
             ],500);
         }
 
+    }
+
+    public function getAllServices()
+    {
+        try{
+
+            $service = Service::get();
+
+        }
+        catch(Exception $e){
+
+            return response([
+                'errors' => $e->message(),
+                'message' => "Internal Server Error.",
+            ],500);
+        }
     }
 
    }

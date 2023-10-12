@@ -25,7 +25,6 @@ class RegisterController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'mobile' => 'required|max:10|regex:/^[0-9]{10}$/',
-                'role' => 'required',
             ]);
         
             if ($validator->fails()) {
@@ -36,13 +35,33 @@ class RegisterController extends Controller
 
         }
 
-        $userExist = user::where('phone',$request->mobile)->first();
+        $user = user::where('phone',$request->mobile)->first();
 
-        if($userExist){
-            return response()->json([
-                'error' => 'Validation failed',
-                'errors' => "Mobile No already exist.",
-            ], 422);
+        if($user){
+
+            $otp = mt_rand(100000, 999999);
+
+            $MSG91 = new MSG91();
+
+            $otpStatus = $MSG91->sendDltSms('62385ab87f0231333a04e445', '91'.$request->mobile, 'OTP', [$otp]);
+
+            $user->one_time_password = Crypt::encrypt($otp);
+            $user->expires_at = now()->addMinutes(5);
+
+            if($user->update()){
+
+            return response([
+                'OTPStatus' => $otpStatus,
+                'mobile' => $request->mobile,
+                'message' => 'OTP send successfully.',
+            ],200);
+
+            }
+            
+            return response([
+                'error' => "Unable to update user.",
+            ],400);
+
         }
 
         $otp = mt_rand(100000, 999999);
@@ -62,12 +81,10 @@ class RegisterController extends Controller
             $profile->name = $request->name;
 
             if($profile->save()){
-
-                $role_id = Role::where('slug',$request->role)->value('id');
                 
                 $role_user = new role_user;
                 $role_user->user_id =  $user->id;
-                $role_user->role_id = $role_id;
+                $role_user->role_id = '5';
 
                 if($role_user->save())
                 {

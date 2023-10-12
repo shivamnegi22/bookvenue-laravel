@@ -1,6 +1,14 @@
 @extends('layouts.aside')
 @section('content')
 
+@section('breadcrumb')
+<ul class="cd-breadcrumb">
+    <li><a href="#0">Dashboard</a></li>
+    <li><a href="#0">Files Upload</a></li>
+    <li class="current"><em>Images Upload</em></li>
+</ul>
+@endsection
+
 <form method="post" action="{{url('uploads')}}" enctype="multipart/form-data">
     @csrf
     <div class="container">

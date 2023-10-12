@@ -168,6 +168,7 @@ class facilityController extends Controller
 
     public function getFacilityVenue()
     {
+
         try{
 
             // $token = PersonalAccessToken::findToken($request->bearerToken());
@@ -542,6 +543,49 @@ class facilityController extends Controller
          catch(\Exception $e){
             return response([
                     'message' => "Something went wrong please try again.",
+                ],500); 
+        }
+    }
+
+    public function getAllFacility(Request $request)
+    {
+        try{
+
+            $inputLat = $request->lat;
+            $inputLong = $request->lng;
+
+            // $token = PersonalAccessToken::findToken($request->bearerToken());
+            
+            // if(empty($token)){
+            //     return response([
+            //         'message' => "Token expired please login again to continue.",
+            //     ],401); 
+            // } 
+            if($inputLat && $inputLong)
+            {
+                $facility = facility::select('*')
+                ->selectRaw(
+                    '(6371 * acos(cos(radians(?)) * cos(radians(`lat`)) * cos(radians(`lng`) - radians(?)) + sin(radians(?)) * sin(radians(`lat`)))) AS distance',
+                    [$inputLat, $inputLong, $inputLat]
+                )
+                ->orderBy('distance')
+                ->get();
+
+            }
+            else
+            {
+                $facility = facility::where ('status','1')->orderBy('created_at','desc')->get();
+            }
+          
+
+            return response([
+                'facility' => $facility,
+            ],200);
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "something went wrong please try again.",
                 ],500); 
         }
     }

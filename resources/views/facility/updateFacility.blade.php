@@ -1,11 +1,18 @@
 @extends('layouts.aside')
 @section('content')
 
-<form method="post" action="{{url('update-facility/'.$facility->id)}}" enctype="multipart/form-data">
+@section('breadcrumb')
+<ul class="cd-breadcrumb">
+    <li><a href="#0">Dashboard</a></li>
+    <li><a href="#0">Facility Management</a></li>
+    <li class="current"><em>Update Facility</em></li>
+</ul>
+@endsection
+
+<form method="post" action="#" enctype="multipart/form-data">
     @csrf
     <div class="container">
         <div class="row form">
-            <div class="col-md-12 m20"><h1>Update Facility</h1></div>
             <div class="col-md-12 m20">
                 <label>Facility Type</label>
                 <div class="d-flex justify-content-between">

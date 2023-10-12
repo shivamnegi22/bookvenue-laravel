@@ -1,11 +1,19 @@
 @extends('layouts.aside')
 @section('content')
 
+@section('breadcrumb')
+<ul class="cd-breadcrumb">
+    <li><a href="#0">Dashboard</a></li>
+    <li><a href="#0">Facility Management</a></li>
+    <li><a href="#0">Venues Management</a></li>
+    <li class="current"><em>Create Venues</em></li>
+</ul>
+@endsection
+
 <form method="POST" enctype="multipart/form-data" action="{{ url('Venues') }}">
     @csrf
     <div class="container">
         <div class="row form">
-        <div class="col-md-12 m20"><h1>Create Venues</h1></div>
             <div class="col-md-4">
                 <label>Name</label>
                 <input type="text" name="name" placeholder="Name" class="inputField">

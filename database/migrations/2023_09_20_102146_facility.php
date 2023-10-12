@@ -13,22 +13,27 @@ return new class extends Migration
     {
         Schema::create('facility', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('facility_type')->nullable();
+            $table->unsignedBigInteger('service_type_id');
+            $table->text('amenities')->nullable();
             $table->string('official_name')->nullable();
             $table->string('slug')->nullable()->unique();
             $table->string('alias')->nullable();
             $table->text('address')->nullable();
             $table->string('lat')->nullable();
-            $table->string('long')->nullable();
-            $table->longText('images')->nullable();
+            $table->string('lng')->nullable();
             $table->string('featured_image')->nullable();
             $table->longText('description')->nullable();
             $table->string('status')->default(true);
             $table->boolean('verified')->default(false);
             $table->timestamp('verified_at')->nullable();
-            $table->string('verified_by')->nullable();
+            $table->unsignedBigInteger('verified_by');
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('verified_by')->references('id')->on('users');
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('service_type_id')->references('id')->on('service_type');
 
         });
     }

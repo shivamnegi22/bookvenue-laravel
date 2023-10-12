@@ -1,6 +1,15 @@
 @extends('layouts.aside')
 @section('content')
 
+@section('breadcrumb')
+<ul class="cd-breadcrumb">
+    <li><a href="#0">Dashboard</a></li>
+    <li><a href="#0">Facility Management</a></li>
+    <li><a href="#0">Venues Management</a></li>
+    <li class="current"><em>Update Venues</em></li>
+</ul>
+@endsection
+
 <form method="POST" enctype="multipart/form-data" action="{{ url('Venues') }}">
     @csrf
     <div class="container">

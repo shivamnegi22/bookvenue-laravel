@@ -1,6 +1,15 @@
 @extends('layouts.aside')
 @section('content')
 
+@section('breadcrumb')
+<ul class="cd-breadcrumb">
+    <li><a href="#0">Dashboard</a></li>
+    <li><a href="#0">Booking Management</a></li>
+    <li><a href="#0">Booking</a></li>
+    <li class="current"><em>All Booking</em></li>
+</ul>
+@endsection
+
 <div class="tableStyle">
     <div class="row">
         <div class="col-md-12">
