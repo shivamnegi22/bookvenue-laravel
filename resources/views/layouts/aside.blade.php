@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="{{asset('assest/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('assest/css/form.css')}}">
+    <link rel="stylesheet" href="{{asset('assest/css/table.css')}}">
 </head>
 
 <body>
@@ -26,9 +27,9 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                        <a href="/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-title">UI elements</li><!-- /.menu-title -->
+                    <li class="menu-title">Facility Management</li><!-- /.menu-title -->
                     <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Components</a>
@@ -46,20 +47,36 @@
                             <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
                         </ul>
                     </li> -->
+                    <li><a href="{{ url('/createFacility') }}"><i class="menu-icon fa fa-industry"></i>Create Facility</a></li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Facility Management</a>
+                            aria-expanded="false"> <i class="menu-icon fa fa-futbol-o"></i>Sports Management</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="{{ url('/createFacility') }}">Create Facility</a>
-                            </li>
-                            <li><i class="fa fa-table"></i><a href="{{'/sports'}}">Create Sports</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{'/allsports'}}">All Sports</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{'/Venues'}}">Create Venues</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{'/uploads'}}">Uploads</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{'/sports-facility'}}">Facility Sports</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{'/venue-facility'}}">Facility Venues</a></li>
+                            <li><a href="{{'/sports'}}">Create Sports</a></li>
+                            <li><a href="{{'/sports-facility'}}">Facility Sports</a></li>
+                            <li><a href="{{'/allsports'}}">All Sports</a></li>
                         </ul>
                     </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fa fa-calendar"></i>Venues Management</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><a href="{{'/Venues'}}">Create Venues</a></li>
+                            <li><a href="{{'/venue-facility'}}">Facility Venues</a></li>
+                            <li><a href="#">All Venues</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-title">Booking Management</li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fa fa-book"></i>Booking</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><a href="{{'/book-facility/'}}">Create Booking</a></li>
+                            <li><a href="{{'/allBooking'}}">All Booking</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-title">Files Upload</li>
+                    <li><a href="{{'/uploads'}}"><i class="menu-icon fa fa-file-image-o"></i>Images Uploads</a></li>
                     <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
@@ -90,12 +107,7 @@
             <div class="top-right">
                 <div class="header-menu">
                     <div class="header-right">
-                        <ul class="cd-breadcrumb">
-                            <li class="current"><a href="#0">Dashboard</a></li>
-                            <!-- <li><a href="#0">Gallery</a></li>
-                            <li><a href="#0">Web</a></li>
-                            <li class="current"><em>Project</em></li> -->
-                        </ul>
+                        @yield('breadcrumb')
                     </div>
                     <div>
                         <div class="header-left">
@@ -179,7 +191,6 @@
                             </div>
                         </div>
 
-
                         <div class="user-area dropdown float-right">
                             <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
@@ -235,10 +246,7 @@
     <!-- /#right-panel -->
 
     <!-- Scripts -->
-    <script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
@@ -247,13 +255,9 @@
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
     <script src="{{asset('assest/js/main.js')}}"></script>
     <script>
-        let table = new DataTable('#myTable', {
-    responsive: true,
-    columnDefs: [
-        { responsivePriority: 1, targets: 0 },
-        { responsivePriority: 2, targets: -1 }
-    ]
-});
+    let table = new DataTable('#myTable', {
+        responsive: true
+    });
     </script>
 </body>
 

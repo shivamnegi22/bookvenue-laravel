@@ -1,6 +1,13 @@
 @extends('layouts.aside')
 
 @section('content')
+
+@section('breadcrumb')
+<ul class="cd-breadcrumb">
+    <li class="current"><em>Dashboard</em></li>
+</ul>
+@endsection
+
 <!-- Widgets  -->
 <div class="row">
     <div class="col-lg-3 col-md-6">

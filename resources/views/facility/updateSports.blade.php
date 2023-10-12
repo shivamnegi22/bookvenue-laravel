@@ -5,12 +5,12 @@
 <ul class="cd-breadcrumb">
     <li><a href="#0">Dashboard</a></li>
     <li><a href="#0">Facility Management</a></li>
-    <li><a href="#0">Venues Management</a></li>
-    <li class="current"><em>Create Venues</em></li>
+    <li><a href="#0">Sports Management</a></li>
+    <li class="current"><em>Update Sports</em></li>
 </ul>
 @endsection
 
-<form method="POST" enctype="multipart/form-data" action="{{ url('Venues') }}">
+<form method="POST" enctype="multipart/form-data" action="#">
     @csrf
     <div class="container">
         <div class="row form">
