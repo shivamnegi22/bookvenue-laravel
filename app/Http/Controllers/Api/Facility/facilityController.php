@@ -168,6 +168,7 @@ class facilityController extends Controller
 
     public function getFacilityVenue()
     {
+
         try{
 
             // $token = PersonalAccessToken::findToken($request->bearerToken());
@@ -238,6 +239,58 @@ class facilityController extends Controller
                 'message' => "Internal Server Error.",
             ],500);
         }
+    }
+
+    public function updateFacilityVenue(Request $request, $id)
+    {
+    
+        try{
+
+            $validator = Validator::make($request->all(), [
+
+                'facility_id' => 'required',
+                'venue_id' => 'required',
+
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => 'Validation failed',
+                    'errors' => $validator->errors(),
+                ], 422); // 422 is the HTTP status code for unprocessable entity
+            }
+
+            $facilty_venue = facility_venue::where('id',$id)->first();
+
+            $facilty_venue->facility_id = $request->facility_id;
+            $facilty_venue->venue_id = $request->venue_id;
+            $facilty_venue->amenities = $request->amenities;
+            $facilty_venue->start_time = $request->start_time;
+            $facilty_venue->close_time = $request->close_time;
+            $facilty_venue->slot_time = $request->slot_time;
+            $facilty_venue->start_price = $request->start_price;
+            $facilty_venue->court_count = $request->court_count;
+            $facilty_venue->breaktime_start = $request->breaktime_start;
+            $facilty_venue->breaktime_end = $request->breaktime_end;
+            $facilty_venue->holiday = json_encode($request->holiday);
+            $facilty_venue->description = $request->description;
+
+            if($facilty_venue->update())
+            {
+                return response([
+                    'message' => "Venue facility updated successfully.",
+                ],200); 
+            }
+
+        }
+        catch(Exception $e){
+
+            return response([
+                'errors' => $e->message(),
+                'message' => "Internal Server Error.",
+            ],500);
+        }
+
     }
 
 
@@ -442,12 +495,92 @@ class facilityController extends Controller
                 return response()->json(['message' => 'Record not found'], 404);
             }
 
+            $facilityVenuCount = facility_venue::where('facility_id', $id)->count();
+            $facilitySportCount = facility_sports::where('facility_id', $id)->count();
+            $facilitySportCourtCount = facility_sports_court::where('facility_id', $id)->count();
+    
+            if ($facilityVenuCount > 0 || $facilitySportCount > 0 || $facilitySportCourtCount > 0) {
+
+                return response([
+                    'message' => "Facility has related records and cannot be deleted.",
+                ],404); 
+
+            }
+
             if($facility->delete())
             {
                 return response([
-                    'message' => "Venue facility created successfully.",
+                    'message' => "Facility deleted successfully.",
                 ],200); 
             }
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "Something went wrong please try again.",
+                ],500); 
+        }
+    }
+ 
+    public function deleteFacilityVenue($id)
+    {
+        try{
+
+            $facility_venue = facility_venue::find($id);
+
+            if (!$facility_venue) {
+                return response()->json(['message' => 'Record not found'], 404);
+            }
+            
+            if($facility_venue->delete())
+            {
+                return response([
+                    'message' => "Facility deleted successfully.",
+                ],200); 
+            }
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "Something went wrong please try again.",
+                ],500); 
+        }
+    }
+
+    public function getAllFacility(Request $request)
+    {
+        try{
+
+            $inputLat = $request->lat;
+            $inputLong = $request->lng;
+
+            // $token = PersonalAccessToken::findToken($request->bearerToken());
+            
+            // if(empty($token)){
+            //     return response([
+            //         'message' => "Token expired please login again to continue.",
+            //     ],401); 
+            // } 
+            if($inputLat && $inputLong)
+            {
+                $facility = facility::select('*')
+                ->selectRaw(
+                    '(6371 * acos(cos(radians(?)) * cos(radians(`lat`)) * cos(radians(`lng`) - radians(?)) + sin(radians(?)) * sin(radians(`lat`)))) AS distance',
+                    [$inputLat, $inputLong, $inputLat]
+                )
+                ->orderBy('distance')
+                ->get();
+
+            }
+            else
+            {
+                $facility = facility::where ('status','1')->orderBy('created_at','desc')->get();
+            }
+          
+
+            return response([
+                'facility' => $facility,
+            ],200);
 
          }
          catch(\Exception $e){
