@@ -13,6 +13,8 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
 
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset('assest/css/style.css')}}">
@@ -26,8 +28,8 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                    <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
+                        <a href="{{url('dashboard')}}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
                     <li class="menu-title">Facility Management</li><!-- /.menu-title -->
                     <!-- <li class="menu-item-has-children dropdown">
@@ -47,36 +49,36 @@
                             <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
                         </ul>
                     </li> -->
-                    <li><a href="{{ url('/createFacility') }}"><i class="menu-icon fa fa-industry"></i>Create Facility</a></li>
-                    <li class="menu-item-has-children dropdown">
+                    <li class="{{ Request::is('createFacility') ? 'active' : '' }}"><a href="{{ url('createFacility') }}"><i class="menu-icon fa fa-industry"></i>Create Facility</a></li>
+                    <li class="menu-item-has-children dropdown {{ Request::is('sports','sports-facility','allsports') ? 'active show' : '' }}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-futbol-o"></i>Sports Management</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><a href="{{'/sports'}}">Create Sports</a></li>
-                            <li><a href="{{'/sports-facility'}}">Facility Sports</a></li>
-                            <li><a href="{{'/allsports'}}">All Sports</a></li>
+                            aria-expanded="{{ Request::is('sports','sports-facility','allsports') ? 'false' : 'true' }}"> <i class="menu-icon fa fa-futbol-o"></i>Sports Management</a>
+                        <ul class="sub-menu children dropdown-menu {{ Request::is('sports','sports-facility','allsports') ? 'show' : '' }}">
+                            <li class="{{ Request::is('sports') ? 'sub_active' : '' }}"><a href="{{'sports'}}">Create Sports</a></li>
+                            <li class="{{ Request::is('sports-facility') ? 'sub_active' : '' }}"><a href="{{'sports-facility'}}">Facility Sports</a></li>
+                            <li class="{{ Request::is('allsports') ? 'sub_active' : '' }}"><a href="{{'allsports'}}">All Sports</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children dropdown">
+                    <li class="menu-item-has-children dropdown {{ Request::is('Venues','venue-facility','') ? 'active show': '' }}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-calendar"></i>Venues Management</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><a href="{{'/Venues'}}">Create Venues</a></li>
-                            <li><a href="{{'/venue-facility'}}">Facility Venues</a></li>
-                            <li><a href="#">All Venues</a></li>
+                            aria-expanded="{{ Request::is('Venues','venue-facility','') ? 'false' : 'true' }}"> <i class="menu-icon fa fa-calendar"></i>Venues Management</a>
+                        <ul class="sub-menu children dropdown-menu {{ Request::is('Venues','venue-facility','') ? 'show' : '' }}">
+                            <li class="{{ Request::is('Venues') ? 'sub_active' : '' }}"><a href="{{'Venues'}}">Create Venues</a></li>
+                            <li class="{{ Request::is('venue-facility') ? 'sub_active' : '' }}"><a href="{{'venue-facility'}}">Facility Venues</a></li>
+                            <li class="{{ Request::is('') ? 'sub_active' : '' }}"><a href="#">All Venues</a></li>
                         </ul>
                     </li>
                     <li class="menu-title">Booking Management</li>
-                    <li class="menu-item-has-children dropdown">
+                    <li class="menu-item-has-children dropdown {{ Request::is('book-facility','allBooking','') ? 'active show' : '' }}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-book"></i>Booking</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><a href="{{'/book-facility/'}}">Create Booking</a></li>
-                            <li><a href="{{'/allBooking'}}">All Booking</a></li>
+                            aria-expanded="{{ Request::is('book-facility','allBooking','') ? 'false' : 'true' }}"> <i class="menu-icon fa fa-book"></i>Booking</a>
+                        <ul class="sub-menu children dropdown-menu {{ Request::is('book-facility','allBooking','') ? 'show' : '' }}">
+                            <li class="{{ Request::is('book-facility') ? 'sub_active' : '' }}"><a href="{{'book-facility'}}">Create Booking</a></li>
+                            <li class="{{ Request::is('allBooking') ? 'sub_active' : '' }}"><a href="{{'allBooking'}}">All Booking</a></li>
                         </ul>
                     </li>
                     <li class="menu-title">Files Upload</li>
-                    <li><a href="{{'/uploads'}}"><i class="menu-icon fa fa-file-image-o"></i>Images Uploads</a></li>
+                    <li class="{{ Request::is('uploads') ? 'active' : '' }}"><a href="{{'uploads'}}"><i class="menu-icon fa fa-file-image-o"></i>Images Uploads</a></li>
                     <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
@@ -97,8 +99,7 @@
             <div class="top-left">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="./">
-                        <!-- <img src="images/logo.png" alt="Logo"> -->
-                        BookVenue
+                        <img src="{{asset('image/bookvenue-logo.png')}}" alt="Logo">
                     </a>
                     <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
@@ -236,7 +237,7 @@
                         </script>
                     </div>
                     <div class="col-sm-6 text-right">
-                        Designed by <a href="#"> Giks India Private Limited</a>
+                        Designed by <a href="#"> GIKS India Private Limited</a>
                     </div>
                 </div>
             </div>
@@ -252,8 +253,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
     <script src="{{asset('assest/js/main.js')}}"></script>
+    <script>
+      tinymce.init({
+        selector: '#editor'
+      });
+    </script>
     <script>
     let table = new DataTable('#myTable', {
         responsive: true

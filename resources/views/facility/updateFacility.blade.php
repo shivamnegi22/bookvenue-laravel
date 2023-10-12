@@ -58,9 +58,9 @@
                 <label>Images</label>
                 <input type="file" name="images[]" multiple placeholder="" class="form-control-file">
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 mb-3">
                 <label>Description</label>
-                <textarea type="text" name="description" placeholder="Description" class="inputField"></textarea>
+                <textarea id="editor" name="description" placeholder="Description"></textarea>
             </div>
             <div class="col-md-12">
                 <button type="submit" class="formButton submit" name="submit">Save</button>

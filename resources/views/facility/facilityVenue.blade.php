@@ -68,9 +68,9 @@
                 <label>Holiday</label>
                 <input type="text" name="holiday[]" placeholder="Holiday" class="inputField">
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 mb-3">
                 <label>Description</label>
-                <textarea type="text" name="description" placeholder="Description" class="inputField"></textarea>
+                <textarea id="editor" name="description" placeholder="Description"></textarea>
             </div>
             <div class="col-md-12">
                 <button type="submit" class="formButton submit" name="submit">Save</button>

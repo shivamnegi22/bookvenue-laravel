@@ -53,9 +53,9 @@
                 <label>Holiday</label>
                 <input type="text" name="holiday[]" placeholder="Holiday" class="inputField">
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 mb-3">
                 <label>Description</label>
-                <textarea type="text" name="description" placeholder="Description" class="inputField"></textarea>
+                <textarea id="editor" name="description" placeholder="Description"></textarea>
             </div>
             <div class="col-md-12 mb-3">
                 <span id="addAccordionItem" class="formButton add" onclick="addSportsCourt()">Add Sports Court</span>
@@ -98,7 +98,7 @@
                     </div>
                     <div class="col-md-12">
                         <label>Description</label>
-                        <textarea name="court_description[${index}]" placeholder="Description" class="inputField"></textarea>
+                        <textarea type="text" name="court_description[${index}]" placeholder="Description" class="inputField"></textarea>
                     </div>
                     <div class="col-md-12 mb-3">
                         <span class="formButton delete" onclick="removeForm(${index})">Remove</span>
