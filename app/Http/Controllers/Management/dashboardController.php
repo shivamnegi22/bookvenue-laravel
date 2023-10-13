@@ -14,6 +14,7 @@ use App\Models\BookFacility;
 use App\Models\facility_sports_court;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Service_type;
 
 use Illuminate\Http\Request;
 
@@ -21,39 +22,42 @@ class dashboardController extends Controller
 {
     public function index()
     {
+
         return view('Management.dashboard');
     }
 
     public function createFacilityView()
     {
-        return view('facility.createFacility');
+        $service_type = Service_type::get();
+        return view('facility.createFacility',compact('service_type'));
     }
 
     public function createFacility(Request $request)
     {
        $facility = new facility;
 
-       $facility->facility_type = $request->facility_type;
+       $facility->service_type_id = $request->service_type;
        $facility->official_name = $request->name;
        $facility->alias = $request->alias;
+       $facility->amenities = $request->amenities;
        $slug = Str::slug($request->name);
        $randomString = Str::random(5);
 
-       $facility->slug = $slug . '-' . $randomString;
+       $facility->slug =  $randomString. '-' . $slug;
        $facility->address = $request->address;
        $facility->lat = $request->lat;
-       $facility->long = $request->long;
-       if ($request->hasFile('images')) {
-        $images = [];
+       $facility->lng = $request->lng;
+    //    if ($request->hasFile('images')) {
+    //     $images = [];
     
-        foreach ($request->file('images') as $image) {
-            $path = $image->store('public/facility');
-            $images[] = json_encode(str_replace('public','storage',$path));
-        }
+    //     foreach ($request->file('images') as $image) {
+    //         $path = $image->store('public/facility');
+    //         $images[] = json_encode(str_replace('public','storage',$path));
+    //     }
     
-        // Encode the entire array as JSON without escaping slashes
-        $facility->images = json_encode($images, JSON_UNESCAPED_SLASHES);
-    }
+    //     // Encode the entire array as JSON without escaping slashes
+    //     $facility->images = json_encode($images, JSON_UNESCAPED_SLASHES);
+    // }
     
        if ($request->hasFile('featured_image')) {
 
@@ -62,7 +66,9 @@ class dashboardController extends Controller
         }
       
        $facility->description = $request->description;
-        $facility->save();
+       $facility->created_by = Auth::user()->id;
+       $facility->verified_by = Auth::user()->id;
+       $facility->save();
 
         return redirect()->back();
     }

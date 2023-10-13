@@ -2915,7 +2915,7 @@ footer.site-footer .footer-inner a {
 
     #left-panel .navbar .navbar-nav li.menu-item-has-children.show .sub-menu {
         position: static !important;
-        padding-left: 50px;
+        padding-left: 40px;
     }
 
     .orders {
