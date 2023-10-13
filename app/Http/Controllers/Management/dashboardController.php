@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use App\Models\facility;
+use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use App\Models\sports;
 use App\Models\venues;
@@ -73,12 +74,12 @@ class dashboardController extends Controller
         return redirect()->back();
     }
 
-    public function viewSports()
+    public function createServicesCategoryView()
     {
-        return view('facility.createSports');
+        return view('facility.createServicesCategory');
     }
 
-    public function Sports(Request $request)
+    public function createServicesCategory(Request $request)
     {
 
         $this->validate($request,[
@@ -88,16 +89,19 @@ class dashboardController extends Controller
 
             ]);
 
-        $sport = new sports;
+        $sport = new Service_type;
 
         $sport->name = $request->name;
-        if ($request->hasFile('featured_image')) {
-        $sport->featured_image = $request->featured_image;
-        }
-        if ($request->hasFile('icon')) {
-        $sport->featured_image = $request->icon;
-        }
-        $sport->description = $request->description;
+        // if ($request->hasFile('featured_image')) {
+        // $sport->featured_image = $request->featured_image;
+        // }
+        // if ($request->hasFile('icon')) {
+        // $sport->featured_image = $request->icon;
+        // }
+        // $sport->description = $request->description;
+        
+        $sport->created_by = Auth::user()->id;
+        $sport->verified_by = Auth::user()->id;
         $sport->save();
 
         return redirect()->back();
@@ -133,46 +137,31 @@ class dashboardController extends Controller
         return redirect()->back();
     }
 
-    public function facilitySportsView()
+    public function createServicesView()
     {
-        $facility = facility::get();
-        $sports = sports::get();
-        return view('facility.facilitySport',compact('facility','sports'));
+        $service_type = Service_type::get();
+        return view('facility.createServices',compact('service_type'));
     }
 
-    public function facilitySports(Request $request)
+    public function createServices(Request $request)
     {
-            $facility_sports = new facility_sports;
+            $facility_sports = new Service;
 
-            $facility_sports->facility_id = $request->facility_id;
-            $facility_sports->sports_id = $request->sports_id;
-            $facility_sports->amenities = $request->amenities;
-            $facility_sports->start_time = $request->start_time;
-            $facility_sports->close_time = $request->close_time;
-            $facility_sports->slot_time = $request->slot_time;
-            $facility_sports->holiday = json_encode($request->holiday);
-            $facility_sports->description = $request->description;
-
-            if($facility_sports->save())
-            {
-                $formDataArray = $request->all();
-                $numEntries = count($formDataArray['name']);
-                for ($index = 0; $index < $numEntries; $index++) {
-                    $facility_sports_court = new facility_sports_court;
-
-                    $facility_sports_court->facility_id = $request->facility_id;
-                    $facility_sports_court->sports_id = $request->sports_id;
-                    $facility_sports_court->facility_sports_id = $facility_sports->id;
-                    $facility_sports_court->name = $formDataArray['name'][$index];
-                    $facility_sports_court->slot_price = $formDataArray['slot_price'][$index];
-                    $facility_sports_court->breaktime_start = $formDataArray['breaktime_start'][$index];
-                    $facility_sports_court->breaktime_end = $formDataArray['breaktime_end'][$index];
-                    $facility_sports_court->description = $formDataArray['court_description'][$index];
-
-                    $facility_sports_court->save();
-                }
-
+            $facility_sports->service_type_id = $request->service_type;
+            $facility_sports->name = $request->name;
+            if ($request->hasFile('featured_image')) {
+                $url = $request->featured_image->store('public/facility');
+                $facility_sports->featured_image = str_replace('public','storage',$url);
             }
+            if ($request->hasFile('icon')) {
+                $url = $request->icon->store('public/facility');
+                $facility_sports->icon = str_replace('public','storage',$url);
+            }
+            $facility_sports->description = $request->description;
+            
+            $facility_sports->created_by = Auth::user()->id;
+            // $facility_sports->verified_by = Auth::user()->id;
+            $facility_sports->save();
 
             return redirect()->back();
     }

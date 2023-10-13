@@ -53,16 +53,16 @@
                             href="{{ url('createFacility') }}"><i class="menu-icon fa fa-industry"></i>Create
                             Facility</a></li>
                     <li
-                        class="menu-item-has-children dropdown {{ Request::is('sports','sports-facility','allsports') ? 'active show' : '' }}">
+                        class="menu-item-has-children dropdown {{ Request::is('servicesCategory','createServices','allsports') ? 'active show' : '' }}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="{{ Request::is('sports','sports-facility','allsports') ? 'false' : 'true' }}">
-                            <i class="menu-icon fa fa-futbol-o"></i>Sports Management</a>
+                            aria-expanded="{{ Request::is('servicesCategory','createServices','allsports') ? 'false' : 'true' }}">
+                            <i class="menu-icon fa fa-futbol-o"></i>Service Management</a>
                         <ul
-                            class="sub-menu children dropdown-menu {{ Request::is('sports','sports-facility','allsports') ? 'show' : '' }}">
-                            <li class="{{ Request::is('sports') ? 'sub_active' : '' }}"><a href="{{'sports'}}">Create
-                                    Sports</a></li>
-                            <li class="{{ Request::is('sports-facility') ? 'sub_active' : '' }}"><a
-                                    href="{{'sports-facility'}}">Facility Sports</a></li>
+                            class="sub-menu children dropdown-menu {{ Request::is('servicesCategory','createServices','allsports') ? 'show' : '' }}">
+                            <li class="{{ Request::is('servicesCategory') ? 'sub_active' : '' }}"><a href="{{'servicesCategory'}}">Create
+                                    Category</a></li>
+                            <li class="{{ Request::is('createServices') ? 'sub_active' : '' }}"><a
+                                    href="{{'createServices'}}">Create Services</a></li>
                             <li class="{{ Request::is('allsports') ? 'sub_active' : '' }}"><a href="{{'allsports'}}">All
                                     Sports</a></li>
                         </ul>
@@ -71,7 +71,7 @@
                         class="menu-item-has-children dropdown {{ Request::is('Venues','venue-facility','') ? 'active show': '' }}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="{{ Request::is('Venues','venue-facility','') ? 'false' : 'true' }}"> <i
-                                class="menu-icon fa fa-calendar"></i>Venues Management</a>
+                                class="menu-icon fa fa-calendar"></i>Facility Management</a>
                         <ul
                             class="sub-menu children dropdown-menu {{ Request::is('Venues','venue-facility','') ? 'show' : '' }}">
                             <li class="{{ Request::is('Venues') ? 'sub_active' : '' }}"><a href="{{'Venues'}}">Create
@@ -266,6 +266,7 @@
     <!-- /#right-panel -->
 
     <!-- Scripts -->
+    
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
@@ -275,20 +276,10 @@
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCaUv3ZKC-Zlo0Jjt3_AJ6Obs2vFc6w0&callback=initMap" async defer></script>
-    <script>
-    function initMap() {
-        function initMap() {
-   var mapOptions = {
-     center: { lat: 40.7128, lng: -74.0060 }, // Replace with your latitude and longitude
-     zoom: 8, // Replace with your desired zoom level
-   };
-   var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-}
-    }
-    </script>
+
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
     <script src="{{asset('assest/js/main.js')}}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCaUv3ZKC-Zlo0Jjt3_AJ6Obs2vFc6w0&libraries=places&callback=initMap" async defer></script>
     <script>
     tinymce.init({
         selector: '#editor'

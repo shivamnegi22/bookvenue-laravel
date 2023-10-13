@@ -48,15 +48,15 @@
             </div>
             <div class="col-md-4">
                 <label>Latitude</label>
-                <input type="text" name="lat" placeholder="Latitude" class="inputField" required>
+                <input type="text" id="latitude" name="lat" placeholder="Latitude" class="inputField" required readonly>
             </div>
             <div class="col-md-4">
                 <label>Longitude</label>
-                <input type="text" name="lng" placeholder="Longitude" class="inputField" required>
+                <input type="text" id="longitude" name="lng" placeholder="Longitude" class="inputField" required readonly>
             </div>
             <div class="col-md-4">
                 <button type="button" class="formButton submit w-100 mt-4" data-toggle="modal"
-                    data-target="#exampleModalCenter" disabled>
+                    data-target="#exampleModalCenter">
                     Location&nbsp;&nbsp;<i class="fa fa-map-marker"></i></button>
             </div>
             <div class="col-md-12 mb-3">
@@ -80,19 +80,19 @@
                     <h5 class="modal-title" id="exampleModalLongTitle">Select Location</h5>
                 </div>
                 <div class="row">
-                    <div class="col-md-7">
-                        <input type="text" name="address" placeholder="Search Location" class="inputField">
+                    <div class="col-md-7 searchWrapper mb-3">
+                        <input type="search" name="address" placeholder="Search Location" class="inputField mb-0" oninput="handleInputChange(this)"/>
+                        <ul id="suggestions" class="suggestionList d-none"></ul>
                     </div>
                     <div class="col-md-5">
-                        <button type="button" class="formButton submit w-100" data-toggle="modal"
-                            data-target="#exampleModalCenter" style="padding:6px 10px">
+                        <button type="button" class="formButton submit w-100" style="padding:6px 10px" onclick="useCurrentLocation()">
                             Use Current Location&nbsp;&nbsp;<i class="fa fa-map-marker"></i></button>
                     </div>
                 </div>
-                <div id="map"></div>
+                <div id="map" class="mb-3"></div>
                 <div class="d-flex justify-content-between">
                     <button type="button" class="formButton bg-secondary px-5" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="formButton submit px-5">Confirm</button>
+                    <button type="button" class="formButton submit px-5" onclick="confirmLocation()" data-dismiss="modal">Confirm</button>
                 </div>
             </div>
         </div>

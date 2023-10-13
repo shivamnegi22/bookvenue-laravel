@@ -122,4 +122,46 @@ input[type='radio']:checked:after {
 #map {
     height: 400px;
     width: 100%;
-  }
+}
+
+/* Map searchbar css */
+.searchWrapper{
+    position: relative;
+}
+
+.searchWrapper .suggestionList{
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    padding: 15px 0px;
+    background: white;
+    list-style: none;
+    z-index: 1;
+}
+
+.searchWrapper .suggestionList .suggestion-item{
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.searchWrapper .suggestionList .suggestion-item:hover{
+    background-color: #f2f2f2;
+}
+
+.searchWrapper .suggestionList .suggestion-item:hover .suggestion-heading, .searchWrapper .suggestionList .suggestion-item:hover .suggestion-desc{
+    color: #00BFB4;
+} 
+
+.searchWrapper .suggestionList .suggestion-item .suggestion-heading{
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    margin: 0;
+}
+
+.searchWrapper .suggestionList .suggestion-item .suggestion-desc{
+    font-size: 12px;
+    font-weight: 400;
+    color: #525252;
+    margin: 0;
+}

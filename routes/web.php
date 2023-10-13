@@ -37,8 +37,8 @@ Route::middleware(['auth'])->group(function () {
    
 
 
-    Route::get('/sports-facility', 'App\Http\Controllers\Management\dashboardController@facilitySportsView');
-    Route::post('/sports-facility', 'App\Http\Controllers\Management\dashboardController@facilitySports');
+    Route::get('/createServices', 'App\Http\Controllers\Management\dashboardController@createServicesView');
+    Route::post('/createServices', 'App\Http\Controllers\Management\dashboardController@createServices');
 
     Route::get('/venue-facility', 'App\Http\Controllers\Management\dashboardController@facilityVenueView');
     Route::post('/venue-facility', 'App\Http\Controllers\Management\dashboardController@facilityVenue');
@@ -59,8 +59,8 @@ Route::middleware(['auth'])->group(function () {
 
 
     //Sports CRUD
-    Route::get('/sports', 'App\Http\Controllers\Management\dashboardController@viewSports');
-    Route::post('/sports', 'App\Http\Controllers\Management\dashboardController@Sports');
+    Route::get('/servicesCategory', 'App\Http\Controllers\Management\dashboardController@createServicesCategoryView');
+    Route::post('/servicesCategory', 'App\Http\Controllers\Management\dashboardController@createServicesCategory');
     Route::get('/allsports', 'App\Http\Controllers\Management\dashboardController@allSports');
     Route::get('/update-sport/{id}', 'App\Http\Controllers\Management\dashboardController@updateSportsView');
     Route::post('/update-sport/{id}', 'App\Http\Controllers\Management\dashboardController@updateSports');
