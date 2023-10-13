@@ -436,13 +436,25 @@ class managementController extends Controller
     {
         try{
 
-            $service = Service::get();
+            $service_types = Service_type::get();
+            $services = array();
+
+            if(!empty($service_types)){
+                foreach($service_types as $type){
+                    $type['services'] = Service::where('service_type_id',$type->id)->get();
+                   array_push($services,$type);
+                }
+            }
+
+
+            return response([
+                'services' => $services,
+            ],200);
 
         }
         catch(Exception $e){
 
             return response([
-                'errors' => $e->message(),
                 'message' => "Internal Server Error.",
             ],500);
         }
