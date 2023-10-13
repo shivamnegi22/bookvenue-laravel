@@ -59,7 +59,9 @@
                 <input type="text" name="longitude" placeholder="Longitude" class="inputField" readonly>
             </div>
             <div class="col-md-4">
-                <button class="formButton submit w-100 mt-4">Location&nbsp;&nbsp;<i class="fa fa-map-marker"></i></button>
+                <button type="button" class="formButton submit w-100 mt-4" data-toggle="modal"
+                    data-target="#exampleModalCenter">
+                    Location&nbsp;&nbsp;<i class="fa fa-map-marker"></i></button>
             </div>
             <div class="col-md-12 mb-3">
                 <label>Description</label>
@@ -71,6 +73,40 @@
         </div>
     </div>
 </form>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="mb-3">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Select Location</h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-7">
+                        <input type="text" name="address" placeholder="Search Location" class="inputField">
+                    </div>
+                    <div class="col-md-5">
+                        <button type="button" class="formButton submit w-100" data-toggle="modal"
+                            data-target="#exampleModalCenter" style="padding:6px 10px">
+                            Use Current Location&nbsp;&nbsp;<i class="fa fa-map-marker"></i></button>
+                    </div>
+                </div>
+                <div class="googleMap mb-3">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22415.696909658825!2d77.99858498023525!3d30.32634080668854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39092a9d312d2add%3A0x2881f11554c636b7!2sGIKS%20INDIA%20PRIVATE%20LIMITED!5e0!3m2!1sen!2sin!4v1697174102861!5m2!1sen!2sin"
+                        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="formButton bg-secondary px-5" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="formButton submit px-5">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 //
@@ -154,6 +190,5 @@ jQuery(document).ready(function($) {
     }
 });
 </script>
-
 
 @endsection

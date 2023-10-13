@@ -13,7 +13,6 @@
     @csrf
     <div class="container">
         <div class="row form">
-        <div class="col-md-12 m20"><h1>Upload Images</h1></div>
             <div class="col-md-4">
                 <label>Upload Images</label>
                 <input type="file" name="images[]" class="form-control-file" multiple>
