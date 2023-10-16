@@ -13,7 +13,7 @@
     @csrf
     <div class="container">
         <div class="row form">
-            <div class="col-md-6 m20">
+            <div class="col-md-6">
                 <label>Facility Type</label>
                 <select class="inputField" name="service_type" required>
                     <option value='' hidden>Select Type</option>
@@ -34,6 +34,8 @@
                 <label>Amenities</label>
                 <!-- <input type="text" name="amenities" placeholder="Amenities" class="inputField"> -->
                 <select class="inputField" name="amenities">
+                    <option value="AL">Alabama</option>
+                    <option value="WY">Wyoming</option>
                     <option value="AL">Alabama</option>
                     <option value="WY">Wyoming</option>
                 </select>

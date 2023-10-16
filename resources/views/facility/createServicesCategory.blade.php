@@ -10,7 +10,7 @@
 </ul>
 @endsection
 
-<form method="POST" enctype="multipart/form-data" action="{{ url('sports') }}">
+<form method="POST" enctype="multipart/form-data" action="{{ url('servicesCategory') }}">
     @csrf
     <div class="container">
         <div class="row form">
