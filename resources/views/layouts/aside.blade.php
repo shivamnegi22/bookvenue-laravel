@@ -49,35 +49,28 @@
                             <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
                         </ul>
                     </li> -->
-                    <li class="{{ Request::is('createFacility') ? 'active' : '' }}"><a
-                            href="{{ url('createFacility') }}"><i class="menu-icon fa fa-industry"></i>Create
-                            Facility</a></li>
+
                     <li
-                        class="menu-item-has-children dropdown {{ Request::is('servicesCategory','createServices','allsports') ? 'active show' : '' }}">
+                        class="menu-item-has-children dropdown {{ Request::is('category','service') ? 'active show' : '' }}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="{{ Request::is('servicesCategory','createServices','allsports') ? 'false' : 'true' }}">
+                            aria-expanded="{{ Request::is('category','service') ? 'false' : 'true' }}">
                             <i class="menu-icon fa fa-futbol-o"></i>Service Management</a>
                         <ul
-                            class="sub-menu children dropdown-menu {{ Request::is('servicesCategory','createServices','allsports') ? 'show' : '' }}">
-                            <li class="{{ Request::is('servicesCategory') ? 'sub_active' : '' }}"><a href="{{'servicesCategory'}}">Create
-                                    Category</a></li>
-                            <li class="{{ Request::is('createServices') ? 'sub_active' : '' }}"><a
-                                    href="{{'createServices'}}">Create Services</a></li>
-                            <li class="{{ Request::is('allsports') ? 'sub_active' : '' }}"><a href="{{'allsports'}}">All
-                                    Sports</a></li>
+                            class="sub-menu children dropdown-menu {{ Request::is('category','service') ? 'show' : '' }}">
+                            <li class="{{ Request::is('category') ? 'sub_active' : '' }}"><a href="{{'category'}}">Category</a></li>
+                            <li class="{{ Request::is('service') ? 'sub_active' : '' }}"><a href="{{'service'}}">Service</a></li>
                         </ul>
                     </li>
                     <li
-                        class="menu-item-has-children dropdown {{ Request::is('Venues','venue-facility','') ? 'active show': '' }}">
+                        class="menu-item-has-children dropdown {{ Request::is('createFacility','addServices','') ? 'active show': '' }}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="{{ Request::is('Venues','venue-facility','') ? 'false' : 'true' }}"> <i
+                            aria-expanded="{{ Request::is('createFacility','addServices','') ? 'false' : 'true' }}"> <i
                                 class="menu-icon fa fa-calendar"></i>Facility Management</a>
                         <ul
-                            class="sub-menu children dropdown-menu {{ Request::is('Venues','venue-facility','') ? 'show' : '' }}">
-                            <li class="{{ Request::is('Venues') ? 'sub_active' : '' }}"><a href="{{'Venues'}}">Create
-                                    Venues</a></li>
-                            <li class="{{ Request::is('venue-facility') ? 'sub_active' : '' }}"><a
-                                    href="{{'venue-facility'}}">Facility Venues</a></li>
+                            class="sub-menu children dropdown-menu {{ Request::is('createFacility','addServices','') ? 'show' : '' }}">
+                            <li class="{{ Request::is('createFacility') ? 'sub_active' : '' }}"><a href="{{'createFacility'}}">Create Facility</a></li>
+                            <li class="{{ Request::is('addServices') ? 'sub_active' : '' }}"><a
+                                    href="{{'addServices'}}">Add Services</a></li>
                             <li class="{{ Request::is('') ? 'sub_active' : '' }}"><a href="#">All Venues</a></li>
                         </ul>
                     </li>
