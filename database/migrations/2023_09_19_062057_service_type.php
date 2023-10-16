@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('featured_image')->nullable();
             $table->string('icon')->nullable();
             $table->string('status')->default(true);
+            $table->longText('description')->nullable();
             $table->boolean('verified')->default(false);
             $table->timestamp('verified_at')->nullable();
             $table->unsignedBigInteger('verified_by')->nullable();
