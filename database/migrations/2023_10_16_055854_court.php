@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('end_time')->nullable();
             $table->string('slot_price')->nullable();
             $table->string('duration')->nullable();
-            $table->text('upcoming_holiday')->nullable();
             $table->text('breaks')->nullable();
             $table->longText('description')->nullable();
             $table->boolean('status')->default(true);
