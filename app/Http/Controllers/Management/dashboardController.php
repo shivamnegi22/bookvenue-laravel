@@ -146,6 +146,10 @@ class dashboardController extends Controller
         return view('serviceManagement.service');
     }
 
+    public function addServicesView(){
+        return view('facility.addServices');
+    }
+
     public function createServicesView()
     {
         $service_type = Service_type::get();
