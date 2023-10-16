@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('service_type_id');
+            $table->unsignedBigInteger('service_category_id');
             $table->string('name')->nullable();
             $table->string('featured_image')->nullable();
             $table->string('icon')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('service_type_id')->references('id')->on('service_category');
+            $table->foreign('service_category_id')->references('id')->on('service_category');
             $table->foreign('created_by')->references('id')->on('users');
 
         });

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('facility', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('service_type_id');
+            $table->unsignedBigInteger('service_category_id');
             $table->text('amenities')->nullable();
             $table->string('official_name')->nullable();
             $table->string('slug')->nullable()->unique();
@@ -33,7 +33,7 @@ return new class extends Migration
 
             $table->foreign('verified_by')->references('id')->on('users');
             $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('service_type_id')->references('id')->on('service_category');
+            $table->foreign('Service_category_id')->references('id')->on('service_category');
 
         });
     }
