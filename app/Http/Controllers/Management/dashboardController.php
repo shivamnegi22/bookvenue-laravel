@@ -94,19 +94,22 @@ class dashboardController extends Controller
 
             ]);
 
+            // dd($request);
         $sport = new Service_type;
 
         $sport->name = $request->name;
-        // if ($request->hasFile('featured_image')) {
-        // $sport->featured_image = $request->featured_image;
-        // }
-        // if ($request->hasFile('icon')) {
-        // $sport->featured_image = $request->icon;
-        // }
-        // $sport->description = $request->description;
+        if ($request->hasFile('featured_image')) { 
+        $url = $request->featured_image->store('public/category');
+        $sport->featured_image =  str_replace('public','storage',$url);
+        }
+        if ($request->hasFile('icon')) {
+        $url = $request->icon->store('public/category');
+        $sport->icon = str_replace('public','storage',$url);
+        }
+        $sport->description = $request->description;
         
         $sport->created_by = Auth::user()->id;
-        $sport->verified_by = Auth::user()->id;
+        // $sport->verified_by = Auth::user()->id;
         $sport->save();
 
         return redirect()->back();
