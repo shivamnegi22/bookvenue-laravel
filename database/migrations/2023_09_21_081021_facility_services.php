@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('service_id');
             $table->longText('image')->nullable();
             $table->text('featured_image')->nullable();
+            $table->text('upcoming_holiday')->nullable();
             $table->longText('description')->nullable();
             $table->boolean('status')->default(true);
             $table->unsignedBigInteger('created_by');
