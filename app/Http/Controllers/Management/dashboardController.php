@@ -74,6 +74,11 @@ class dashboardController extends Controller
         return redirect()->back();
     }
 
+    public function CategoryView()
+    {
+        return view('serviceManagement.category');
+    }
+
     public function createServicesCategoryView()
     {
         return view('facility.createServicesCategory');
@@ -135,6 +140,10 @@ class dashboardController extends Controller
         $venue->save();
 
         return redirect()->back();
+    }
+
+    public function serviceView(){
+        return view('serviceManagement.service');
     }
 
     public function createServicesView()

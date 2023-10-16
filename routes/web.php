@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
 
    
 
+    Route::get('/service', 'App\Http\Controllers\Management\dashboardController@serviceView');
 
     Route::get('/createServices', 'App\Http\Controllers\Management\dashboardController@createServicesView');
     Route::post('/createServices', 'App\Http\Controllers\Management\dashboardController@createServices');
@@ -59,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     //Sports CRUD
+    Route::get('/category', 'App\Http\Controllers\Management\dashboardController@categoryView');
     Route::get('/servicesCategory', 'App\Http\Controllers\Management\dashboardController@createServicesCategoryView');
     Route::post('/servicesCategory', 'App\Http\Controllers\Management\dashboardController@createServicesCategory');
     Route::get('/allsports', 'App\Http\Controllers\Management\dashboardController@allSports');

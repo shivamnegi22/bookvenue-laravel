@@ -53,18 +53,14 @@
                             href="{{ url('createFacility') }}"><i class="menu-icon fa fa-industry"></i>Create
                             Facility</a></li>
                     <li
-                        class="menu-item-has-children dropdown {{ Request::is('servicesCategory','createServices','allsports') ? 'active show' : '' }}">
+                        class="menu-item-has-children dropdown {{ Request::is('category','service') ? 'active show' : '' }}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="{{ Request::is('servicesCategory','createServices','allsports') ? 'false' : 'true' }}">
+                            aria-expanded="{{ Request::is('category','service') ? 'false' : 'true' }}">
                             <i class="menu-icon fa fa-futbol-o"></i>Service Management</a>
                         <ul
-                            class="sub-menu children dropdown-menu {{ Request::is('servicesCategory','createServices','allsports') ? 'show' : '' }}">
-                            <li class="{{ Request::is('servicesCategory') ? 'sub_active' : '' }}"><a href="{{'servicesCategory'}}">Create
-                                    Category</a></li>
-                            <li class="{{ Request::is('createServices') ? 'sub_active' : '' }}"><a
-                                    href="{{'createServices'}}">Create Services</a></li>
-                            <li class="{{ Request::is('allsports') ? 'sub_active' : '' }}"><a href="{{'allsports'}}">All
-                                    Sports</a></li>
+                            class="sub-menu children dropdown-menu {{ Request::is('category','service') ? 'show' : '' }}">
+                            <li class="{{ Request::is('category') ? 'sub_active' : '' }}"><a href="{{'category'}}">Category</a></li>
+                            <li class="{{ Request::is('service') ? 'sub_active' : '' }}"><a href="{{'service'}}">Service</a></li>
                         </ul>
                     </li>
                     <li
