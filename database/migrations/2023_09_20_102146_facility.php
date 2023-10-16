@@ -26,14 +26,14 @@ return new class extends Migration
             $table->string('status')->default(true);
             $table->boolean('verified')->default(false);
             $table->timestamp('verified_at')->nullable();
-            $table->unsignedBigInteger('verified_by');
+            $table->unsignedBigInteger('verified_by')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('verified_by')->references('id')->on('users');
             $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('service_type_id')->references('id')->on('service_type');
+            $table->foreign('service_type_id')->references('id')->on('service_category');
 
         });
     }
