@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-6">
                 <label>Choose Service</label>
-                <select class="inputField" name="services_type" id="services_type">
+                <select class="inputField" name="services_category_id" id="services_type">
                     <option value="" hidden>Choose Service</option>
                     <option value="Venue">Venue</option>
                     <option value="Sport">Sport</option>
