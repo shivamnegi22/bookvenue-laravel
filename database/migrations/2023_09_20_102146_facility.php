@@ -33,7 +33,7 @@ return new class extends Migration
 
             $table->foreign('verified_by')->references('id')->on('users');
             $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('service_type_id')->references('id')->on('service_type');
+            $table->foreign('service_type_id')->references('id')->on('service_category');
 
         });
     }

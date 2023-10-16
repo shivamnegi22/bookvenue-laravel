@@ -9,5 +9,5 @@ class Service_type extends Model
 {
     use HasFactory;
 
-    protected $table = "service_type";
+    protected $table = "service_category";
 }

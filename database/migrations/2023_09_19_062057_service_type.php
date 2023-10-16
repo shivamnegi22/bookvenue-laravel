@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_type', function (Blueprint $table) {
+        Schema::create('service_category', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
+            $table->string('featured_image')->nullable();
+            $table->string('icon')->nullable();
             $table->string('status')->default(true);
             $table->boolean('verified')->default(false);
             $table->timestamp('verified_at')->nullable();
