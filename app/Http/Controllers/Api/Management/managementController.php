@@ -441,7 +441,7 @@ class managementController extends Controller
 
             if(!empty($service_types)){
                 foreach($service_types as $type){
-                    $type['services'] = Service::where('service_type_id',$type->id)->get();
+                    $type['services'] = Service::where('service_category_id',$type->id)->get();
                    array_push($services,$type);
                 }
             }
@@ -457,6 +457,26 @@ class managementController extends Controller
             return response([
                 'message' => "Internal Server Error.",
             ],500);
+        }
+    }
+
+    public function getFacilityByCategory($cat,$service,Request $request)
+    {
+        try{
+
+            $service_category = Service_category::where('name',$cat)->value('id');
+
+            $facility = facility::where('service_category_id',$service_category)->get();
+
+            return response([
+                'facility' => $facility,
+            ],200);
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "something went wrong please try again.",
+                ],500); 
         }
     }
 

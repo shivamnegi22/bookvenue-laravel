@@ -59,6 +59,9 @@
             <div class="col-md-12 mb-3">
                 <button type="button" class="formButton add" id="addForm">Add Court</button>
             </div>
+
+            <input type="hidden" name="courtData" id="courtData" class="inputField">
+
             <div class="col-md-12" id="formsContainer"></div>
             <div class="col-md-12">
                 <button type="submit" class="formButton submit" name="submit">Save</button>
@@ -68,47 +71,49 @@
 </form>
 
 <script>
-document.getElementById("addForm").addEventListener("click", function () {
-  var formContainer = document.getElementById("formsContainer");
+// Initialize an array to store court data
+var courtData = [];
+var formContainer = document.getElementById("formsContainer");
 
+document.getElementById("addForm").addEventListener("click", function () {
   var form = document.createElement("div");
   form.classList.add("form-container");
 
   form.innerHTML = `
-                <form class="row mb-3">
-                    <div class="col-md-4">
-                        <label>Name</label>
-                        <input class="inputField" type="text" name="court_name" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Start Time</label>
-                        <input class="inputField startTime" type="time" name="startTime" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label>End Time</label>
-                        <input class="inputField endTime" type="time" name="endTime" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Prize</label>
-                        <input class="inputField" type="text" name="prize" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Duration</label>
-                        <div class="customCounter">
-                            <button type="button" class="duration-control minus" data-action="minus">-</button>
-                            <input class="inputField duration" type="text" name="duration" readonly value="">
-                            <button type="button" class="duration-control plus" data-action="plus">+</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="formButton mt-4 w-100 add" disabled>Add Time for Break</button>
-                    </div>
-                    <div class="col-md-12 timesContainer"></div>
-                    <div class="col-md-12">
-                        <button type="button" class="formButton delete">Remove</button>
-                    </div>
-                </form>
-            `;
+    <form class="row mb-3">
+      <div class="col-md-4">
+        <label>Name</label>
+        <input class="inputField" type="text" name="court_name" required>
+      </div>
+      <div class="col-md-4">
+        <label>Start Time</label>
+        <input class="inputField startTime" type="time" name="startTime" required>
+      </div>
+      <div class="col-md-4">
+        <label>End Time</label>
+        <input class="inputField endTime" type="time" n ame="endTime" required>
+      </div>
+      <div class="col-md-4">
+        <label>Prize</label>
+        <input class="inputField" type="text" name="prize" required>
+      </div>
+      <div class="col-md-4">
+        <label>Duration</label>
+        <div class="customCounter">
+          <button type="button" class="duration-control minus" data-action="minus">-</button>
+          <input class="inputField duration" type="text" name="duration" readonly value="">
+          <button type="button" class="duration-control plus" data-action="plus">+</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <button type="button" class="formButton mt-4 w-100 add" disabled>Add Time for Break</button>
+      </div>
+      <div class="col-md-12 timesContainer"></div>
+      <div class="col-md-12">
+        <button type="button" class="formButton delete">Remove</button>
+      </div>
+    </form>
+  `;
 
   formContainer.appendChild(form);
 
@@ -138,25 +143,25 @@ document.getElementById("addForm").addEventListener("click", function () {
   }
 
   function checkFields() {
-	var name = form.querySelector('[name="court_name"]').value;
-	var startTime = form.querySelector('.startTime').value;
-	var endTime = form.querySelector('.endTime').value;
-	var addButton = form.querySelector('.add');
+    var name = form.querySelector('[name="court_name"]').value;
+    var startTime = form.querySelector('.startTime').value;
+    var endTime = form.querySelector('.endTime').value;
+    var addButton = form.querySelector('.add');
 
-	if (name && startTime && endTime) {
-		addButton.disabled = false;
-	} else {
-		addButton.disabled = true;
-	}
-}
+    if (name && startTime && endTime) {
+      addButton.disabled = false;
+    } else {
+      addButton.disabled = true;
+    }
+  }
 
-form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(function(field) {
-	field.addEventListener('input', function() {
-		calculateDuration();
-		validateDuration();
-		checkFields();
-	});
-});
+  form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(function (field) {
+    field.addEventListener('input', function () {
+      calculateDuration();
+      validateDuration();
+      checkFields();
+    });
+  });
 
   // Add event listener to calculate duration
   form.querySelector(".startTime").addEventListener("input", function () {
@@ -176,27 +181,26 @@ form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(funct
   // handle break time slot click
   form.querySelector(".add").addEventListener("click", function () {
     var timesContainer = form.querySelector(".timesContainer");
+    var breakData = [];
 
     var timeGroup = document.createElement("div");
     timeGroup.classList.add("form-container");
 
-    
-
     timeGroup.innerHTML = `
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Start Time</label>
-                            <input class="inputField startTime" type="time" name="start_Time" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label>End Time</label>
-                            <input class="inputField endTime" type="time" name="end_Time" required>
-                        </div>
-                        <div class="col-md-4">
-                            <button type="button" class="formButton delete mt-4 w-100">Remove</button>
-                        </div>
-                    </div>
-                `;
+      <div class="row">
+        <div class="col-md-4">
+          <label>Start Time</label>
+          <input class="inputField startTime" type="time" name="start_Time" required>
+        </div>
+        <div class="col-md-4">
+          <label>End Time</label>
+          <input class="inputField endTime" type="time" name="end_Time" required>
+        </div>
+        <div class="col-md-4">
+          <button type="button" class="formButton delete mt-4 w-100">Remove</button>
+        </div>
+      </div>
+    `;
 
     timesContainer.appendChild(timeGroup);
 
@@ -208,12 +212,25 @@ form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(funct
     // Add event listeners to new start time and end time fields
     timeGroup
       .querySelector(".startTime")
-      .addEventListener("input", calculateDuration);
+      .addEventListener("input", function () {
+        const start = timeGroup.querySelector('.startTime').value;
+        const end = timeGroup.querySelector('.endTime').value;
+        if (start && end) {
+          // Store the break data in the corresponding court object
+          breakData.push({ start, end });
+        }
+      });
     timeGroup
       .querySelector(".endTime")
-      .addEventListener("input", calculateDuration);
+      .addEventListener("input", function () {
+        const start = timeGroup.querySelector('.startTime').value;
+        const end = timeGroup.querySelector('.endTime').value;
+        if (start && end) {
+          // Store the break data in the corresponding court object
+          breakData.push({ start, end });
+        }
+      });
   });
-
 
   // handle duration adjustment
   form.querySelectorAll(".duration-control").forEach(function (button) {
@@ -270,8 +287,20 @@ form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(funct
       alert("Duration exceeds end time. Please adjust the duration.");
       durationField.value = "";
     }
-  }
-});
+  });
+
+  // Add a new court object to the courtData array
+  courtData.push({
+    name: form.querySelector('[name="court_name"]').value,
+    startTime: form.querySelector('.startTime').value,
+    endTime: form.querySelector('.endTime').value,
+    prize: form.querySelector('[name="prize"]').value,
+    duration: form.querySelector('.duration').value,
+    breaks: breakData // Add breaks data for this court
+  });
+
+
 </script>
+
 
 @endsection
