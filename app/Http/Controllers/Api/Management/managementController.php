@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Management;
 
 use App\Models\Profile;
+use App\Models\facility;
 use App\Models\Role;
 use App\Models\role_user;
 use App\Models\Service;

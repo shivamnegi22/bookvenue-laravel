@@ -299,6 +299,7 @@ document.getElementById("addForm").addEventListener("click", function () {
     breaks: breakData // Add breaks data for this court
   });
 
+  $('#courtData').val(courtData);
 
 </script>
 
