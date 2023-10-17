@@ -140,8 +140,8 @@ class facilityController extends Controller
         }
       
        $facility->description = $request->description;
-       $facility->created_by = Auth::user()->id;
-       $facility->verified_by = Auth::user()->id;
+       $facility->created_by = 1;
+       $facility->verified_by = 1;
 
          if($facility->save())
          {
