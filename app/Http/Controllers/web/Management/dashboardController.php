@@ -219,6 +219,7 @@ class dashboardController extends Controller
     }
      
       $amenity->description = $request->description;
+      $amenity->created_by = Auth::user()->id;
 
       $amenity->save();
 
