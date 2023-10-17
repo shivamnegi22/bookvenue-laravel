@@ -3,7 +3,7 @@
 
 @section('breadcrumb')
 <ul class="cd-breadcrumb">
-    <li><a href="#0">Dashboard</a></li>
+    <li><a href="/dashboard">Dashboard</a></li>
     <li><a href="#0">Service Management</a></li>
     <li class="current"><em>Service</em></li>
 </ul>

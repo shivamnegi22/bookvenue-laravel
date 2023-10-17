@@ -34,7 +34,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', 'App\Http\Controllers\Management\dashboardController@index');
 
 
-
     Route::get('/service', 'App\Http\Controllers\Management\dashboardController@serviceView');
     Route::get('/addServices', 'App\Http\Controllers\Management\dashboardController@addServicesView');
 

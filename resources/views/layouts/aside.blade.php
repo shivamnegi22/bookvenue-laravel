@@ -31,6 +31,9 @@
                     <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
                         <a href="{{url('dashboard')}}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
+                    <li class="{{ Request::is('amenities') ? 'active' : '' }}">
+                        <a href="{{url('amenities')}}"><i class="menu-icon fa fa-laptop"></i>Amenities </a>
+                    </li>
                     <li class="menu-title">Facility Management</li><!-- /.menu-title -->
                     <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
