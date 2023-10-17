@@ -8,6 +8,7 @@ use App\Models\facility;
 use App\Models\Service;
 use App\Models\Facility_service;
 use App\Models\Court;
+use App\Models\Amenities;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -206,6 +207,22 @@ class dashboardController extends Controller
         return view('configuration.amenities');
     }
 
+    public function createAmenities(Request $request)
+    {
+        $amenity = new Amenities;
 
+      $amenity->name = $request->name;
+      
+      if ($request->hasFile('icon')) {
+        $url = $request->icon->store('public/facility');
+        $amenity->icon = str_replace('public','storage',$url);
+    }
+     
+      $amenity->description = $request->description;
+
+      $amenity-save();
+
+      return redirect()->back();
+    }
 
 }

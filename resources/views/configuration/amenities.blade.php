@@ -4,32 +4,18 @@
 @section('breadcrumb')
 <ul class="cd-breadcrumb">
     <li><a href="/dashboard">Dashboard</a></li>
-    <li><a href="#0">Service Management</a></li>
-    <li><a href="javascript: history.go(-1)">Service</a></li>
-    <li class="current"><em>Create Service</em></li>
+    <li><a href="#0">Configuration</a></li>
+    <li class="current"><em>Amenities</em></li>
 </ul>
 @endsection
 
-<form method="POST" enctype="multipart/form-data" action="{{ url('createServices') }}">
+<form method="POST" enctype="multipart/form-data" action="{{ url('create-amenities') }}">
     @csrf
     <div class="container">
         <div class="row form">
-        <div class="col-md-6">
-                <label>Sevice Category</label>
-                <select class="inputField" name="service_category_id" required>
-                    <option value="" hidden>Select type</option>
-                    @foreach($service_category as $type)
-                    <option value="{{$type->id}}">{{$type->name}}</option>
-                    @endforeach
-                </select>
-            </div>
             <div class="col-md-6">
                 <label>Name</label>
                 <input type="text" name="name" placeholder="Name" class="inputField" required>
-            </div>
-            <div class="col-md-6">
-                <label>Featured Image</label>
-                <input type="file" name="featured_image" placeholder="Featured Image" class="form-control-file" required>
             </div>
             <div class="col-md-6">
                 <label>Icon</label>

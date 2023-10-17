@@ -3,9 +3,9 @@
 
 @section('breadcrumb')
 <ul class="cd-breadcrumb">
-    <li><a href="#0">Dashboard</a></li>
-    <li><a href="#0">Facility Management</a></li>
-    <li><a href="#0">Sports Management</a></li>
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="#0">Service Management</a></li>
+    <li><a href="javascript: history.go(-1)">Category</a></li>
     <li class="current"><em>Create Services Category</em></li>
 </ul>
 @endsection
