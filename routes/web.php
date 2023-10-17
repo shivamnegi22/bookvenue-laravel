@@ -31,12 +31,15 @@ Route::post('/verify-otp', 'App\Http\Controllers\Auth\LoginController@verifyOTP'
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', 'App\Http\Controllers\web\web\Management\dashboardController@index');
+    Route::get('/dashboard', 'App\Http\Controllers\web\Management\dashboardController@index');
 
 
 
     Route::get('/service', 'App\Http\Controllers\web\Management\dashboardController@serviceView');
+
     Route::get('/addServices', 'App\Http\Controllers\web\Management\dashboardController@addServicesView');
+    Route::Post('/addServices', 'App\Http\Controllers\web\Management\dashboardController@addServices');
+
 
     Route::get('/createServices', 'App\Http\Controllers\web\Management\dashboardController@createServicesView');
     Route::post('/createServices', 'App\Http\Controllers\web\Management\dashboardController@createServices'); 
@@ -46,12 +49,12 @@ Route::middleware(['auth'])->group(function () {
 
 
     //Faciltity CRUD
-    Route::get('/allFacility', 'App\Http\Controllers\web\Management\facilityController@allFacility');
-    Route::get('/createFacility', 'App\Http\Controllers\web\Management\facilityController@createFacilityView');
-    Route::post('/createFacility', 'App\Http\Controllers\web\Management\facilityController@createFacility');
-    Route::get('/update-facility/{id}/', 'App\Http\Controllers\web\Management\facilityController@updateFacilityView');
-    Route::post('/update-facility/{id}', 'App\Http\Controllers\web\Management\facilityController@updateFacility');
-    Route::get('/daelete-facility/{id}', 'App\Http\Controllers\web\Management\facilityController@deleteFacility');
+    Route::get('/allFacility', 'App\Http\Controllers\web\Facility\facilityController@allFacility');
+    Route::get('/createFacility', 'App\Http\Controllers\web\Facility\facilityController@createFacilityView');
+    Route::post('/createFacility', 'App\Http\Controllers\web\Facility\facilityController@createFacility');
+    Route::get('/update-facility/{id}/', 'App\Http\Controllers\web\Facility\facilityController@updateFacilityView');
+    Route::post('/update-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@updateFacility');
+    Route::get('/daelete-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@deleteFacility');
 
 
     //Sports CRUD

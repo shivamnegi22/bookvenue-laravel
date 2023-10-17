@@ -6,7 +6,7 @@ use App\Models\Profile;
 use App\Models\Role;
 use App\Models\role_user;
 use App\Models\Service;
-use App\Models\Service_type;
+use App\Models\Service_category;
 use App\Models\Facility_service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -436,7 +436,7 @@ class managementController extends Controller
     {
         try{
 
-            $service_types = Service_type::get();
+            $service_types = Service_category::get();
             $services = array();
 
             if(!empty($service_types)){

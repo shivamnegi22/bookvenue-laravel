@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('facility_id');
             $table->unsignedBigInteger('service_id');
-            $table->longText('image')->nullable();
+            $table->longText('images')->nullable();
             $table->text('featured_image')->nullable();
             $table->text('upcoming_holiday')->nullable();
             $table->longText('description')->nullable();

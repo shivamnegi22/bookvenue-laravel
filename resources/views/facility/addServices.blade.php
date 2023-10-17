@@ -9,37 +9,48 @@
 </ul>
 @endsection
 
-<form method="post" action="{{url('#')}}" enctype="multipart/form-data">
+<form method="post" action="{{url('addServices')}}" enctype="multipart/form-data">
     @csrf
     <div class="container">
         <div class="row form">
-            <div class="col-md-6">
+        <div class="col-md-4">
                 <label>Choose Facility</label>
                 <select class="inputField" name="facility_id" id="facilitySelect">
                     <option value="" hidden>Choose Facility</option>
-                    <option value="Venue">Venue</option>
-                    <option value="Sport">Sport</option>
+                    @foreach($facility as $facilities)
+                    <option value="{{$facilities->id}}">{{$facilities->official_name}}</option>
+                  @endforeach
                 </select>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
+                <label>Choose Service Category</label>
+                <select class="inputField" name="service_category_id" id="facilitySelect">
+                    <option value="" hidden>Choose Service Category</option>
+                    @foreach($service_category as $cat)
+                    <option value="{{$cat->id}}">{{$cat->name}}</option>
+                  @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
                 <label>Choose Service</label>
-                <select class="inputField" name="services_category_id" id="services_type">
+                <select class="inputField" name="services_id" id="services_type">
                     <option value="" hidden>Choose Service</option>
-                    <option value="Venue">Venue</option>
-                    <option value="Sport">Sport</option>
+                    @foreach($service as $services)
+                    <option value="{{$services->id}}">{{$services->name}}</option>
+                  @endforeach
                 </select>
             </div>
             <div class="col-md-4">
                 <label>Feature Image</label>
-                <input type="file" name="" class="form-control-file">
+                <input type="file" name="featured_image" class="form-control-file">
             </div>
             <div class="col-md-4">
                 <label>Images</label>
-                <input type="file" name="" class="form-control-file" multiple>
+                <input type="file" name="images" class="form-control-file" multiple>
             </div>
             <div class="col-md-4">
                 <label>Holiday</label>
-                <input type="text" name="" class="inputField">
+                <input type="text" name="holiday" class="inputField">
             </div>
             <div class="col-md-12">
                 <label>Description</label>
@@ -67,7 +78,7 @@ document.getElementById("addForm").addEventListener("click", function () {
                 <form class="row mb-3">
                     <div class="col-md-4">
                         <label>Name</label>
-                        <input class="inputField" type="text" name="name" required>
+                        <input class="inputField" type="text" name="court_name" required>
                     </div>
                     <div class="col-md-4">
                         <label>Start Time</label>
@@ -127,7 +138,7 @@ document.getElementById("addForm").addEventListener("click", function () {
   }
 
   function checkFields() {
-	var name = form.querySelector('[name="name"]').value;
+	var name = form.querySelector('[name="court_name"]').value;
 	var startTime = form.querySelector('.startTime').value;
 	var endTime = form.querySelector('.endTime').value;
 	var addButton = form.querySelector('.add');
@@ -139,7 +150,7 @@ document.getElementById("addForm").addEventListener("click", function () {
 	}
 }
 
-form.querySelectorAll('[name="name"], .startTime, .endTime').forEach(function(field) {
+form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(function(field) {
 	field.addEventListener('input', function() {
 		calculateDuration();
 		validateDuration();
@@ -168,6 +179,8 @@ form.querySelectorAll('[name="name"], .startTime, .endTime').forEach(function(fi
 
     var timeGroup = document.createElement("div");
     timeGroup.classList.add("form-container");
+
+    
 
     timeGroup.innerHTML = `
                     <div class="row">
@@ -200,6 +213,7 @@ form.querySelectorAll('[name="name"], .startTime, .endTime').forEach(function(fi
       .querySelector(".endTime")
       .addEventListener("input", calculateDuration);
   });
+
 
   // handle duration adjustment
   form.querySelectorAll(".duration-control").forEach(function (button) {

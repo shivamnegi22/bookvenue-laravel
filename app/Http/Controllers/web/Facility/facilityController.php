@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\web\Facility;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\facility;
 use App\Models\Service;

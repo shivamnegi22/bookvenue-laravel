@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Api\Facility;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\facility;
-use App\Models\sports;
-use App\Models\venues;
-use App\Models\facility_venue;
-use App\Models\facility_sports;
-use App\Models\facility_sports_court;
+use App\Models\Service;
+use App\Models\Facility_service;
+use App\Models\Service_category;
+use App\Models\Court;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
