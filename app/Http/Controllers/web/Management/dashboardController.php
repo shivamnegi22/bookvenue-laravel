@@ -81,7 +81,7 @@ class dashboardController extends Controller
 
     public function addServices(Request $request)
     {
-        // dd($request->courtData);
+        dd($request->courtData);
 
         $facility_service = new Facility_service;
 

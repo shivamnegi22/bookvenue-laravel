@@ -141,7 +141,7 @@ document.getElementById("addForm").addEventListener("click", function () {
   // Add the current courtData to the array
   courtsData.push(courtData);
 
-  console.log(courtsData);
+  // console.log(courtsData);
 
  
 
@@ -254,9 +254,9 @@ form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(funct
   
 
     // Add the break time object to the courtData
-    courtData.breaks.push(breakTime);
+    courtsData.breaks.push(breakTime);
 
-    console.log(courtsData);
+    // console.log(courtsData);
     
     // Add event listener to remove time group
     timeGroup.querySelector(".delete").addEventListener("click", function () {
@@ -336,18 +336,13 @@ form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(funct
     }
   }
 
-  courtData.push({
-    name: form.querySelector('[name="court_name"]').value,
-    startTime: form.querySelector('.startTime').value,
-    endTime: form.querySelector('.endTime').value,
-    prize: form.querySelector('[name="prize"]').value,
-    duration: form.querySelector('.duration').value,
-    breaks: breakData // Add breaks data for this court
-  });
+ 
 
-  console.log(courtData);
+  console.log(courtsData);
 
-  $('#court_data').val(courtData);
+  var courtDataJson = JSON.stringify(courtsData);
+
+  $('#court_data').val(courtDataJson);
 });
 </script>
 
