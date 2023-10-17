@@ -86,7 +86,9 @@ use App\Http\Controllers\Api\Search\SearchController;
 
     //get categoriezed facility 
     Route::get('/get-facility-by-category/{cat}/{service}', [managementController::class, 'getFacilityByCategory']);
-    
+
+
+    Route::get('/get-all-amenities', [managementController::class, 'getAllAmenities']);
 
 Route::middleware('auth:sanctum')->group(function () {
 

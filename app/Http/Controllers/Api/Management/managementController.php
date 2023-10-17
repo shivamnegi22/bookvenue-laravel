@@ -7,6 +7,7 @@ use App\Models\facility;
 use App\Models\Role;
 use App\Models\role_user;
 use App\Models\Service;
+use App\Models\Amenities;
 use App\Models\Service_category;
 use App\Models\Facility_service;
 use Illuminate\Http\Request;
@@ -471,6 +472,24 @@ class managementController extends Controller
 
             return response([
                 'facility' => $facility,
+            ],200);
+
+         }
+         catch(\Exception $e){
+            return response([
+                    'message' => "something went wrong please try again.",
+                ],500); 
+        }
+    }
+
+    public function getAllAmenities()
+    {
+        try{
+
+            $amenities = Amenities::get();
+
+            return response([
+                'amenities' => $amenities,
             ],200);
 
          }

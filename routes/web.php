@@ -65,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/facility-image/{facility_id}', 'App\Http\Controllers\Management\dashboardController@facilityImage');
 
+    Route::get('/create-amenities', 'App\Http\Controllers\Management\dashboardController@createAmenitiesView');
+
 });
 
 

@@ -50,7 +50,7 @@
             </div>
             <div class="col-md-4">
                 <label>Holiday</label>
-                <input type="text" name="holiday" class="inputField">
+                <input type="date" name="holiday" class="inputField">
             </div>
             <div class="col-md-12">
                 <label>Description</label>
@@ -60,7 +60,7 @@
                 <button type="button" class="formButton add" id="addForm">Add Court</button>
             </div>
 
-            <input type="hidden" name="courtData" class="inputField">
+            <input type="hidden" name="courtData" id="court_data" class="inputField">
 
             <div class="col-md-12" id="formsContainer"></div>
             <div class="col-md-12">
@@ -115,6 +115,17 @@ document.getElementById("addForm").addEventListener("click", function () {
             `;
 
   formContainer.appendChild(form);
+
+  courtData.push({
+    name: form.querySelector('[name="court_name"]').value,
+    startTime: form.querySelector('.startTime').value,
+    endTime: form.querySelector('.endTime').value,
+    prize: form.querySelector('[name="prize"]').value,
+    duration: form.querySelector('.duration').value,
+    breaks: [], // An empty array for breaks, which you can populate later
+  });
+
+  console.log(courtData);
 
   // Function to calculate duration
   function calculateDuration() {
@@ -204,8 +215,33 @@ form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(funct
 
     timesContainer.appendChild(timeGroup);
 
+
+    // Find the corresponding court in the courtData array
+  const courtIndex = courtData.findIndex(court => court.name === form.querySelector('[name="court_name"]').value);
+
+if (courtIndex !== -1) {
+  // Add the break data to the breaks property of the corresponding court
+  courtData[courtIndex].breaks.push({
+    start_Time: timeGroup.querySelector('.startTime').value,
+    end_Time: timeGroup.querySelector('.endTime').value,
+  });
+}
+
     // Add event listener to remove time group
     timeGroup.querySelector(".delete").addEventListener("click", function () {
+
+      const courtIndex = courtData.findIndex(court => court.name === form.querySelector('[name="court_name"]').value);
+
+if (courtIndex !== -1) {
+  // Remove the break data from the breaks property of the corresponding court
+  const breaksArray = courtData[courtIndex].breaks;
+  const breakIndex = breaksArray.findIndex(breakData => breakData.start_Time === timeGroup.querySelector('.startTime').value);
+
+  if (breakIndex !== -1) {
+    breaksArray.splice(breakIndex, 1);
+  }
+}
+
       timesContainer.removeChild(timeGroup);
     });
 
@@ -275,6 +311,19 @@ form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(funct
       durationField.value = "";
     }
   }
+
+  courtData.push({
+    name: form.querySelector('[name="court_name"]').value,
+    startTime: form.querySelector('.startTime').value,
+    endTime: form.querySelector('.endTime').value,
+    prize: form.querySelector('[name="prize"]').value,
+    duration: form.querySelector('.duration').value,
+    breaks: breakData // Add breaks data for this court
+  });
+
+  console.log(courtData);
+
+  $('#court_data').val(courtData);
 });
 </script>
 

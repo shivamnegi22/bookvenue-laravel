@@ -80,6 +80,8 @@ class dashboardController extends Controller
 
     public function addServices(Request $request)
     {
+        dd($request->courtData);
+
         $facility_service = new Facility_service;
 
         $facility_service->facility_id = $request->facility_id;
@@ -109,27 +111,27 @@ class dashboardController extends Controller
         if($facility_service->save())
         {
 
-            $formDataArray = $request->all();
-            $numEntries = count($formDataArray['court_name']);
-            for ($index = 0; $index < $numEntries; $index++) {
-                $court = new Court;
+            // $formDataArray = $request->all();
+            // $numEntries = count($formDataArray['court_name']);
+            // for ($index = 0; $index < $numEntries; $index++) {
+            //     $court = new Court;
 
-                $court->facility_service_id = $facility_service->id;
-                $court->court_name = $formDataArray['court_name'][$index];
-                $court->start_time = $formDataArray['startTime'][$index];
-                $court->end_time = $formDataArray['endTime'][$index];
-                $court->slot_price = $formDataArray['price'][$index];
-                $court->duration = $formDataArray['breaktime_end'][$index];
-                $court->breaks = [
-                    'start' => $formDataArray['break']['start'][$index], 
-                    'end' => $formDataArray['break']['end'][$index],
-                ];
+            //     $court->facility_service_id = $facility_service->id;
+            //     $court->court_name = $formDataArray['court_name'][$index];
+            //     $court->start_time = $formDataArray['startTime'][$index];
+            //     $court->end_time = $formDataArray['endTime'][$index];
+            //     $court->slot_price = $formDataArray['price'][$index];
+            //     $court->duration = $formDataArray['breaktime_end'][$index];
+            //     $court->breaks = [
+            //         'start' => $formDataArray['break']['start'][$index], 
+            //         'end' => $formDataArray['break']['end'][$index],
+            //     ];
 
-                $court->description = $request->description;
-                $court->save();
+            //     $court->description = $request->description;
+            //     $court->save();
 
                 return redirect()->back();
-            }
+            // }
         }
     }
 
@@ -197,6 +199,11 @@ class dashboardController extends Controller
 
         return $image;
         
+    }
+
+    public function createAmenitiesView()
+    {
+        return view('configuration.amenities');
     }
 
 
