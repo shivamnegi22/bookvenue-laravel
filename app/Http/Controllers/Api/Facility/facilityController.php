@@ -296,6 +296,8 @@ class facilityController extends Controller
             $inputLat = $request->lat;
             $inputLong = $request->lng;
 
+            $data = array();
+
             // $token = PersonalAccessToken::findToken($request->bearerToken());
             
             // if(empty($token)){
@@ -317,11 +319,31 @@ class facilityController extends Controller
             else
             {
                 $facility = facility::where ('status','1')->orderBy('created_at','desc')->get();
+
+
             }
           
+            if(!empty($facility))
+            {
+                foreach($facility as $item)
+                {
+                    $item->category = Service_category::where('id',$item->service_category_id)->value('name');
+                    $facilityServices = Facility_service::where('facility_id',$item-id)->get();
+                    $services = array();
+                    if(!empty($facilityServices)){
+                        foreach($facilityServices as $items){
+                            $items->name = Service::where('id',$items->service_id)->value('name');
+                            $items->icon = Service::where('id',$items->service_id)->value('icon');
+                            array_push($services,$items);
+                        }
+                    }
+                    $item->services = $services;
+                    array_push($data,$item);
+                }
+            }
 
             return response([
-                'facility' => $facility,
+                'facility' => $data,
             ],200);
 
          }
