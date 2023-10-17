@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('aminities',function(Blueprint $table){
 
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('name');
+            $table->string('name');
             $table->text('icon')->nullable();
             $table->longText('description')->nullable();
             $table->boolean('status')->default(true);

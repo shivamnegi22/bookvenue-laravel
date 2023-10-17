@@ -220,7 +220,7 @@ class dashboardController extends Controller
      
       $amenity->description = $request->description;
 
-      $amenity-save();
+      $amenity->save();
 
       return redirect()->back();
     }
