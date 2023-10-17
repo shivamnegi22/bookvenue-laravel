@@ -191,8 +191,6 @@ class dashboardController extends Controller
 
     }
 
-   
-
 
     public function facilityImage($facility_id)
     {
@@ -219,8 +217,9 @@ class dashboardController extends Controller
     }
      
       $amenity->description = $request->description;
+      $amenity->created_by = Auth::user()->id;
 
-      $amenity-save();
+      $amenity->save();
 
       return redirect()->back();
     }

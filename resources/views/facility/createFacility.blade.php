@@ -15,7 +15,7 @@
         <div class="row form">
             <div class="col-md-6">
                 <label>Facility Type</label>
-                <select class="inputField" name="Service_category_id" required>
+                <select class="inputField" name="service_category_id" required>
                     <option value='' hidden>Select Type</option>
                     @foreach($service_category as $type)
                     <option value="{{$type->id}}">{{$type->name}}</option>
