@@ -203,6 +203,12 @@ form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(funct
 
   // Add event listener to remove form
   form.querySelector(".delete").addEventListener("click", function () {
+
+    var courtIndex = courtsData.indexOf(courtData);
+    if (courtIndex !== -1) {
+      courtsData.splice(courtIndex, 1);
+    }
+    
     formContainer.removeChild(form);
   });
 
@@ -238,30 +244,27 @@ form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(funct
 
 
     // Find the corresponding court in the courtData array
-  const courtIndex = courtData.findIndex(court => court.name === form.querySelector('[name="court_name"]').value);
+    timeGroup.querySelectorAll('.startTime, .endTime').forEach(function (field) {
+      field.addEventListener('input', function () {
+        breakTime.start_Time = timeGroup.querySelector('[name="start_Time"]').value;
+        breakTime.end_Time = timeGroup.querySelector('[name="end_Time"]').value;
+      });
+    });
 
-if (courtIndex !== -1) {
-  // Add the break data to the breaks property of the corresponding court
-  courtData[courtIndex].breaks.push({
-    start_Time: timeGroup.querySelector('.startTime').value,
-    end_Time: timeGroup.querySelector('.endTime').value,
-  });
-}
+  
 
+    // Add the break time object to the courtData
+    courtData.breaks.push(breakTime);
+
+    console.log(courtsData);
+    
     // Add event listener to remove time group
     timeGroup.querySelector(".delete").addEventListener("click", function () {
 
-      const courtIndex = courtData.findIndex(court => court.name === form.querySelector('[name="court_name"]').value);
-
-if (courtIndex !== -1) {
-  // Remove the break data from the breaks property of the corresponding court
-  const breaksArray = courtData[courtIndex].breaks;
-  const breakIndex = breaksArray.findIndex(breakData => breakData.start_Time === timeGroup.querySelector('.startTime').value);
-
-  if (breakIndex !== -1) {
-    breaksArray.splice(breakIndex, 1);
-  }
-}
+      var breakIndex = courtData.breaks.indexOf(breakTime);
+      if (breakIndex !== -1) {
+        courtData.breaks.splice(breakIndex, 1);
+      }
 
       timesContainer.removeChild(timeGroup);
     });

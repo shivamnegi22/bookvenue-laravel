@@ -115,7 +115,7 @@ public function verifyOTP(Request $request)
 
         } else {
      
-            return redirect('user/dashboard');
+            return redirect('dashboard');
         }
     } 
     else {
