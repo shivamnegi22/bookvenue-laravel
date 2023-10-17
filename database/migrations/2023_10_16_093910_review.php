@@ -11,23 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_category', function (Blueprint $table) {
+        Schema::create('review',function(Blueprint $table){
+
             $table->bigIncrements('id');
-            $table->string('name')->nullable();
-            $table->string('featured_image')->nullable();
-            $table->string('icon')->nullable();
-            $table->string('status')->default(true);
+            $table->unsignedBigInteger('facility_id');
             $table->longText('description')->nullable();
-            $table->boolean('verified')->default(false);
-            $table->timestamp('verified_at')->nullable();
-            $table->unsignedBigInteger('verified_by')->nullable();
+            $table->boolean('status')->default(true);
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('verified_by')->references('id')->on('users');
             $table->foreign('created_by')->references('id')->on('users');
-
+            $table->foreign('facility_id')->references('id')->on('facility');
         });
     }
 
@@ -36,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_type');
+        Schema::dropIfExists('review');
     }
 };
