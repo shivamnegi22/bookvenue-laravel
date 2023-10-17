@@ -328,7 +328,7 @@ class facilityController extends Controller
                 foreach($facility as $item)
                 {
                     $item->category = Service_category::where('id',$item->service_category_id)->value('name');
-                    $facilityServices = Facility_service::where('facility_id',$item-id)->get();
+                    $facilityServices = Facility_service::where('facility_id',$item->id)->get();
                     $services = array();
                     if(!empty($facilityServices)){
                         foreach($facilityServices as $items){
