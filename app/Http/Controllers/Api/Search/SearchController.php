@@ -28,7 +28,7 @@ class SearchController extends Controller
             
             $facility = facility::select('*')
             ->selectRaw(
-                '(6371 * acos(cos(radians(?)) * cos(radians(`lat`)) * cos(radians(`long`) - radians(?)) + sin(radians(?)) * sin(radians(`lat`)))) AS distance',
+                '(6371 * acos(cos(radians(?)) * cos(radians(`lat`)) * cos(radians(`lng`) - radians(?)) + sin(radians(?)) * sin(radians(`lat`)))) AS distance',
                 [$inputLat, $inputLong, $inputLat]
             )
             ->having('distance', '<=', 50)->take($count)
@@ -37,7 +37,7 @@ class SearchController extends Controller
             }else{
                 $facility = facility::select('*')
             ->selectRaw(
-                '(6371 * acos(cos(radians(?)) * cos(radians(`lat`)) * cos(radians(`long`) - radians(?)) + sin(radians(?)) * sin(radians(`lat`)))) AS distance',
+                '(6371 * acos(cos(radians(?)) * cos(radians(`lat`)) * cos(radians(`lng`) - radians(?)) + sin(radians(?)) * sin(radians(`lat`)))) AS distance',
                 [$inputLat, $inputLong, $inputLat]
             )
             ->having('distance', '<=', 50)
