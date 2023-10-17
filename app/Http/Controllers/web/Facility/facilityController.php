@@ -23,7 +23,7 @@ class facilityController extends Controller
     {
        $facility = new facility;
 
-       $facility->service_category_id = $request->Service_category_id;
+       $facility->service_category_id = $request->service_category_id;
        $facility->official_name = $request->name;
        $facility->alias = $request->alias;
        $facility->amenities = $request->amenities;

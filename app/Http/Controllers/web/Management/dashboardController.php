@@ -191,8 +191,6 @@ class dashboardController extends Controller
 
     }
 
-   
-
 
     public function facilityImage($facility_id)
     {

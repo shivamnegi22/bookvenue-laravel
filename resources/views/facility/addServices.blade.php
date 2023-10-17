@@ -46,7 +46,7 @@
             </div>
             <div class="col-md-4">
                 <label>Images</label>
-                <input type="file" name="images" class="form-control-file" multiple>
+                <input type="file" name="images[]" class="form-control-file" multiple>
             </div>
             <div class="col-md-4">
                 <label>Holiday</label>
@@ -71,10 +71,20 @@
 </form>
 
 <script>
+
+var courtsData = [];
+
 document.getElementById("addForm").addEventListener("click", function () {
   var formContainer = document.getElementById("formsContainer");
+  var courtData = {
+    name: "",
+    startTime: "",
+    endTime: "",
+    prize: "",
+    duration: "",
+    breaks: []
+  };
 
-  var courtData = [];
   var form = document.createElement("div");
   form.classList.add("form-container");
 
@@ -116,16 +126,24 @@ document.getElementById("addForm").addEventListener("click", function () {
 
   formContainer.appendChild(form);
 
-  courtData.push({
-    name: form.querySelector('[name="court_name"]').value,
-    startTime: form.querySelector('.startTime').value,
-    endTime: form.querySelector('.endTime').value,
-    prize: form.querySelector('[name="prize"]').value,
-    duration: form.querySelector('.duration').value,
-    breaks: [], // An empty array for breaks, which you can populate later
+  // Add event listeners to input fields to update the courtData
+  form.querySelectorAll('[name="court_name"], .startTime, .endTime, [name="prize"]').forEach(function (field) {
+    field.addEventListener('input', function () {
+      courtData.name = form.querySelector('[name="court_name"]').value;
+      courtData.startTime = form.querySelector('.startTime').value;
+      courtData.endTime = form.querySelector('.endTime').value;
+      courtData.prize = form.querySelector('[name="prize"]').value;
+      courtData.duration = form.querySelector('[name="duration"]').value;
+      courtData.breaks = form.querySelector('[name="breaks"]').value;
+    });
   });
 
-  console.log(courtData);
+  // Add the current courtData to the array
+  courtsData.push(courtData);
+
+  console.log(courtsData);
+
+ 
 
   // Function to calculate duration
   function calculateDuration() {
@@ -195,7 +213,10 @@ form.querySelectorAll('[name="court_name"], .startTime, .endTime').forEach(funct
     var timeGroup = document.createElement("div");
     timeGroup.classList.add("form-container");
 
-    
+    var breakTime = {
+      start_Time: "",
+      end_Time: ""
+    };
 
     timeGroup.innerHTML = `
                     <div class="row">
