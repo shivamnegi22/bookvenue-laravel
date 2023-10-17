@@ -96,7 +96,11 @@ class facilityController extends Controller
         try{
 
             $validator = Validator::make($request->all(), [
-                'facility_type' => 'required',
+                'name' => 'required',
+                'service_category_id' => 'required',
+                'lat' => 'required',
+                'lng' => 'required',
+                'featured_image' => 'required',
             ]);
 
     if ($validator->fails()) {
@@ -107,7 +111,7 @@ class facilityController extends Controller
     }
         $facility = new facility;
 
-        $facility->service_category_id = $request->service_category_id;
+       $facility->service_category_id = $request->service_category_id;
        $facility->official_name = $request->name;
        $facility->alias = $request->alias;
        $facility->amenities = json_encode($request->amenities);
