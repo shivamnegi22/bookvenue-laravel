@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Search;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\facility;
+use App\Models\Service_category;
 use Illuminate\Support\Facades\DB;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;

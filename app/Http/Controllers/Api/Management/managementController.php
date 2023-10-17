@@ -171,6 +171,8 @@ class managementController extends Controller
     {
         try{
 
+            $data = array();
+
             $serviceId = Service::where('name',$service)->value('id');
 
             $facilityId = Facility_service::where('service_id',$serviceId)->pluck('facility_id');
