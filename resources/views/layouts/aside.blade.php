@@ -31,9 +31,6 @@
                     <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
                         <a href="{{url('dashboard')}}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="{{ Request::is('create-amenities') ? 'active' : '' }}">
-                        <a href="{{url('create-amenities')}}"><i class="menu-icon fa fa-laptop"></i>Amenities </a>
-                    </li>
                     <li class="menu-title">Facility Management</li><!-- /.menu-title -->
                     <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -74,7 +71,17 @@
                             <li class="{{ Request::is('createFacility') ? 'sub_active' : '' }}"><a href="{{'createFacility'}}">Create Facility</a></li>
                             <li class="{{ Request::is('addServices') ? 'sub_active' : '' }}"><a
                                     href="{{'addServices'}}">Add Services</a></li>
-                            <li class="{{ Request::is('') ? 'sub_active' : '' }}"><a href="#">All Venues</a></li>
+                        </ul>
+                    </li>
+                    <li
+                        class="menu-item-has-children dropdown {{ Request::is('','create-amenities','') ? 'active show': '' }}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="{{ Request::is('','create-amenities','') ? 'false' : 'true' }}"> <i
+                                class="menu-icon fa fa-cog"></i>Configuration</a>
+                        <ul
+                            class="sub-menu children dropdown-menu {{ Request::is('','create-amenities','') ? 'show' : '' }}">
+                            <li class="{{ Request::is('create-amenities') ? 'sub_active' : '' }}"><a
+                                    href="{{'create-amenities'}}">Create Amenities</a></li>
                         </ul>
                     </li>
                     <li class="menu-title">Booking Management</li>

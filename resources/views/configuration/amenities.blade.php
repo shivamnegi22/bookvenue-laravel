@@ -5,7 +5,7 @@
 <ul class="cd-breadcrumb">
     <li><a href="/dashboard">Dashboard</a></li>
     <li><a href="#0">Configuration</a></li>
-    <li class="current"><em>Amenities</em></li>
+    <li class="current"><em>Create Amenities</em></li>
 </ul>
 @endsection
 
