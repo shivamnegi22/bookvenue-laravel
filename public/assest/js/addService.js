@@ -267,3 +267,14 @@ document.getElementById("addForm").addEventListener("click", function () {
 
 });
 });
+
+
+// Mutli DateSelector
+
+document.addEventListener('DOMContentLoaded', function() {
+  flatpickr("#datePicker", {
+      mode: "multiple",
+      minDate: "today",
+      dateFormat: "d-m-Y"
+  });
+});

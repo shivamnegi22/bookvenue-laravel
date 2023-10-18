@@ -50,7 +50,10 @@
             </div>
             <div class="col-md-4">
                 <label>Holidays</label>
-                <input type="date" name="holiday" class="inputField">
+                <div class="position-relative">
+                    <input type="date" name="holiday" class="inputField" id="datePicker" placeholder="DD-MM-YYYY">
+                    <i class="fa fa-calendar" style="position: absolute;right: 10px;top: 10px;pointer-events: none;opacity:.6;"></i>
+                </div>
             </div>
             <div class="col-md-12">
                 <label>Description</label>
