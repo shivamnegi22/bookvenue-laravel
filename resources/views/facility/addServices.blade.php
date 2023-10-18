@@ -13,32 +13,35 @@
     @csrf
     <div class="container">
         <div class="row form">
-        <div class="col-md-4">
+            <div class="col-md-4">
                 <label>Choose Facility</label>
-                <select class="inputField" name="facility_id" id="facility_id">
-                    <option value="" hidden>Choose Facility</option>
-                    @foreach($facility as $facilities)
-                    <option value="{{$facilities->id}}">{{$facilities->official_name}}</option>
-                  @endforeach
-                </select>
+                <div class="relativeDiv">
+                    <select class="inputField" name="facility_id" id="facility_id" required>
+                        <option value="" hidden>Choose Facility</option>
+                        @foreach($facility as $facilities)
+                        <option value="{{$facilities->id}}">{{$facilities->official_name}}</option>
+                        @endforeach
+                    </select>
+                    <span id="facility_message" class="spanRequired">Required</span>
+                </div>
             </div>
             <div class="col-md-4">
                 <label>Choose Service Category</label>
-                <select class="inputField" name="service_category_id" id="service_category_id">
-                    <option value="" hidden>Choose Service Category</option>
-                    @foreach($service_category as $cat)
-                    <option value="{{$cat->id}}">{{$cat->name}}</option>
-                  @endforeach
-                </select>
+                <div class="relativeDiv">
+                    <select class="inputField" name="service_category_id" id="service_category_id" disabled required>
+                        <option value="" hidden>Choose Service Category</option>
+                    </select>
+                    <span id="category_message" class="spanRequired">Required</span>
+                </div>
             </div>
             <div class="col-md-4">
                 <label>Choose Service</label>
-                <select class="inputField" name="services_id" id="service_id">
-                    <option value="" hidden>Choose Service</option>
-                    @foreach($service as $services)
-                    <option value="{{$services->id}}">{{$services->name}}</option>
-                  @endforeach
-                </select>
+                <div class="relativeDiv">
+                    <select class="inputField" name="services_id" id="service_id" disabled required>
+                        <option value="" hidden>Choose Service</option>
+                    </select>
+                    <span id="service_message" class="spanRequired">Required</span>
+                </div>
             </div>
             <div class="col-md-4">
                 <label>Feature Image</label>
@@ -52,7 +55,8 @@
                 <label>Holidays</label>
                 <div class="position-relative">
                     <input type="date" name="holiday" class="inputField" id="datePicker" placeholder="DD-MM-YYYY">
-                    <i class="fa fa-calendar" style="position: absolute;right: 10px;top: 10px;pointer-events: none;opacity:.6;"></i>
+                    <i class="fa fa-calendar"
+                        style="position: absolute;right: 10px;top: 10px;pointer-events: none;opacity:.6;"></i>
                 </div>
             </div>
             <div class="col-md-12">
@@ -74,5 +78,7 @@
 @endsection
 
 @section('script')
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{asset('assest/js/addService.js')}}"></script>
 @endsection

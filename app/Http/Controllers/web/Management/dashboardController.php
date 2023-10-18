@@ -224,4 +224,26 @@ class dashboardController extends Controller
       return redirect()->back();
     }
 
+
+    public function getServiceCategory($facility_id)
+    {
+        $facility = facility::where('id',$facility_id)->get();
+
+        if(!empty($facility))
+        {
+            foreach($facility as $item)
+            {
+                $service_category = Service_category::where('id',$item->service_category_id)->pluck('id','name');
+            }
+
+            return $service_category;
+        }
+    }
+
+    public function getService($service_category_id)
+    {
+        $services = Service::where('service_category_id',$service_category_id)->select('id','name')->get();
+
+        return $services;
+    }
 }

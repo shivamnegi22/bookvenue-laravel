@@ -83,3 +83,13 @@ jQuery(document).ready(function ($) {
         }
     });
 });
+
+// Mutli DateSelector
+
+document.addEventListener('DOMContentLoaded', function() {
+    flatpickr("#datePicker", {
+        mode: "multiple",
+        minDate: "today",
+        dateFormat: "d-m-Y"
+    });
+  });

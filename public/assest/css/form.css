@@ -205,4 +205,5 @@ select:focus-visible{
     width: 90%;
     pointer-events: none;
     color: red;
+    display: none;
 }
