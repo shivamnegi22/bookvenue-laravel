@@ -293,6 +293,8 @@
         responsive: true
     });
     </script>
+
+    @yield('script')
     
 </body>
 
