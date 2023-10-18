@@ -68,6 +68,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/create-amenities', 'App\Http\Controllers\web\Management\dashboardController@createAmenitiesView');
     Route::post('/create-amenities', 'App\Http\Controllers\web\Management\dashboardController@createAmenities');
 
+
+    Route::get('/get-service-category/{facility_id}', 'App\Http\Controllers\web\Management\dashboardController@getServiceCategory');
+
+    Route::get('/get-service/{service_category_id}', 'App\Http\Controllers\web\Management\dashboardController@getService');
+
 });
 
 

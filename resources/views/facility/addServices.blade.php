@@ -15,30 +15,27 @@
         <div class="row form">
         <div class="col-md-4">
                 <label>Choose Facility</label>
-                <select class="inputField" name="facility_id" id="facility_id">
+                <select class="inputField" name="facility_id" id="facility_id" required>
                     <option value="" hidden>Choose Facility</option>
                     @foreach($facility as $facilities)
                     <option value="{{$facilities->id}}">{{$facilities->official_name}}</option>
                   @endforeach
                 </select>
+                <span id="facility_message" style="color:red;display:none;">required</span>
             </div>
             <div class="col-md-4">
                 <label>Choose Service Category</label>
-                <select class="inputField" name="service_category_id" id="service_category_id">
+                <select class="inputField" name="service_category_id" id="service_category_id" disabled required>
                     <option value="" hidden>Choose Service Category</option>
-                    @foreach($service_category as $cat)
-                    <option value="{{$cat->id}}">{{$cat->name}}</option>
-                  @endforeach
                 </select>
+                <span id="category_message" style="color:red;display:none;">required</span>
             </div>
             <div class="col-md-4">
                 <label>Choose Service</label>
-                <select class="inputField" name="services_id" id="service_id">
+                <select class="inputField" name="services_id" id="service_id" disabled required>
                     <option value="" hidden>Choose Service</option>
-                    @foreach($service as $services)
-                    <option value="{{$services->id}}">{{$services->name}}</option>
-                  @endforeach
                 </select>
+                <span id="service_message" style="color:red;display:none;">required</span>
             </div>
             <div class="col-md-4">
                 <label>Feature Image</label>
@@ -71,5 +68,7 @@
 @endsection
 
 @section('script')
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{asset('assest/js/addService.js')}}"></script>
 @endsection
