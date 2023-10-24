@@ -15,7 +15,7 @@
         <div class="row form">
             <div class="col-md-6">
                 <label>Facility Type</label>
-                <select class="inputField" name="Service_category_id" required>
+                <select class="inputField" name="service_category_id" required>
                     <option value='' hidden>Select Type</option>
                     @foreach($service_category as $type)
                     <option value="{{$type->id}}">{{$type->name}}</option>
@@ -57,9 +57,9 @@
                 <input type="text" id="longitude" name="lng" placeholder="Longitude" class="inputField" required readonly>
             </div>
             <div class="col-md-4">
-                <button type="button" class="formButton submit w-100 mt-4" data-toggle="modal"
-                    data-target="#exampleModalCenter">
-                    Location&nbsp;&nbsp;<i class="fa fa-map-marker"></i></button>
+                <button type="button" class="formButton submit w-100 mt-4" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalCenter">
+                    Location&nbsp;&nbsp;<i class="fa-solid fa-location-crosshairs"></i></button>
             </div>
             <div class="col-md-12 mb-3">
                 <label>Description</label>
@@ -88,12 +88,12 @@
                     </div>
                     <div class="col-md-5">
                         <button type="button" class="formButton submit w-100" style="padding:6px 10px" onclick="useCurrentLocation()">
-                            Use Current Location&nbsp;&nbsp;<i class="fa fa-map-marker"></i></button>
+                            Use Current Location&nbsp;&nbsp;<i class="fa-solid fa-location-crosshairs"></i></button>
                     </div>
                 </div>
                 <div id="map" class="mb-3"></div>
                 <div class="d-flex justify-content-between">
-                    <button type="button" class="formButton bg-secondary px-5" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="formButton bg-secondary px-5" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="formButton submit px-5" onclick="confirmLocation()" data-dismiss="modal">Confirm</button>
                 </div>
             </div>
@@ -101,4 +101,8 @@
     </div>
 </div>
 
+@endsection
+
+@section('script')
+<script src="{{asset('assest/js/map.js')}}"></script>
 @endsection

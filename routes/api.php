@@ -36,7 +36,7 @@ use App\Http\Controllers\Api\Search\SearchController;
 
  
      // create facility route
-     Route::post('/createFacility', [facilityController::class, 'createFacility']);
+     Route::post('/create-facility', [facilityController::class, 'createFacility']);
  
      //update facility route
      Route::post('/update-facility', [facilityController::class, 'updateFacility']);
@@ -44,18 +44,6 @@ use App\Http\Controllers\Api\Search\SearchController;
      // delete facility route
      Route::get('/delete-facility', [facilityController::class, 'deleteFacility']);
  
-
-    //sports api
-    Route::post('/create-sports', [managementController::class, 'createSports']);
-    Route::get('/get-all-sports', [managementController::class, 'getAllSports']);
-    Route::post('/update-sports/{sport_id}', [managementController::class, 'updateSports']);
-    Route::get('/delete-sports/{sport_id}', [managementController::class, 'deleteSports']);
-
-    //venue route
-    Route::post('/create-venue', [managementController::class, 'createVenue']);
-    Route::get('/get-all-venues', [managementController::class, 'getAllVenues']);
-    Route::post('/update-venue/{venue_id}', [managementController::class, 'updateVenue']);
-    Route::get('/delete-venues/{venue_id}', [managementController::class, 'deleteVenue']);
     
     //profile update route
     Route::post('/profileUpdate', [managementController::class, 'profileUpdate']);
@@ -63,26 +51,18 @@ use App\Http\Controllers\Api\Search\SearchController;
     //get user role route
     Route::get('/get-user-role', [managementController::class, 'getUserRole']);
 
-    //venue Facility crud
-    Route::get('/facility-venue', [facilityController::class, 'getFacilityVenue']);
-    Route::post('/facility-venue', [facilityController::class, 'createFacilityVenue']);
-    Route::post('/update-facility-venue/{facility_venue_id}', [facilityController::class, 'updateFacilityVenue']);
-    Route::get('/delete-facility-venue/{facility_venue_id}', [facilityController::class, 'deleteFacilityVenue']);
-
-
-    //get facilty sports route
-    Route::get('/facility-sports', [facilityController::class, 'getFacilitySports']);
-    Route::post('/facility-sports', [facilityController::class, 'createFaciltiySports']);
-
-    //get facilty sports route
-    Route::get('/facility-sports-courts', [facilityController::class, 'getFacilitySportsCourt']);
-
     // Uploads api
     Route::post('/uploads', [managementController::class, 'uploads']);
 
     //get all facility 
     Route::get('/get-all-services', [managementController::class, 'getAllServices']);
     
+
+    //get categoriezed facility 
+    Route::get('/get-facility-by-category/{cat}/{service}', [managementController::class, 'getFacilityByCategory']);
+
+    //get all amenities
+    Route::get('/get-all-amenities', [managementController::class, 'getAllAmenities']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
