@@ -67,10 +67,11 @@
             <div class="col-md-12 mb-3">
                 <button type="button" class="formButton add" id="addForm">Add Court</button>
             </div>
+            <input type="hidden" name="courts_data" id="courts_data" value="">
 
             <div class="col-md-12" id="formsContainer"></div>
             <div class="col-md-12">
-                <button type="button" class="formButton submit" name="submit" id="submit_form">Save</button>
+                <button type="submit" class="formButton submit" name="submit" id="submit_form">Save</button>
             </div>
         </div>
     </div>

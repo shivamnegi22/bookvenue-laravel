@@ -298,39 +298,18 @@ addButton.addEventListener("click", function (event) {
         }
       
         console.log(courtsData);
+
+
       
-        var courtDataJson = JSON.stringify(courtsData);    
+        var courtsDataJSON = JSON.stringify(courtsData);
+        document.getElementById('courts_data').value = courtsDataJSON;
+
+        console.log(courtsDataJSON,'data is this');
       
   }
       
       });
 
-
-      $("#submit_form").click(function(){
-
-        // alert();
-
-        var form_data = $('#addServices').serialize();
-
-    
-      $.ajax({
-    
-      type: 'post',
-      url: 'addServices/',
-      data:  form_data,  
-      success: function(response) {
-        
-        console.log(response);
-      },
-      error: function(xhr, status, error) {
-       
-        console.error('AJAX request failed: ' + status + ', ' + error);
-      }
-    });
-    
-    
-    
-    });
 
  
 
