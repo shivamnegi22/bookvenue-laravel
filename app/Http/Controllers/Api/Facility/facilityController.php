@@ -353,6 +353,87 @@ class facilityController extends Controller
                 ],500); 
         }
     }
+
+    public function addServices(Request $request)
+    {
+        try{
+
+        $courtsDataJSON = $request->input('courts_data');
+    $courtsData = json_decode($courtsDataJSON, true);
+    
+        // return $courtData;
+
+        $facility_service = new Facility_service;
+
+        $facility_service->facility_id = $request->facility_id;
+        $facility_service->service_id = $request->services_id;
+        if ($request->hasFile('images')) {
+            $images = [];
+        
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('public/facility');
+                $cleanedString = str_replace(['\\', '"'], '', $path);
+                $images[] = str_replace('public','storage',$cleanedString);
+            }
+        
+            // Encode the entire array as JSON without escaping slashes
+            $facility_service->images = json_encode($images);
+        }
+
+        if ($request->hasFile('featured_image')) {
+            $url = $request->featured_image->store('public/facility');
+            $facility_service->featured_image = str_replace('public','storage',$url);
+         }
+
+        $facility_service->upcoming_holiday = json_encode($request->holiday);
+        $facility_service->description = $request->description;
+        $facility_service->created_by = Auth::user()->id;
+
+        if($facility_service->save())
+        {
+
+            foreach ($courtsData as $data) {
+
+                $court = new Court;
+            
+                // Set the attributes based on the data from the array
+                $court->facility_service_id = $facility_service->id;
+                $court->court_name = $data['name'];
+                $court->start_time = $data['startTime'];
+                $court->end_time = $data['endTime'];
+                $court->slot_price = $data['prize']; // You might want to adjust this based on your data.
+                $court->duration = $data['duration'];
+            
+                // The 'breaks' attribute might need some custom handling
+                $breaks = [];
+                foreach ($data['breaks'] as $break) {
+                    $breaks[] = [
+                        'start' => $break['start_Time'],
+                        'end' => $break['end_Time'],
+                    ];
+                }
+                $court->breaks = json_encode($breaks);
+                $court->created_by = Auth::user()->id;
+            
+                // Save the court
+                if($court->save())
+                {
+
+                }
+            }
+
+                 return response([
+                    'message' => "Court created successfully.",
+                ],200); 
+        }
+    
+    } catch(Exception $e){
+
+        return response([
+            'errors' => $e->message(),
+            'message' => "Internal Server Error.",
+        ],500);
+    }
    
 }
 
