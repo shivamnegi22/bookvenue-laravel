@@ -358,8 +358,21 @@ class facilityController extends Controller
     {
         try{
 
+            $validator = Validator::make($request->all(), [
+                'facility_id' => 'required',
+                'services_id' => 'required',
+                'service_category_id' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => 'Validation failed',
+                    'errors' => $validator->errors(),
+                ], 422); // 422 is the HTTP status code for unprocessable entity
+            }
+
         $courtsDataJSON = $request->input('courts_data');
-    $courtsData = json_decode($courtsDataJSON, true);
+        $courtsData = json_decode($courtsDataJSON, true);
     
         // return $courtData;
 
@@ -387,7 +400,7 @@ class facilityController extends Controller
 
         $facility_service->upcoming_holiday = json_encode($request->holiday);
         $facility_service->description = $request->description;
-        $facility_service->created_by = Auth::user()->id;
+        $facility_service->created_by = '1';
 
         if($facility_service->save())
         {
@@ -413,18 +426,18 @@ class facilityController extends Controller
                     ];
                 }
                 $court->breaks = json_encode($breaks);
-                $court->created_by = Auth::user()->id;
+                $court->created_by = '1';
             
                 // Save the court
                 if($court->save())
                 {
-
+                    return response([
+                        'message' => "Court created successfully.",
+                    ],200); 
                 }
             }
 
-                 return response([
-                    'message' => "Court created successfully.",
-                ],200); 
+            
         }
     
     } catch(Exception $e){
@@ -439,3 +452,4 @@ class facilityController extends Controller
 
 
 
+}
