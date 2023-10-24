@@ -81,7 +81,8 @@ class dashboardController extends Controller
 
     public function addServices(Request $request)
     {
-        dd($request->courtData);
+        
+        return $request->start_Time;
 
         $facility_service = new Facility_service;
 
@@ -105,7 +106,7 @@ class dashboardController extends Controller
             $facility_service->featured_image = str_replace('public','storage',$url);
          }
 
-        $facility_service->upcoming_holiday = $request->holiday;
+        $facility_service->upcoming_holiday = json_encode($request->holiday);
         $facility_service->description = $request->description;
         $facility_service->created_by = Auth::user()->id;
 

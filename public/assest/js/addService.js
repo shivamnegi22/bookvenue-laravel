@@ -299,45 +299,42 @@ addButton.addEventListener("click", function (event) {
       
         console.log(courtsData);
       
-        var courtDataJson = JSON.stringify(courtsData);
-      
-      
-          //onchange Facility
-         
-      
-      //   $(".submit").submit(function(event) {
-      
-      //     let request_method = $(this).attr("method"); //get form GET/POST method
-      
-      //     let form_data = $(this).serialize();
-      
-      //     $.ajax({
-      
-      //   type: request_method,
-      //   url: 'addServices/',
-      //   data: form_data, // Convert data to a JSON string if needed
-      //   contentType: 'application/json', // Set the content type to JSON
-      //   success: function(response) {
-      //     // Handle the response when the request is successful
-      //     console.log(response);
-      //   },
-      //   error: function(xhr, status, error) {
-      //     // Handle errors
-      //     console.error('AJAX request failed: ' + status + ', ' + error);
-      //   }
-      // });
-      
-      
-      
-      // });
+        var courtDataJson = JSON.stringify(courtsData);    
       
   }
       
       });
 
+
+      $("#submit_form").click(function(){
+
+        // alert();
+
+        var form_data = $('#addServices').serialize();
+
+    
+      $.ajax({
+    
+      type: 'post',
+      url: 'addServices/',
+      data:  form_data,  
+      success: function(response) {
+        
+        console.log(response);
+      },
+      error: function(xhr, status, error) {
+       
+        console.error('AJAX request failed: ' + status + ', ' + error);
+      }
+    });
+    
+    
+    
+    });
+
  
 
-
+//onchange Facility
 
 
 $("#facility_id").change(function(){
