@@ -1,3 +1,4 @@
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 @extends('layouts.aside')
 @section('content')
 
@@ -9,7 +10,7 @@
 </ul>
 @endsection
 
-<form method="post" action="{{url('addServices')}}" enctype="multipart/form-data">
+<form method="post" id="addServices" action="{{url('addServices')}}" enctype="multipart/form-data">
     @csrf
     <div class="container">
         <div class="row form">
@@ -54,7 +55,7 @@
             <div class="col-md-4">
                 <label>Holidays</label>
                 <div class="position-relative">
-                    <input type="date" name="holiday" class="inputField" id="datePicker" placeholder="DD-MM-YYYY">
+                    <input type="date" name="holiday[]" class="inputField" id="datePicker" placeholder="DD-MM-YYYY">
                     <i class="fa fa-calendar"
                         style="position: absolute;right: 10px;top: 10px;pointer-events: none;opacity:.6;"></i>
                 </div>
@@ -66,10 +67,11 @@
             <div class="col-md-12 mb-3">
                 <button type="button" class="formButton add" id="addForm">Add Court</button>
             </div>
+            <input type="hidden" name="courts_data" id="courts_data" value="">
 
             <div class="col-md-12" id="formsContainer"></div>
             <div class="col-md-12">
-                <button type="button" class="formButton submit" name="submit">Save</button>
+                <button type="submit" class="formButton submit" name="submit" id="submit_form">Save</button>
             </div>
         </div>
     </div>
@@ -81,4 +83,5 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{asset('assest/js/addService.js')}}"></script>
+
 @endsection
