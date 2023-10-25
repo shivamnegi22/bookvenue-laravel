@@ -15,7 +15,7 @@
             <a href="servicesCategory" class="linkButton">Create Category</a>
         </div>
         <div class="col-md-12">
-            <table id="myTable" class="display table table-bordered responsive nowrap" cellspacing="0" width="100%">
+            <table id="myTable" class="display table table-bordered responsive nowrap" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Column 1</th>
@@ -33,7 +33,7 @@
                         <td>Row 1 Data 1</td>
                         <td>Row 1 Data 2</td>
                         <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
+                        <td class="d-flex justify-content-around"><a href="#" type="button" class="tableButton Update"><i class="fa-solid fa-file-pen"></i></a><button class="tableButton Delete"><i class="fa-solid fa-folder-minus"></i></button></td>
                     </tr>
                     <tr>
                         <td>Row 2 Data 1</td>
@@ -41,7 +41,7 @@
                         <td>Row 2 Data 1</td>
                         <td>Row 2 Data 2</td>
                         <td>Row 2 Data 1</td>
-                        <td>Row 2 Data 2</td>
+                        <td class="d-flex justify-content-around"><a href="#" type="button" class="tableButton Update"><i class="fa-solid fa-file-pen"></i></a><button class="tableButton Delete"><i class="fa-solid fa-folder-minus"></i></button></td>
                     </tr>
                 </tbody>
             </table>
