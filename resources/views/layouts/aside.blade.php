@@ -299,9 +299,6 @@
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
     <script src="{{asset('assest/js/main.js')}}"></script>
     @yield('script')
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCaUv3ZKC-Zlo0Jjt3_AJ6Obs2vFc6w0&libraries=places&callback=initMap"
-        async defer></script>
     <script>
     tinymce.init({
         selector: '#editor'

@@ -94,7 +94,7 @@
                 <div id="map" class="mb-3"></div>
                 <div class="d-flex justify-content-between">
                     <button type="button" class="formButton bg-secondary px-5" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="formButton submit px-5" onclick="confirmLocation()" data-dismiss="modal">Confirm</button>
+                    <button type="button" class="formButton submit px-5" onclick="confirmLocation()" data-bs-dismiss="modal">Confirm</button>
                 </div>
             </div>
         </div>
@@ -105,4 +105,7 @@
 
 @section('script')
 <script src="{{asset('assest/js/map.js')}}"></script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCaUv3ZKC-Zlo0Jjt3_AJ6Obs2vFc6w0&libraries=places&callback=initMap"
+        async defer></script>
 @endsection
