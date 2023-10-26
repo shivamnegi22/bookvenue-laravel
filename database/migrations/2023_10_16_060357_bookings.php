@@ -17,7 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('facility_id');
             $table->unsignedBigInteger('court_id');
-            $table->string('slot_time')->nullable();
+            $table->string('start_time')->nullable();
+            $table->string('end_time')->nullable();
             $table->string('duration')->nullable();
             $table->string('total_price')->nullable();
             $table->string('date')->nullable();

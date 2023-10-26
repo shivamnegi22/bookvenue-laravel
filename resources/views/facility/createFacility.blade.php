@@ -106,8 +106,7 @@
 
 @section('script')
 <script src="{{asset('assest/js/map.js')}}"></script>
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCaUv3ZKC-Zlo0Jjt3_AJ6Obs2vFc6w0&libraries=places&callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCaUv3ZKC-Zlo0Jjt3_AJ6Obs2vFc6w0&libraries=places&callback=initMap"
         async defer></script>
 <script>
 $(document).ready(function() {
