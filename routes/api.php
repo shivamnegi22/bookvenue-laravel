@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Facility\facilityController;
 use App\Http\Controllers\Api\Management\managementController;
 use App\Http\Controllers\Api\Search\SearchController;
+use App\Http\Controllers\Api\Booking\bookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,12 @@ use App\Http\Controllers\Api\Search\SearchController;
 
     //get all amenities
     Route::get('/get-all-amenities', [managementController::class, 'getAllAmenities']);
+
+     //get  slots
+     Route::post('/get-slots-of-court', [managementController::class, 'getSlotsOfCourt']);
+
+    //booking api
+    Route::post('/booking', [bookingController::class, 'Booking']);
 
 Route::middleware('auth:sanctum')->group(function () {
 

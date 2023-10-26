@@ -81,6 +81,8 @@ class dashboardController extends Controller
 
     public function addServices(Request $request)
     {
+
+        dd($request);
         $courtsDataJSON = $request->input('courts_data');
     $courtsData = json_decode($courtsDataJSON, true);
     
@@ -108,7 +110,14 @@ class dashboardController extends Controller
             $facility_service->featured_image = str_replace('public','storage',$url);
          }
 
-        $facility_service->upcoming_holiday = json_encode($request->holiday);
+                $dates = $request->holiday;
+                $individualDates = [];
+
+                foreach ($dates as $date) {
+                    $individualDates[] = $date;
+                }
+
+        $facility_service->upcoming_holiday = json_encode($individualDates);
         $facility_service->description = $request->description;
         $facility_service->created_by = Auth::user()->id;
 
@@ -253,6 +262,7 @@ class dashboardController extends Controller
 
     public function getService($service_category_id)
     {
+
         $services = Service::where('service_category_id',$service_category_id)->select('id','name')->get();
 
         return $services;

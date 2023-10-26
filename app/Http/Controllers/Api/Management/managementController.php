@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api\Management;
 use App\Models\Profile;
 use App\Models\facility;
 use App\Models\Role;
+use App\Models\Court;
 use App\Models\role_user;
 use App\Models\Service;
 use App\Models\Amenities;
+use App\Models\Booking;
 use App\Models\Service_category;
 use App\Models\Facility_service;
 use Illuminate\Http\Request;
@@ -228,6 +230,64 @@ class managementController extends Controller
         }
     }
 
-    
+    public function getSlotsOfCourt(Request $request)
+    {
+        
+        try{
+
+
+             $slots = [];
+
+             $court = Court::where('id', $request->court_id)->first();
+
+                if ($court) {
+                    $start_time = strtotime($court->start_time);
+                    $end_time = strtotime($court->end_time);
+                    $durationMinutes = $court->duration;
+                    $duration = $durationMinutes * 60;
+                    $breaks = json_decode($court->breaks,true);
+
+                    foreach (range($start_time, $end_time - $duration, $duration) as $time) {
+                        $slot = new \stdClass();
+                        $slot->start_time = date("H:i", $time);
+                        $slot->end_time = date("H:i", $time + $duration);
+
+                        $booking = Booking::where('court_id', $request->court_id)
+                        ->where('date', $request->date)
+                        ->where('start_time', $slot->start_time)
+                        ->where('end_time', $slot->end_time)
+                        ->exists();
+
+                        $isBreak = false;
+                        foreach ($breaks as $break) {
+                            $breakStart = strtotime($break['start']);
+                            $breakEnd = strtotime($break['end']);
+                            if ($time >= $breakStart && $time + $duration <= $breakEnd) {
+                                $isBreak = true;
+                                break;
+                            }
+                        }
+
+                        $slot->status = $isBreak ? "Breaktime" : ($booking ? "Booked" : "Available");
+
+                        $slots[] = $slot;
+                    }
+                }
+
+
+                return response()->json([
+                    'slots' => $slots,
+                ], 200);
+                
+
+        }  catch(\Exception $e){
+            return response([
+                    'message' => "something went wrong please try again.",
+                ],500); 
+        }
+
+       
+        
+    }
 
    }
