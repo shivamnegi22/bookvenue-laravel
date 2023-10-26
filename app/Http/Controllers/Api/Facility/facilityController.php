@@ -20,6 +20,21 @@ class facilityController extends Controller
 
             $facility = facility::where('slug',$slug)->first();
 
+            if(!empty($facility)){
+                $facility["category"] = Service_category::where('id',$facility->service_category_id)->value('name');
+                $facilityServices = Facility_service::where('facility_id',$facility->id)->get();
+                $services = array();
+                if(!empty($facilityServices)){
+                    foreach($facilityServices as $items){
+                        $items->name = Service::where('id',$items->service_id)->value('name');
+                        $items->icon = Service::where('id',$items->service_id)->value('icon');
+                        $items->court = Court::where('facility_service_id',$items->id)->get();
+                        array_push($services,$items);
+                    }
+                }
+                $facility["services"] = $services;
+            }
+
             return response([
                 'facility'  => $facility,
             ],200);

@@ -15,7 +15,7 @@
             <a href="createServices" class="linkButton">Create Services</a>
         </div>
         <div class="col-md-12">
-            <table id="myTable" class="display table table-bordered responsive nowrap" cellspacing="0" width="100%">
+            <table id="myTable" class="display table table-bordered responsive nowrap" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Column 1</th>

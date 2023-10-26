@@ -38,12 +38,12 @@ class dashboardController extends Controller
     public function createServicesCategory(Request $request)
     {
 
-        $this->validate($request,[
+        // $this->validate($request,[
         
-            'featured_image'      =>  'mimes:png,svg|max:500',
-            'icon'                =>  'mimes:png,svg|max:200',
+        //     'featured_image'      =>  'mimes:png,svg|max:500',
+        //     'icon'                =>  'mimes:png,svg|max:200',
 
-            ]);
+        //     ]);
 
             // dd($request);
         $service_cat = new Service_category;

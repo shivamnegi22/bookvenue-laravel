@@ -1,4 +1,4 @@
-.tableStyle{
+.tableStyle {
     background-color: #fff;
     padding: 2rem 1.5rem;
     box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
@@ -6,10 +6,9 @@
     font-family: 'Roboto Condensed', sans-serif;
     padding: 20px;
     margin-bottom: 10px;
-    overflow-x: auto;
 }
 
-.linkButton{
+.linkButton {
     padding: 10px 30px;
     background-color: #00BFB4;
     font-size: 16px;
@@ -21,7 +20,88 @@
     transition: all .4s ease-in-out;
 }
 
-.linkButton:hover{
+.linkButton:hover {
     color: #fff;
     border-radius: 40px;
+}
+
+table {
+    width: 100%;
+}
+
+.tableButton {
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    padding: 5px 10px;
+    transition: all .4s ease-in-out;
+}
+
+.tableButton:hover {
+    border-radius: 40px;
+    color: #fff;
+}
+
+.tableButton.Update {
+    background-color: #64ded6;
+}
+
+.tableButton.Delete {
+    background-color: red;
+}
+
+@media (max-width:767.98px) {
+    .tableStyle #myTable_wrapper .dt-row .col-sm-12 {
+        overflow-x: scroll;
+        width: 690px;
+    }
+
+    div.dataTables_wrapper div.dataTables_length,
+    div.dataTables_wrapper div.dataTables_filter,
+    div.dataTables_wrapper div.dataTables_info,
+    div.dataTables_wrapper div.dataTables_paginate {
+        padding-bottom: 10px;
+    }
+}
+
+@media (max-width: 690.98px) {
+    .tableStyle #myTable_wrapper .dt-row .col-sm-12 {
+        width: 610px;
+    }
+}
+
+@media (max-width:645.98px) {
+    .tableStyle #myTable_wrapper .dt-row .col-sm-12 {
+        width: 567px;
+    }
+}
+
+@media (max-width: 590.98px) {
+    .tableStyle #myTable_wrapper .dt-row .col-sm-12 {
+        width: 510px;
+    }
+}
+
+@media (max-width: 540.98px) {
+    .tableStyle #myTable_wrapper .dt-row .col-sm-12 {
+        width: 467px;
+    }
+}
+
+@media (max-width: 490.98px) {
+    .tableStyle #myTable_wrapper .dt-row .col-sm-12 {
+        width: 415px;
+    }
+}
+
+@media (max-width: 425.98px) {
+    .tableStyle #myTable_wrapper .dt-row .col-sm-12 {
+        width: 330px;
+    }
+}
+
+@media (max-width: 375.98px) {
+    .tableStyle #myTable_wrapper .dt-row .col-sm-12 {
+        width: 300px;
+    }
 }

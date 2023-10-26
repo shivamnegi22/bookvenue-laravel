@@ -7,8 +7,12 @@
     <meta name="description" content="Giks">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+        integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
@@ -58,9 +62,12 @@
                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="{{ Request::is('category','service') ? 'false' : 'true' }}">
                             <i class="menu-icon fa-solid fa-laptop-file"></i>Service Management</a>
-                        <ul class="sub-menu children dropdown-menu {{ Request::is('category','service') ? 'show' : '' }}">
-                            <li class="{{ Request::is('category') ? 'sub_active' : '' }}"><a href="{{'category'}}">Category</a></li>
-                            <li class="{{ Request::is('service') ? 'sub_active' : '' }}"><a href="{{'service'}}">Service</a></li>
+                        <ul
+                            class="sub-menu children dropdown-menu {{ Request::is('category','service') ? 'show' : '' }}">
+                            <li class="{{ Request::is('category') ? 'sub_active' : '' }}"><a
+                                    href="{{'category'}}">Category</a></li>
+                            <li class="{{ Request::is('service') ? 'sub_active' : '' }}"><a
+                                    href="{{'service'}}">Service</a></li>
                         </ul>
                     </li>
                     <li
@@ -70,7 +77,8 @@
                                 class="menu-icon fa-solid fa-calendar"></i>Facility Management</a>
                         <ul
                             class="sub-menu children dropdown-menu {{ Request::is('createFacility','addServices','') ? 'show' : '' }}">
-                            <li class="{{ Request::is('createFacility') ? 'sub_active' : '' }}"><a href="{{'createFacility'}}">Create Facility</a></li>
+                            <li class="{{ Request::is('createFacility') ? 'sub_active' : '' }}"><a
+                                    href="{{'createFacility'}}">Create Facility</a></li>
                             <li class="{{ Request::is('addServices') ? 'sub_active' : '' }}"><a
                                     href="{{'addServices'}}">Add Services</a></li>
                         </ul>
@@ -102,7 +110,7 @@
                     </li>
                     <li class="menu-title">Files Upload</li>
                     <li class="{{ Request::is('uploads') ? 'active' : '' }}"><a href="{{'uploads'}}">
-                        <i class="menu-icon fa-solid fa-file-arrow-up"></i>Images Uploads</a></li>
+                            <i class="menu-icon fa-solid fa-file-arrow-up"></i>Images Uploads</a></li>
                     <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa-solid fa-th"></i>Forms</a>
@@ -136,14 +144,14 @@
                     </div>
                     <div>
                         <div class="header-left">
-                            <button class="search-trigger"><i class="fa-solid fa-search"></i></button>
+                            <!-- <button class="search-trigger"><i class="fa-solid fa-search"></i></button>
                             <div class="form-inline">
                                 <form class="search-form">
                                     <input class="form-control mr-sm-2" type="text" placeholder="Search ..."
                                         aria-label="Search">
                                     <button class="search-close" type="submit"><i class="fa-solid fa-close"></i></button>
                                 </form>
-                            </div>
+                            </div> -->
 
                             <div class="dropdown for-notification">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
@@ -271,7 +279,7 @@
     <!-- /#right-panel -->
 
     <!-- Scripts -->
-    
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
@@ -291,7 +299,6 @@
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
     <script src="{{asset('assest/js/main.js')}}"></script>
     @yield('script')
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCaUv3ZKC-Zlo0Jjt3_AJ6Obs2vFc6w0&libraries=places&callback=initMap" async defer></script>
     <script>
     tinymce.init({
         selector: '#editor'
@@ -302,9 +309,5 @@
         responsive: true
     });
     </script>
-
-    
-    
 </body>
-
 </html>
