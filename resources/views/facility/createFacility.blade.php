@@ -33,11 +33,12 @@
             <div class="col-md-6">
                 <label>Amenities</label>
                 <!-- <input type="text" name="amenities" placeholder="Amenities" class="inputField"> -->
-                <select class="inputField" name="amenities">
-                    <option value="AL">Alabama</option>
-                    <option value="WY">Wyoming</option>
-                    <option value="AL">Alabama</option>
-                    <option value="WY">Wyoming</option>
+                <select class="inputField" name="amenities" id="amenity" multiple="multiple">
+                    <option value="">Choose Amenities</option>
+                    @foreach($amenities as $amenity)
+                    <option value="{{ $amenity->id }}">{{ $amenity->name }}</option>
+                    @endforeach
+
                 </select>
             </div>
             <div class="col-md-6">
@@ -105,7 +106,12 @@
 
 @section('script')
 <script src="{{asset('assest/js/map.js')}}"></script>
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCaUv3ZKC-Zlo0Jjt3_AJ6Obs2vFc6w0&libraries=places&callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCaUv3ZKC-Zlo0Jjt3_AJ6Obs2vFc6w0&libraries=places&callback=initMap"
         async defer></script>
+<script>
+$(document).ready(function() {
+    $("#amenity").select2();
+
+});
+</script>
 @endsection

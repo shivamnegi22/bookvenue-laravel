@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\facility;
 use App\Models\Service;
+use App\Models\Amenities;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +17,8 @@ class facilityController extends Controller
     public function createFacilityView()
     {
         $service_category = Service_category::get();
-        return view('facility.createFacility',compact('service_category'));
+        $amenities = Amenities::get();
+        return view('facility.createFacility',compact('service_category','amenities'));
     }
 
     public function createFacility(Request $request)

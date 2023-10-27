@@ -20,58 +20,78 @@
                     <select class="inputField" name="facility_id" id="facility_id" required>
                         <option value="" hidden>Choose Facility</option>
                         @foreach($facility as $facilities)
-                        <option value="{{$facilities->id}}">{{$facilities->official_name}}</option>
+                        <option value="{{$facilities->service_category_id}}">{{$facilities->official_name}}</option>
                         @endforeach
                     </select>
                     <span id="facility_message" class="spanRequired">Required</span>
                 </div>
             </div>
-            <div class="col-md-4">
-                <label>Choose Service Category</label>
+            <div id="servicesWrapper"  class="col-md-4 d-none">
+                <label>Choose Services</label>
                 <div class="relativeDiv">
-                    <select class="inputField" name="service_category_id" id="service_category_id" disabled required>
-                        <option value="" hidden>Choose Service Category</option>
+                    <select class="inputField" name="service_id" id="service_id" required>
                     </select>
-                    <span id="category_message" class="spanRequired">Required</span>
                 </div>
             </div>
-            <div class="col-md-4">
-                <label>Choose Service</label>
-                <div class="relativeDiv">
-                    <select class="inputField" name="services_id" id="service_id" disabled required>
-                        <option value="" hidden>Choose Service</option>
-                    </select>
-                    <span id="service_message" class="spanRequired">Required</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label>Feature Image</label>
-                <input type="file" name="featured_image" class="form-control-file">
-            </div>
-            <div class="col-md-4">
-                <label>Images</label>
-                <input type="file" name="images[]" class="form-control-file" multiple>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-4 hideForm d-none">
                 <label>Holidays</label>
-                <div class="position-relative">
-                    <input type="date" name="holiday[]" class="inputField" id="datePicker" placeholder="DD-MM-YYYY">
-                    <i class="fa fa-calendar"
-                        style="position: absolute;right: 10px;top: 10px;pointer-events: none;opacity:.6;"></i>
+                <input type="date" name="holiday" class="inputField" id="datePicker" placeholder="DD-MM-YYY"/>
+                <i class="fa fa-calendar" style="position:absolute;right:10px;top:10px;pointer-events:none;opacity:6;"></i>
+            </div>
+            <div class="col-md-8 hideForm d-none">
+                <label>Description</label>
+                <textarea class="inputField h-auto" rows="5" name="description" placeholder="description"></textarea>
+            </div>
+            <div class="col-md-4 hideForm d-none">
+                <label>Feature Image</label>
+                <input type="file" name="featured_image" class="form-control-file" required/>
+                
+                <label class="mt-2">Images</label>
+                <input type="file" name="images[]" class="form-control-file" multiple/>
+            </div>
+            <div class="col-md-12  hideForm d-none" id="courtsFormWrapper">
+                <h4 class="my-3">Courts</h4>
+                <div class="row" id="courtsForm">
+                    <div class="col-md-4">
+                        <label>Court Name</label>
+                        <input type="text" class="inputField" name="courtName[]" id="courtName" required/>
+                        <span class="text-danger d-none" id="courtNameError">required</span>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Start Time</label>
+                        <input type="time" class="inputField" name="startTime[]" id="startTime" required/>
+                        <span class="text-danger d-none" id="startTimeError">required</span>
+                    </div>
+                    <div class="col-md-4">
+                        <label>End Time</label>
+                        <input type="time" class="inputField" name="endTime[]" id="endTime" required/>
+                        <span class="text-danger d-none" id="endTimeError">required</span>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Price</label>
+                        <input type="number" class="inputField" name="price[]" id="price" required/>
+                        <span class="text-danger d-none" id="priceError">required</span>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Duration</label>
+                        <input type="number" class="inputField" name="duration[]" id="duration" required/>
+                        <span class="text-danger d-none" id="durationError">required</span>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Break Start</label>
+                        <input type="time" class="inputField" name="break_start[]" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Break End</label>
+                        <input type="time" class="inputField" name="break_end[]" />
+                    </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <label>Description</label>
-                <textarea class="inputField" rows="5" name="description" placeholder="Description"></textarea>
+            <div class="col-md-12 d-flex">
+            <div class="hideForm d-none me-3">
+                <button type="button" class="formButton add" id="addMoreCourts">Add Court</button>
             </div>
-            <div class="col-md-12 mb-3">
-                <button type="button" class="formButton add" id="addForm">Add Court</button>
-            </div>
-            <input type="hidden" name="courts_data" id="courts_data" value="">
-
-            <div class="col-md-12" id="formsContainer"></div>
-            <div class="col-md-12">
-                <button type="submit" class="formButton submit" name="submit" id="submit_form">Save</button>
+                <button type="submit" class="formButton submit" name="submit" id="submit_form" >Save</button>
             </div>
         </div>
     </div>
