@@ -193,17 +193,34 @@ select:focus-visible{
     top: 0;
 }
 
-.relativeDiv{
+.newFormHead{
     position: relative;
+    z-index: 1;
+    margin: 1.5rem 0;
 }
 
-.spanRequired{
+.newFormHead:before {
+    border-top: 2px solid #dfdfdf;
+    content: "";
+    /* margin: 0 auto; */
+    /* this centers the line to the full width specified */
     position: absolute;
-    top: 8px;
-    left: 15px;
-    background-color: #fff;
-    width: 90%;
-    pointer-events: none;
-    color: red;
-    display: none;
+    /* positioning must be absolute here, and relative positioning must be applied to the parent */
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+  }
+  .newFormHead span {
+    /* to hide the lines from behind the text, you have to set the background color the same as the container */
+    background: #fff;
+    padding: 0 15px 0 0;
+  }
+
+  .font10{
+    font-size: 12px;
+    display: flex;
+    align-items: center;
 }
