@@ -82,10 +82,13 @@ jQuery(document).ready(function($) {
         clonedForm.find(':input').prop('readonly', true);
         clonedForm.find(':input').removeAttr('id');
         clonedForm.find('.text-danger').remove();
+        clonedForm.find('#addBreakFormWrapper .col-md-5').removeClass("col-md-5").addClass("col-md-6");
+        clonedForm.find('#addBreakFormWrapper .col-md-2').remove();
         clonedForm.attr('id', uniqueId);
         clonedForm.append(`<div class="col-md-4 my-3"><button type="button" class="btn btn-danger" onclick="removecourt(${uniqueId})">Remove court</button></div>`)
         
         // Append the cloned form to the target location
+        $('#courtsFormWrapper').append(`<h4 class='newFormHead' id="court${uniqueId}"><span>Court</span></h4>`);
         $('#courtsFormWrapper').append(clonedForm);
     });
 
@@ -140,6 +143,10 @@ jQuery(document).ready(function($) {
     var BreakEndInput = document.getElementById("breakEnd");
     
     function validateBreaks() {
+        if(!startTimeInput.value || !endTimeInput.value){
+            $(this).val('');
+            console.log("main wrapper don't have value")
+        }
 
         var minValue = new Date("2000-01-01T" + startTimeInput.value);
         var maxValue = new Date("2000-01-01T" + endTimeInput.value);
@@ -178,6 +185,7 @@ function removecourt(courtRowId) {
     if (element) {
         if (window.confirm('Are you sure you want to remove this court?')) {
             element.parentNode.removeChild(element);
+            document.getElementById(`court${courtRowId}`).remove();
         }
     }
     return null;
