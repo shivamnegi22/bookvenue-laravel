@@ -63,39 +63,36 @@
                         <input type="time" class="inputField" name="startTime[]" id="startTime" required />
                     </div>
                     <div class="col-md-4">
-                        <div class="d-flex justify-content-between">
-                            <label>End Time</label>
-                            <span class="font10 text-danger d-none" id="endTimeError">Required</span>
-                        </div>
-                        <input type="time" class="inputField" name="endTime[]" id="endTime" required />
+                        <label>End Time</label>
+                        <input type="time" class="inputField" name="endTime[]" id="endTime" required/>
+                        <span class="text-danger d-none" id="endTimeError">required</span>
+                        <span class="text-danger d-none" id="endTimeValError">Invalid End Time (atleast 15min > start time)</span>
                     </div>
-                    <div class="col-md-4">
-                        <div class="d-flex justify-content-between">
-                            <label>Price</label>
-                            <span class="font10 text-danger d-none" id="priceError">Required</span>
-                        </div>
-                        <div class="position-relative">
-                            <span class="" style="position: absolute;display: flex;align-items: center;justify-content: center;height: 38px;width: 38px;right: 0;opacity:.6;">₹</span>
-                            <input type="text" class="inputField" name="price[]" id="price" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required />
-                        </div>
+                    <div class="col-md-4 hideForm d-none">
+                        <label>Description</label>
+                        <textarea class="inputField h-auto" rows="5" name="court_description[]" placeholder="description"></textarea>
                     </div>
-                    <div class="col-md-4">
-                        <div class="d-flex justify-content-between">
-                            <label>Duration</label>
-                            <span class="font10 text-danger d-none" id="durationError">Required</span>
+                    <div class="col-md-8 hideForm d-none">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Price</label>
+                                <input type="number" class="inputField" name="price[]" id="price" required/>
+                                <span class="text-danger d-none" id="priceError">required</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Duration</label>
+                                <input type="number" class="inputField" name="duration[]" id="duration" required/>
+                                <span class="text-danger d-none" id="durationError">required</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Break Start</label>
+                                <input type="time" class="inputField" id="breakStart" name="break_start[]" />
+                            </div>
+                            <div class="col-md-6">
+                                <label>Break End</label>
+                                <input type="time" class="inputField" id="breakEnd" name="break_end[]" />
+                            </div>
                         </div>
-                        <div class="position-relative">
-                            <span class="" style="position: absolute;display: flex;align-items: center;justify-content: center;height: 38px;width: 45px;right: 0;opacity:.6;">min</span>
-                            <input type="text" class="inputField" name="duration[]" id="duration" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required />
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Break Start</label>
-                        <input type="time" class="inputField" name="break_start[]" />
-                    </div>
-                    <div class="col-md-4">
-                        <label>Break End</label>
-                        <input type="time" class="inputField" name="break_end[]" />
                     </div>
                 </div>
             </div>
@@ -112,8 +109,7 @@
 @endsection
 
 @section('script')
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="{{asset('assest/js/addService.js')}}"></script>
+<script src="{{asset('assest/js/addService.js')}}" defer></script>
 
 @endsection

@@ -1,5 +1,5 @@
-$( document ).ready(function() {
-
+jQuery.noConflict();
+jQuery(document).ready(function($) {
     
     function ajaxGetRequest(url, callback) {
         $.ajax({
@@ -83,17 +83,102 @@ $( document ).ready(function() {
         clonedForm.find(':input').removeAttr('id');
         clonedForm.find('.text-danger').remove();
         clonedForm.attr('id', uniqueId);
-        clonedForm.append(`<div class="col-md-4 d-flex justify-content-center align-items-center"><button type="button" class="btn btn-danger" onclick="removecourt(${uniqueId})">Remove court</button></div>`)
+        clonedForm.append(`<div class="col-md-4 my-3"><button type="button" class="btn btn-danger" onclick="removecourt(${uniqueId})">Remove court</button></div>`)
         
         // Append the cloned form to the target location
         $('#courtsFormWrapper').append(clonedForm);
     });
 
+    $('#startTime').change(function(){ 
+        console.log($(this).val(),'start time is this')
+     })
+
+
+
+
+    //  handle start and end time validation
+    
+    var startTimeInput = document.getElementById("startTime");
+    var endTimeInput = document.getElementById("endTime");
+
+
+    function validateTimeDifference() {
+
+        if($(this).attr('id') == "endTime"){
+            if(startTimeInput.value == ''){
+
+                $(this).val('');
+                $('#startTimeError').removeClass('d-none')
+            }
+            else{
+                $('#startTimeError').addClass('d-none')
+            }
+        }else{
+            $('#startTimeError').addClass('d-none')
+        }
+
+        var startTimeValue = new Date("2000-01-01T" + startTimeInput.value);
+        var endTimeValue = new Date("2000-01-01T" + endTimeInput.value);
+
+        var timeDifference = endTimeValue - startTimeValue;
+
+        if (timeDifference < 0 || timeDifference < 15 * 60 * 1000) {
+            $("#endTimeValError").removeClass('d-none')
+            endTimeInput.value = "";
+        }
+        else{
+            $("#endTimeValError").addClass('d-none')
+        }
+
+        validateBreaks();
+    }
+
+    startTimeInput.addEventListener("change", validateTimeDifference);
+    endTimeInput.addEventListener("change", validateTimeDifference);
+
+    var BreakStartInput = document.getElementById("breakStart");
+    var BreakEndInput = document.getElementById("breakEnd");
+    
+    function validateBreaks() {
+
+        var minValue = new Date("2000-01-01T" + startTimeInput.value);
+        var maxValue = new Date("2000-01-01T" + endTimeInput.value);
+        var breakStartValue = new Date("2000-01-01T" + BreakStartInput.value);
+        var breakEndValue = new Date("2000-01-01T" + BreakEndInput.value);
+
+        if( minValue <= breakStartValue && maxValue >= breakStartValue && minValue <= breakEndValue && maxValue >= breakEndValue  ){
+            var timeDifference = breakStartValue - breakEndValue;
+
+            if (timeDifference < 0 || timeDifference < 5 * 60 * 1000) {
+                console.log('break validation failed')
+                BreakEndInput.value = "";
+            }
+        }
+        else{
+            console.log('min max validation failed')
+            if(minValue <= breakStartValue || maxValue >= breakStartValue){
+                BreakStartInput.value = "";
+            }
+            if(minValue <= breakEndValue || maxValue >= breakEndValue){
+                BreakEndInput.value = "";
+            }
+        }
+    }
+
+    
+    BreakStartInput.addEventListener("change", validateBreaks);
+    BreakEndInput.addEventListener("change", validateBreaks);
+
+    //end validation check
 });
 
-function removecourt(courtRowId){
-    if (window.confirm('Are you sure you want to remove this court?')) {
-        $(`#${courtRowId}`).remove();
+function removecourt(courtRowId) {
+    var element = document.getElementById(courtRowId);
+    
+    if (element) {
+        if (window.confirm('Are you sure you want to remove this court?')) {
+            element.parentNode.removeChild(element);
+        }
     }
     return null;
 }

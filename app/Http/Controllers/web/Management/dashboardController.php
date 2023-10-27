@@ -84,7 +84,7 @@ class dashboardController extends Controller
 
         dd($request);
         $courtsDataJSON = $request->input('courts_data');
-    $courtsData = json_decode($courtsDataJSON, true);
+        $courtsData = json_decode($courtsDataJSON, true);
     
         // return $courtData;
 
