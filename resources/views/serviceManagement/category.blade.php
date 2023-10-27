@@ -18,7 +18,7 @@
             <table id="myTable" class="display table table-bordered responsive nowrap" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Column 1</th>
+                        <th>Name</th>
                         <th>Column 2</th>
                         <th>Column 3</th>
                         <th>Column 4</th>

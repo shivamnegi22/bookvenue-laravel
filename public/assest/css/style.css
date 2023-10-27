@@ -1214,6 +1214,7 @@ aside.left-panel:hover {
     width: 100%;
     background-color: #fff;
     padding: 0 1.25em 0 0;
+    margin-top: 10px;
 }
 
 .right-panel .navbar-header>a {
@@ -1335,6 +1336,7 @@ header .form-inline .search-form.close {
 
 .header-left {
     display: inline-block;
+    margin-top: 10px;
 }
 
 .header-left.open .form-inline {
