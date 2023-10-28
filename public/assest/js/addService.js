@@ -26,7 +26,6 @@ jQuery(document).ready(function($) {
             if (response.error === false) {
                 // Handle success'
                 renderServices(response.data);
-                console.log(response.data,'data is this on response');
             } else {
                 // Handle error
                 console.error(response.message,'error is this on response');
@@ -51,53 +50,6 @@ jQuery(document).ready(function($) {
     $('#service_id').change(function(){
         if($(this).val()) $(".hideForm").removeClass('d-none');
     });
-
-
-    $('#addMoreCourts').click(function() {
-        // Clone the #courtsForm element
-
-        var requiredFields = $('#courtsForm [required]');
-        var missingFields = [];
-        $('#courtsForm .text-danger').addClass('d-none');
-
-        requiredFields.each(function() {
-            if ($(this).val() === '') {
-                missingFields.push($(this).attr('id'));
-            }
-        });
-
-        if(missingFields.length > 0){
-           return missingFields.map((item)=>{
-                $(`#${item}Error`).removeClass('d-none');
-            })
-        }
-
-
-        var clonedForm = $('#courtsForm').clone();
-        let uniqueId = Date.now();
-
-        $('#courtsForm :input').val('');
-
-        // Clear the input fields in the cloned form
-        clonedForm.find(':input').prop('readonly', true);
-        clonedForm.find(':input').removeAttr('id');
-        clonedForm.find('.text-danger').remove();
-        clonedForm.find('#addBreakFormWrapper .col-md-5').removeClass("col-md-5").addClass("col-md-6");
-        clonedForm.find('#addBreakFormWrapper .col-md-2').remove();
-        clonedForm.attr('id', uniqueId);
-        clonedForm.append(`<div class="col-md-4 my-3"><button type="button" class="btn btn-danger" onclick="removecourt(${uniqueId})">Remove court</button></div>`)
-        
-        // Append the cloned form to the target location
-        $('#courtsFormWrapper').append(`<h4 class='newFormHead' id="court${uniqueId}"><span>Court</span></h4>`);
-        $('#courtsFormWrapper').append(clonedForm);
-    });
-
-    $('#startTime').change(function(){ 
-        console.log($(this).val(),'start time is this')
-     })
-
-
-
 
     //  handle start and end time validation
     
@@ -145,7 +97,6 @@ jQuery(document).ready(function($) {
     function validateBreaks() {
         if(!startTimeInput.value || !endTimeInput.value){
             $(this).val('');
-            console.log("main wrapper don't have value")
         }
 
         var minValue = new Date("2000-01-01T" + startTimeInput.value);
@@ -154,16 +105,13 @@ jQuery(document).ready(function($) {
         var breakEndValue = new Date("2000-01-01T" + BreakEndInput.value);
 
         if( minValue <= breakStartValue && maxValue >= breakStartValue && minValue <= breakEndValue && maxValue >= breakEndValue  ){
-            var timeDifference = breakStartValue - breakEndValue;
 
-            if (timeDifference < 0 || timeDifference < 5 * 60 * 1000) {
-                console.log('break validation failed')
+            if (breakStartValue >= breakEndValue ) {
                 BreakEndInput.value = "";
             }
         }
         else{
-            console.log('min max validation failed')
-            if(minValue <= breakStartValue || maxValue >= breakStartValue){
+            if(minValue > breakStartValue || maxValue < breakStartValue){
                 BreakStartInput.value = "";
             }
             if(minValue <= breakEndValue || maxValue >= breakEndValue){
@@ -177,6 +125,90 @@ jQuery(document).ready(function($) {
     BreakEndInput.addEventListener("change", validateBreaks);
 
     //end validation check
+
+    $('#addBreaks').click(function(){
+
+        var requiredFields = $('#addBreakForm input');
+        var missingFields = [];
+
+        requiredFields.each(function() {
+            if ($(this).val() === '') {
+                missingFields.push($(this).attr('id'));
+            }
+        });
+
+        if(missingFields.length > 0){
+            return alert('Please fill all fields first.')
+        }
+
+        var clonedFormRow = $('#addBreakForm').clone();
+        let uniqueId = Date.now();
+
+        $('#addBreakForm input').val('');
+        clonedFormRow.find(':input').prop('readonly', true);
+        clonedFormRow.removeAttr('id');
+        clonedFormRow.attr('id', uniqueId);
+        clonedFormRow.find(':input').removeAttr('id');
+
+        clonedFormRow.find('.col-md-2').html(`<button type="button" class="btn btn-danger"  onclick="removeBreak(${uniqueId})">Remove</button>`);
+        $('#addBreakFormWrapper').append(clonedFormRow);
+    })
+
+
+
+    
+
+    $('#addMoreCourts').click(function() {
+        // Clone the #courtsForm element
+
+        var requiredFields = $('#courtsForm [required]');
+        var missingFields = [];
+        $('#courtsForm .text-danger').addClass('d-none');
+
+        requiredFields.each(function() {
+            if ($(this).val() === '') {
+                missingFields.push($(this).attr('id'));
+            }
+        });
+
+        if(missingFields.length > 0){
+           return missingFields.map((item)=>{
+                $(`#${item}Error`).removeClass('d-none');
+            })
+        }
+
+
+        var clonedForm = $('#courtsForm').clone();
+        let uniqueId = Date.now();
+
+        $('#courtsForm :input').val('');
+        
+        $('#addBreakFormWrapper .row').not('#addBreakForm').remove();
+
+        // Clear the input fields in the cloned form
+        clonedForm.find(':input').prop('readonly', true);
+        clonedForm.find(':input').removeAttr('id');
+        clonedForm.find('.text-danger').remove();
+        clonedForm.find('#addBreakFormWrapper .row').removeAttr('id');
+        clonedForm.find('#addBreakFormWrapper .col-md-5').removeClass("col-md-5").addClass("col-md-6");
+        clonedForm.find('#addBreakFormWrapper .col-md-2').remove();
+        clonedForm.attr('id', uniqueId);
+
+        
+        let index = $("#courtsFormWrapper .courtsForm").length;
+        clonedForm.find("input, textarea, select").each(function() {
+            var currentName = $(this).attr("name");
+            var newName = currentName.replace("[0]", `[${index}]`);
+            $(this).attr("name", newName);
+        });
+
+        clonedForm.append(`<div class="col-md-4 my-3"><button type="button" class="btn btn-danger" onclick="removecourt(${uniqueId})">Remove court</button></div>`)
+        
+        // Append the cloned form to the target location
+        $('#courtsFormWrapper').append(`<h4 class='newFormHead' id="court${uniqueId}"><span>Court</span></h4>`);
+        $('#courtsFormWrapper').append(clonedForm);
+        
+    });
 });
 
 function removecourt(courtRowId) {
@@ -186,6 +218,17 @@ function removecourt(courtRowId) {
         if (window.confirm('Are you sure you want to remove this court?')) {
             element.parentNode.removeChild(element);
             document.getElementById(`court${courtRowId}`).remove();
+        }
+    }
+    return null;
+}
+
+function removeBreak(breakRowId) {
+    var element = document.getElementById(breakRowId);
+    
+    if (element) {
+        if (window.confirm('Are you sure you want to remove this break?')) {
+            element.parentNode.removeChild(element);
         }
     }
     return null;
