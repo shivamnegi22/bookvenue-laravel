@@ -81,8 +81,7 @@ class dashboardController extends Controller
 
     public function addServices(Request $request)
     {
-
-        dd($request);
+        // dd($request);
         $courtsDataJSON = $request->input('courts_data');
         $courtsData = json_decode($courtsDataJSON, true);
     
