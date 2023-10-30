@@ -82,16 +82,10 @@ class dashboardController extends Controller
     public function addServices(Request $request)
     {
 
-        dd($request);
-        $courtsDataJSON = $request->input('courts_data');
-        $courtsData = json_decode($courtsDataJSON, true);
-    
-        // return $courtData;
-
         $facility_service = new Facility_service;
 
         $facility_service->facility_id = $request->facility_id;
-        $facility_service->service_id = $request->services_id;
+        $facility_service->service_id = $request->service_id;
         if ($request->hasFile('images')) {
             $images = [];
         
@@ -110,48 +104,39 @@ class dashboardController extends Controller
             $facility_service->featured_image = str_replace('public','storage',$url);
          }
 
-                $dates = $request->holiday;
-                $individualDates = [];
-
-                foreach ($dates as $date) {
-                    $individualDates[] = $date;
-                }
-
-        $facility_service->upcoming_holiday = json_encode($individualDates);
+        $facility_service->upcoming_holiday = $request->holiday;
         $facility_service->description = $request->description;
         $facility_service->created_by = Auth::user()->id;
 
         if($facility_service->save())
         {
 
-            foreach ($courtsData as $data) {
-
-                $court = new Court;
-            
-                // Set the attributes based on the data from the array
-                $court->facility_service_id = $facility_service->id;
-                $court->court_name = $data['name'];
-                $court->start_time = $data['startTime'];
-                $court->end_time = $data['endTime'];
-                $court->slot_price = $data['prize']; // You might want to adjust this based on your data.
-                $court->duration = $data['duration'];
-            
-                // The 'breaks' attribute might need some custom handling
-                $breaks = [];
-                foreach ($data['breaks'] as $break) {
-                    $breaks[] = [
-                        'start' => $break['start_Time'],
-                        'end' => $break['end_Time'],
-                    ];
+            if($request->courtName && sizeof($request->courtName ) > 0){
+                foreach($request->courtName as $key=>$courtValue){
+                    $court = new Court;
+                    $court->facility_service_id = $facility_service->id;
+                    $court->court_name = $courtValue;
+                    $court->start_time = $request->startTime[$key];
+                    $court->end_time = $request->endTime[$key];
+                    $court->description = $request->court_description[$key];
+                    $court->slot_price = $request->price[$key];
+                    $court->duration = $request->duration[$key];
+                    $courtBreaks = array();
+                    if($request->break_start[$key] && sizeof($request->break_start[$key]) > 0){
+                        foreach($request->break_start[$key] as $breakKey=>$break){
+                            $breaks = new \stdClass();
+                            $breaks->start_time = $break;
+                            $breaks->end_time = $request->break_end[$key][$breakKey];
+                            array_push($courtBreaks,$breaks );
+                        }
+                    }
+                    $court->breaks = json_encode($courtBreaks);
+                    $court->created_by = Auth::user()->id;
+                    $court->save();
                 }
-                $court->breaks = json_encode($breaks);
-                $court->created_by = Auth::user()->id;
-            
-                // Save the court
-                $court->save();
             }
 
-                return redirect()->back();
+            return redirect()->back();
             
         }
     }
