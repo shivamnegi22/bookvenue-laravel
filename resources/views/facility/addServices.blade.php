@@ -91,7 +91,7 @@
                                 <input type="number" class="inputField" name="duration[0]" id="duration" required/>
                             </div>
                             <div class="col-md-12" id="addBreakFormWrapper">
-                            <div class="row" id="addBreakForm">
+                            <div class="row addBreakForm" id="addBreakForm">
                             <div class="col-md-5">
                                 <label>Break Start</label>
                                 <input type="time" class="inputField breakStart" id="breakStart" name="break_start[0][]" />

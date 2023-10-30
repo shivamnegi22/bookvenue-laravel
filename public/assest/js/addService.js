@@ -192,6 +192,7 @@ jQuery(document).ready(function($) {
         clonedForm.find('#addBreakFormWrapper .row').removeAttr('id');
         clonedForm.find('#addBreakFormWrapper .col-md-5').removeClass("col-md-5").addClass("col-md-6");
         clonedForm.find('#addBreakFormWrapper .col-md-2').remove();
+        clonedForm.find('#addBreakFormWrapper').removeAttr('id');
         clonedForm.attr('id', uniqueId);
 
         
