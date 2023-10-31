@@ -18,31 +18,28 @@
             <table id="myTable" class="display table table-bordered responsive nowrap" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Column 1</th>
-                        <th>Column 2</th>
-                        <th>Column 3</th>
-                        <th>Column 4</th>
-                        <th>Column 5</th>
-                        <th>Column 6</th>
+                        <th>Service Category</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($service as $data)
                     <tr>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
+                    <td>{{\App\Models\Service_category::where('id',$data->service_category_id)->value('name')}}</td>
+                        <td>{{ $data->name }}</td>
+                        <td>{{ substr($data->description, 0, 20) }}</td>
+                        @if($data->status == '1')
+                        <td>Active</td>
+                        @else
+                        <td>Deactive</td>
+                        @endif
+                        <td><a href="#"><button class="btn btn-success">Edit</button></a>
+                        <a href="#"><button class="btn btn-danger">Delete</button></a></td>
                     </tr>
-                    <tr>
-                        <td>Row 2 Data 1</td>
-                        <td>Row 2 Data 2</td>
-                        <td>Row 2 Data 1</td>
-                        <td>Row 2 Data 2</td>
-                        <td>Row 2 Data 1</td>
-                        <td>Row 2 Data 2</td>
-                    </tr>
+                   @endforeach
                 </tbody>
             </table>
         </div>

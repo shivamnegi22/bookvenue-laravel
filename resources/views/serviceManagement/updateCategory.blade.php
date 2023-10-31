@@ -3,20 +3,20 @@
 
 @section('breadcrumb')
 <ul class="cd-breadcrumb">
-    <li><a href="#0">Dashboard</a></li>
-    <li><a href="#0">Facility Management</a></li>
-    <li><a href="#0">Sports Management</a></li>
-    <li class="current"><em>Update Sports</em></li>
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="#0">Service Management</a></li>
+    <li><a href="javascript: history.go(-1)">Category</a></li>
+    <li class="current"><em>Update Services Category</em></li>
 </ul>
 @endsection
 
-<form method="POST" enctype="multipart/form-data" action="#">
+<form method="POST" enctype="multipart/form-data" action="{{ url('update-service-category/'.$category->id) }}">
     @csrf
     <div class="container">
         <div class="row form">
             <div class="col-md-4">
                 <label>Name</label>
-                <input type="text" name="name" placeholder="Name" class="inputField">
+                <input type="text" name="name" placeholder="Name" class="inputField" value="{{$category->name}}" requried>
             </div>
             <div class="col-md-4">
                 <label>Featured Image</label>
@@ -28,10 +28,10 @@
             </div>
             <div class="col-md-12 mb-3">
                 <label>Description</label>
-                <textarea id="editor" name="description" placeholder="Description"></textarea>
+                <textarea name="description" placeholder="Description" class="inputField">{{$category->description}}</textarea>
             </div>
             <div class="col-md-12">
-                <button type="submit" class="formButton submit" name="submit">Save</button>
+                <button type="submit" class="formButton submit" name="submit">Update</button>
             </div>
         </div>
     </div>
