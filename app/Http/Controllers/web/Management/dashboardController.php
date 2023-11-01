@@ -27,7 +27,8 @@ class dashboardController extends Controller
 
     public function CategoryView()
     {
-        return view('serviceManagement.category');
+        $category = Service_category::get();
+        return view('serviceManagement.category',compact('category'));
     }
 
     public function createServicesCategoryView()
@@ -68,7 +69,9 @@ class dashboardController extends Controller
 
 
     public function serviceView(){
-        return view('serviceManagement.service');
+
+        $service = Service::get();
+        return view('serviceManagement.service',compact('service'));
     }
 
     public function addServicesView(){
@@ -81,7 +84,6 @@ class dashboardController extends Controller
 
     public function addServices(Request $request)
     {
-
         $facility_service = new Facility_service;
 
         $facility_service->facility_id = $request->facility_id;
@@ -95,7 +97,6 @@ class dashboardController extends Controller
                 $images[] = str_replace('public','storage',$cleanedString);
             }
         
-            // Encode the entire array as JSON without escaping slashes
             $facility_service->images = json_encode($images);
         }
 
@@ -179,18 +180,18 @@ class dashboardController extends Controller
     public function uploads(Request $request)
     {
         
-            $currentYear = date('Y');
-            $currentMonth = date('m');
-            $imageUrls = [];
+        $currentYear = date('Y');
+        $currentMonth = date('m');
+        $imageUrls = [];
     
             // Check if the request contains multiple images
-            if ($request->hasFile('images')) {
+        if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     // Store each image and get its URL
                     $url = $image->store("public/uploads/$currentYear/$currentMonth");
                     $imageUrls[] = asset(str_replace('public/', 'storage/', $url));
-                }
             }
+        }
     
             return redirect()->back();
 
@@ -201,8 +202,7 @@ class dashboardController extends Controller
     {
         $image = facility::where('id', $facility_id)->value('featured_image');
 
-        return $image;
-        
+        return $image;   
     }
 
     public function createAmenitiesView()
@@ -212,7 +212,7 @@ class dashboardController extends Controller
 
     public function createAmenities(Request $request)
     {
-        $amenity = new Amenities;
+      $amenity = new Amenities;
 
       $amenity->name = $request->name;
       
@@ -247,9 +247,58 @@ class dashboardController extends Controller
 
     public function getService($service_category_id)
     {
-
         $services = Service::where('service_category_id',$service_category_id)->select('id','name')->get();
 
         return $services;
+    }
+
+    public function deleteServiceCategory($id)
+    {
+        $category = Service_category::find($id);
+
+        if (!$category) {
+            return redirect()->back()->with('error', 'Facility not found');
+        }
+
+        // Check if there are related records in the related tables
+
+        $service = Service::where('service_category_id', $id)->count();
+        $facility = facility::where('service_category_id', $id)->count();
+
+        if ($service > 0 || $facility > 0 ) {
+            return redirect()->back()->with('error', 'Service category has related records and cannot be deleted');
+        }
+
+        $category->delete();
+
+        return redirect()->back()->with('delete', 'Service category have been deleted successfully.');
+    }
+
+    public function updateServiceCategoryView($id)
+    {
+        $category = Service_category::where('id',$id)->first();
+        return view('serviceManagement.updateCategory',compact('category'));
+    }
+
+    public function updateServiceCategory($id, Request $request)
+    {
+        $service_cat = Service_category::where('id',$id)->first();
+
+        $service_cat->name = $request->name;
+        if ($request->hasFile('featured_image')) { 
+        $url = $request->featured_image->store('public/category');
+        $service_cat->featured_image =  str_replace('public','storage',$url);
+        }
+        if ($request->hasFile('icon')) {
+        $url = $request->icon->store('public/category');
+        $service_cat->icon = str_replace('public','storage',$url);
+        }
+        $service_cat->description = $request->description;
+        
+        $service_cat->created_by = Auth::user()->id;
+        // $service_cat->verified_by = Auth::user()->id;
+        $service_cat->update();
+
+        return redirect()->back()->with('update','Service category have been updated successfully');
     }
 }

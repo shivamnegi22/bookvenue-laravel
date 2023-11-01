@@ -33,8 +33,6 @@ Route::post('/verify-otp', 'App\Http\Controllers\Auth\LoginController@verifyOTP'
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', 'App\Http\Controllers\web\Management\dashboardController@index');
 
-
-
     Route::get('/service', 'App\Http\Controllers\web\Management\dashboardController@serviceView');
 
     Route::get('/addServices', 'App\Http\Controllers\web\Management\dashboardController@addServicesView');
@@ -73,6 +71,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/get-service/{service_category_id}', 'App\Http\Controllers\web\Management\dashboardController@getService');
 
+    // delete service category
+    Route::get('/delete-service-category/{id}', 'App\Http\Controllers\web\Management\dashboardController@deleteServiceCategory');
+
+    //update service category
+    Route::get('/update-service-category/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateServiceCategoryView');
+    Route::post('/update-service-category/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateServiceCategory');
 });
 
 

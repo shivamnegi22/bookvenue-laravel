@@ -5,8 +5,10 @@ namespace App\Http\Controllers\web\Facility;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\facility;
+use App\Models\Facility_service;
 use App\Models\Service;
 use App\Models\Amenities;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -70,8 +72,10 @@ class facilityController extends Controller
 
     public function updateFacilityView($id)
     {
+        $service_category = Service_category::get();
+        $amenities = Amenities::get();
         $facility = facility::where('id',$id)->first();
-        return view('facility.updateFacility',compact('facility'));
+        return view('facility.updateFacility',compact('service_category','amenities','facility'));
     }
 
     public function updateFacility($id,Request $request)
@@ -88,8 +92,14 @@ class facilityController extends Controller
         $facility->address = $request->address;
         $facility->lat = $request->lat;
         $facility->lng = $request->lng;
+        if ($request->hasFile('featured_image')) {
+        $url = $request->featured_image->store('public/facility');
+        $facility->featured_image = str_replace('public','storage',$url);
+        }
         $facility->description = $request->description;
-         $facility->update();
+        $facility->created_by = Auth::user()->id;
+        $facility->verified_by = Auth::user()->id;
+        $facility->update();
  
          return redirect()->back();
     }
@@ -104,17 +114,17 @@ class facilityController extends Controller
 
         // Check if there are related records in the related tables
 
-        $facilityVenuCount = facility_venue::where('facility_id', $id)->count();
-        $facilitySportCount = facility_sports::where('facility_id', $id)->count();
+        $facility_service = Facility_service::where('facility_id', $id)->count();
+        $BookingCount = Booking::where('facility_id', $id)->count();
         $facilitySportCourtCount = facility_sports_court::where('facility_id', $id)->count();
 
-        if ($facilityVenuCount > 0 || $facilitySportCount > 0 || $facilitySportCourtCount > 0) {
+        if ($facility_service > 0 || $BookingCount > 0 ) {
             return redirect()->back()->with('error', 'Facility has related records and cannot be deleted');
         }
 
         $facility->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('delete', 'Facility have been deleted successfully.');
 
     }
 }

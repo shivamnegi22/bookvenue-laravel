@@ -9,64 +9,109 @@
 </ul>
 @endsection
 
-<form method="post" action="#" enctype="multipart/form-data">
+<form method="post" action="{{url('createFacility')}}" enctype="multipart/form-data">
     @csrf
     <div class="container">
         <div class="row form">
-            <div class="col-md-12 m20">
+            <div class="col-md-6">
                 <label>Facility Type</label>
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <input type="radio" id="sports" name="facility_type" value="" class="">
-                        <label for="html">Sports</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="venue" name="facility_type" value="venue">
-                        <label for="css">Venue</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="both" name="facility_type" value="both">
-                        <label for="css">Both</label>
-                    </div>
-                </div>
+                <select class="inputField" name="service_category_id" required>
+                    <option value='' hidden>Select Type</option>
+                    @foreach($service_category as $type)
+                    <option value="{{$type->id}}">{{$type->name}}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="col-md-6">
-                <label>Name</label>
-                <input type="text" name="name" placeholder="Name" value="{{$facility->official_name}}" class="inputField">
+                <label>Official Name</label>
+                <input type="text" name="name" placeholder="Official Name" value="{{$facility->official_name}}" class="inputField" required>
             </div>
             <div class="col-md-6">
                 <label>Alias</label>
-                <input type="text" name="alias" placeholder="Alias"  class="inputField">
+                <input type="text" name="alias" placeholder="Alias" value="{{$facility->alias}}" class="inputField">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
+                <label>Amenities</label>
+                <!-- <input type="text" name="amenities" placeholder="Amenities" class="inputField"> -->
+                <select class="inputField" name="amenities" id="amenity" multiple="multiple">
+                    <option value="">Choose Amenities</option>
+                    @foreach($amenities as $amenity)
+                    <option value="{{ $amenity->id }}">{{ $amenity->name }}</option>
+                    @endforeach
+
+                </select>
+            </div>
+            <div class="col-md-6">
                 <label>Address</label>
-                <input type="text" name="address" placeholder="Address" class="inputField">
-            </div>
-            <div class="col-md-4">
-                <label>Latitude</label>
-                <input type="text" name="latitude" placeholder="Latitude" class="inputField">
-            </div>
-            <div class="col-md-4">
-                <label>Longitude</label>
-                <input type="text" name="longitude" placeholder="Longitude" class="inputField">
+                <input type="text" name="address" placeholder="Address" value="{{$facility->address}}"  class="inputField" required>
             </div>
             <div class="col-md-6">
                 <label>Featured Image</label>
-                <input type="file" name="featured_image" placeholder="" class="form-control-file">
+                <input type="file" name="featured_image" placeholder="" class="form-control-file" required>
             </div>
-            <div class="col-md-6">
-                <label>Images</label>
-                <input type="file" name="images[]" multiple placeholder="" class="form-control-file">
+            <div class="col-md-4">
+                <label>Latitude</label>
+                <input type="text" id="latitude" name="lat" placeholder="Latitude" value="{{$facility->lat}}" class="inputField" required readonly>
+            </div>
+            <div class="col-md-4">
+                <label>Longitude</label>
+                <input type="text" id="longitude" name="lng" placeholder="Longitude" value="{{$facility->lng}}" class="inputField" required readonly>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="formButton submit w-100 mt-4" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalCenter">
+                    Location&nbsp;&nbsp;<i class="fa-solid fa-location-crosshairs"></i></button>
             </div>
             <div class="col-md-12 mb-3">
                 <label>Description</label>
-                <textarea id="editor" name="description" placeholder="Description"></textarea>
+                <textarea name="description" placeholder="Description" class="inputField" rows="5">{{$facility->description}}</textarea>
             </div>
             <div class="col-md-12">
-                <button type="submit" class="formButton submit" name="submit">Save</button>
+                <button type="submit" class="formButton submit" name="submit">Update</button>
             </div>
         </div>
     </div>
 </form>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="mb-3">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Select Location</h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 searchWrapper mb-3">
+                        <input type="search" name="address" placeholder="Search Location" class="inputField mb-0" oninput="handleInputChange(this)"/>
+                        <ul id="suggestions" class="suggestionList d-none"></ul>
+                    </div>
+                    <div class="col-md-5">
+                        <button type="button" class="formButton submit w-100" style="padding:6px 10px" onclick="useCurrentLocation()">
+                            Use Current Location&nbsp;&nbsp;<i class="fa-solid fa-location-crosshairs"></i></button>
+                    </div>
+                </div>
+                <div id="map" class="mb-3"></div>
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="formButton bg-secondary px-5" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="formButton submit px-5" onclick="confirmLocation()" data-bs-dismiss="modal">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
+
+@section('script')
+<script src="{{asset('assest/js/map.js')}}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCaUv3ZKC-Zlo0Jjt3_AJ6Obs2vFc6w0&libraries=places&callback=initMap"
+        async defer></script>
+<script>
+$(document).ready(function() {
+    $("#amenity").select2();
+
+});
+</script>
 @endsection

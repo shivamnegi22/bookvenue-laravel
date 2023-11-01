@@ -19,30 +19,25 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Column 2</th>
-                        <th>Column 3</th>
-                        <th>Column 4</th>
-                        <th>Column 5</th>
-                        <th>Column 6</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($category as $data)
                     <tr>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
-                        <td>Row 1 Data 1</td>
-                        <td class="d-flex justify-content-around"><a href="#" type="button" class="tableButton Update"><i class="fa-solid fa-file-pen"></i></a><button class="tableButton Delete"><i class="fa-solid fa-folder-minus"></i></button></td>
+                        <td>{{ $data->name }}</td>
+                        @if($data->status == '1')
+                        <td>Active</td>
+                        @else
+                        <td>Deactive</td>
+                        @endif
+                        <td>{{ $data->description }}</td>
+                        <td><a href="{{url('update-service-category/'.$data->id)}}"><button class="btn btn-success">Edit</button></a>
+                        <a href="{{url('delete-service-category/'.$data->id)}}"><button class="btn btn-danger">Delete</button></a></td>
                     </tr>
-                    <tr>
-                        <td>Row 2 Data 1</td>
-                        <td>Row 2 Data 2</td>
-                        <td>Row 2 Data 1</td>
-                        <td>Row 2 Data 2</td>
-                        <td>Row 2 Data 1</td>
-                        <td class="d-flex justify-content-around"><a href="#" type="button" class="tableButton Update"><i class="fa-solid fa-file-pen"></i></a><button class="tableButton Delete"><i class="fa-solid fa-folder-minus"></i></button></td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
