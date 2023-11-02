@@ -257,7 +257,7 @@ class dashboardController extends Controller
         $category = Service_category::find($id);
 
         if (!$category) {
-            return redirect()->back()->with('error', 'Facility not found');
+            return redirect()->back()->with('error', 'Category not found');
         }
 
         // Check if there are related records in the related tables
@@ -300,5 +300,56 @@ class dashboardController extends Controller
         $service_cat->update();
 
         return redirect()->back()->with('update','Service category have been updated successfully');
+    }
+
+    public function deleteServices($id)
+    {
+        $service = Service::find($id);
+
+        if (!$service) {
+            return redirect()->back()->with('error', 'Service not found');
+        }
+
+        // Check if there are related records in the related tables
+
+        $facility_service = Facility_service::where('service_id', $id)->count();
+
+        if ($facility_service > 0) {
+            return redirect()->back()->with('error', 'Service has related records and cannot be deleted');
+        }
+
+        $service->delete();
+
+        return redirect()->back()->with('delete', 'Service have been deleted successfully.');
+    }
+
+    public function updateServiceView($id)
+    {
+        $service_category = Service_category::get();
+        $service = Service::where('id',$id)->first();
+        return view('serviceManagement.updateService',compact('service_category','service'));
+    }
+
+    public function updateService($id,Request $request)
+    {
+        $service = Service::where('id',$id)->first();
+
+        $service->service_category_id = $request->service_category_id;
+        $service->name = $request->name;
+        if ($request->hasFile('featured_image')) {
+            $url = $request->featured_image->store('public/facility');
+            $service->featured_image = str_replace('public','storage',$url);
+        }
+        if ($request->hasFile('icon')) {
+            $url = $request->icon->store('public/facility');
+            $service->icon = str_replace('public','storage',$url);
+        }
+        $service->description = $request->description;
+        
+        $service->created_by = Auth::user()->id;
+        // $service->verified_by = Auth::user()->id;
+        $service->update();
+
+        return redirect()->back()->with('update','Service updated successfully.');
     }
 }

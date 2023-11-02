@@ -36,8 +36,8 @@
                         @else
                         <td>Deactive</td>
                         @endif
-                        <td><a href="#"><button class="btn btn-success">Edit</button></a>
-                        <a href="#"><button class="btn btn-danger">Delete</button></a></td>
+                        <td><a href="{{url('update-service/'.$data->id)}}"><button class="btn btn-success">Edit</button></a>
+                        <a href="{{url('delete-service/'.$data->id)}}"><button class="btn btn-danger">Delete</button></a></td>
                     </tr>
                    @endforeach
                 </tbody>
