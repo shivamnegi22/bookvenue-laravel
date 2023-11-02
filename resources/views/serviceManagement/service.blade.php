@@ -36,7 +36,8 @@
                         @else
                         <td>Deactive</td>
                         @endif
-                        <td><a href="#"><button class="btn btn-success">Edit</button></a>
+                    
+                        <td><a href="{{url('update-service/'.$data->id)}}"><button class="btn btn-success">Edit</button></a>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal">
                                 Delete
@@ -57,7 +58,7 @@
             <p class="Heading">Delete</p>
             <p class="Description">Are you sure you want to delete the entry.</p>
             <div class="buttonContainer">
-                <a href="{{url('delete-service-category/'.$data->id)}}"><button type="button"
+                <a href="{{url('delete-service/'.$data->id)}}"><button type="button"
                         class="acceptButton">Yes</button></a>
                 <button type="button" class="declineButton" data-bs-dismiss="modal">No</button>
             </div>

@@ -65,9 +65,9 @@
                         <ul
                             class="sub-menu children dropdown-menu {{ Request::is('category','service') ? 'show' : '' }}">
                             <li class="{{ Request::is('category') ? 'sub_active' : '' }}"><a
-                                    href="{{'category'}}">Category</a></li>
+                                    href="{{url('category')}}">Category</a></li>
                             <li class="{{ Request::is('service') ? 'sub_active' : '' }}"><a
-                                    href="{{'service'}}">Service</a></li>
+                                    href="{{url('service')}}">Service</a></li>
                         </ul>
                     </li>
                     <li
@@ -78,11 +78,11 @@
                         <ul
                             class="sub-menu children dropdown-menu {{ Request::is('createFacility','addServices','allFacility') ? 'show' : '' }}">
                             <li class="{{ Request::is('createFacility') ? 'sub_active' : '' }}"><a
-                                    href="{{'createFacility'}}">Create Facility</a></li>
+                                    href="{{url('createFacility')}}">Create Facility</a></li>
                             <li class="{{ Request::is('allFacility') ? 'sub_active' : '' }}"><a
-                                    href="{{'allFacility'}}">All Facility</a></li>
+                                    href="{{url('allFacility')}}">All Facility</a></li>
                             <li class="{{ Request::is('addServices') ? 'sub_active' : '' }}"><a
-                                    href="{{'addServices'}}">Add Services</a></li>
+                                    href="{{url('addServices')}}">Add Services</a></li>
                         </ul>
                     </li>
                     <li
@@ -93,7 +93,7 @@
                         <ul
                             class="sub-menu children dropdown-menu {{ Request::is('','create-amenities','') ? 'show' : '' }}">
                             <li class="{{ Request::is('create-amenities') ? 'sub_active' : '' }}"><a
-                                    href="{{'create-amenities'}}">Create Amenities</a></li>
+                                    href="{{url('create-amenities')}}">Create Amenities</a></li>
                         </ul>
                     </li>
                     <li class="menu-title">Booking Management</li>
@@ -111,7 +111,7 @@
                         </ul>
                     </li>
                     <li class="menu-title">Files Upload</li>
-                    <li class="{{ Request::is('uploads') ? 'active' : '' }}"><a href="{{'uploads'}}">
+                    <li class="{{ Request::is('uploads') ? 'active' : '' }}"><a href="{{url('uploads')}}">
                             <i class="menu-icon fa-solid fa-file-arrow-up"></i>Images Uploads</a></li>
                     <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
