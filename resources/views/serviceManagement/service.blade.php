@@ -28,7 +28,7 @@
                 <tbody>
                     @foreach($service as $data)
                     <tr>
-                    <td>{{\App\Models\Service_category::where('id',$data->service_category_id)->value('name')}}</td>
+                        <td>{{\App\Models\Service_category::where('id',$data->service_category_id)->value('name')}}</td>
                         <td>{{ $data->name }}</td>
                         <td>{{ substr($data->description, 0, 20) }}</td>
                         @if($data->status == '1')
@@ -37,12 +37,12 @@
                         <td>Deactive</td>
                         @endif
                     
-                        <td><a href="{{url('update-service/'.$data->id)}}"><button class="btn btn-success">Edit</button></a>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        <td><a href="{{url('update-service/'.$data->id)}}"><button class="tableButton Update">Edit</button></a>
+                        <button type="button" class="tableButton Delete" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal">
                                 Delete
                             </button>
-                    </td>
+                        </td>
                     </tr>
                    @endforeach
                 </tbody>
