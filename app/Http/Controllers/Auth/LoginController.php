@@ -124,4 +124,10 @@ public function verifyOTP(Request $request)
     }
 }
 
+public function logout(Request $request) {
+  
+    Auth::logout();
+    return redirect('/');
+  }
+
 }
