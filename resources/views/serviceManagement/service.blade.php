@@ -18,35 +18,53 @@
             <table id="myTable" class="display table table-bordered responsive nowrap" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Column 1</th>
-                        <th>Column 2</th>
-                        <th>Column 3</th>
-                        <th>Column 4</th>
-                        <th>Column 5</th>
-                        <th>Column 6</th>
+                        <th>Service Category</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($service as $data)
                     <tr>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
+                    <td>{{\App\Models\Service_category::where('id',$data->service_category_id)->value('name')}}</td>
+                        <td>{{ $data->name }}</td>
+                        <td>{{ substr($data->description, 0, 20) }}</td>
+                        @if($data->status == '1')
+                        <td>Active</td>
+                        @else
+                        <td>Deactive</td>
+                        @endif
+                    
+                        <td><a href="{{url('update-service/'.$data->id)}}"><button class="btn btn-success">Edit</button></a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal">
+                                Delete
+                            </button>
+                    </td>
                     </tr>
-                    <tr>
-                        <td>Row 2 Data 1</td>
-                        <td>Row 2 Data 2</td>
-                        <td>Row 2 Data 1</td>
-                        <td>Row 2 Data 2</td>
-                        <td>Row 2 Data 1</td>
-                        <td>Row 2 Data 2</td>
-                    </tr>
+                   @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content blowup">
+            <p class="Heading">Delete</p>
+            <p class="Description">Are you sure you want to delete the entry.</p>
+            <div class="buttonContainer">
+                <a href="{{url('delete-service/'.$data->id)}}"><button type="button"
+                        class="acceptButton">Yes</button></a>
+                <button type="button" class="declineButton" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal End -->
 
 @endsection

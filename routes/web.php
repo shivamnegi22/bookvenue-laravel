@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -32,8 +32,6 @@ Route::post('/verify-otp', 'App\Http\Controllers\Auth\LoginController@verifyOTP'
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', 'App\Http\Controllers\web\Management\dashboardController@index');
-
-
 
     Route::get('/service', 'App\Http\Controllers\web\Management\dashboardController@serviceView');
 
@@ -72,6 +70,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get-service-category/{facility_id}', 'App\Http\Controllers\web\Management\dashboardController@getServiceCategory');
 
     Route::get('/get-service/{service_category_id}', 'App\Http\Controllers\web\Management\dashboardController@getService');
+
+    // delete service category
+    Route::get('/delete-service-category/{id}', 'App\Http\Controllers\web\Management\dashboardController@deleteServiceCategory');
+
+    //update service category
+    Route::get('/update-service-category/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateServiceCategoryView');
+    Route::post('/update-service-category/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateServiceCategory');
+
+    //delete service
+    Route::get('/delete-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@deleteServices');
+
+        //update service category
+    Route::get('/update-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateServiceView');
+    Route::post('/update-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateService');
 
 });
 
