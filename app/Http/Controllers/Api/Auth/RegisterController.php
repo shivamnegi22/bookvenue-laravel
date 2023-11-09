@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 use App\MSG91;
-use App\Models\user;
+use App\Models\User;
 use App\Models\Role;
 use App\Models\role_user;
 use App\Models\Profile;
@@ -35,7 +35,7 @@ class RegisterController extends Controller
 
         }
 
-        $user = user::where('phone',$request->mobile)->first();
+        $user = User::where('phone',$request->mobile)->first();
 
         if($user){
 
@@ -127,7 +127,7 @@ class RegisterController extends Controller
                 ], 422); // 422 is the HTTP status code for unprocessable entity
             }
 
-            $user = user::where('phone',$request->mobile)->first();
+            $user = User::where('phone',$request->mobile)->first();
             
             if(!$user){
                 return response()->json([

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\MSG91;
-use App\Models\user;
+use App\Models\User;
 use Firebase\JWT\JWT;
 use Dotenv\Dotenv;
 use App\Models\Profile;
@@ -15,12 +15,12 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-use Illuminate\Foundation\Auth\Authenticatesusers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginAuthController extends Controller
 {
     
-    use Authenticatesusers;
+    use AuthenticatesUsers;
 
     protected $redirectTo = RouteServiceProvider::HOME;
 
@@ -49,7 +49,7 @@ class LoginAuthController extends Controller
         ], 422); // 422 is the HTTP status code for unprocessable entity
     }
   
-    $user = user::where('phone', $request->{$this->username()})->first();
+    $user = User::where('phone', $request->{$this->username()})->first();
 
     if ($user) {
 
@@ -113,7 +113,7 @@ public function verifyOTP(Request $request)
         ], 422); // 422 is the HTTP status code for unprocessable entity
     }
 
-    $user = user::where('phone',$request->mobile)->first();
+    $user = User::where('phone',$request->mobile)->first();
 
     if(!$user){
         return response()->json([
