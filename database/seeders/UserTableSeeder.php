@@ -36,7 +36,9 @@ class userTableSeeder extends Seeder
 
         $admin = new user();
 
-        $admin->phone = "7876787876";
+        $admin->phone = "9999999999";
+
+        $admin->password = bcrypt("Giks@123");
 
         $admin->save();
 

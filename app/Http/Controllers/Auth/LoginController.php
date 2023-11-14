@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Session;
 use App\MSG91;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -58,35 +59,48 @@ public function login(Request $request)
    
     $request->validate([
         'phone' => 'required|digits:10', 
+        'password' => 'required',
     ]);
 
     
     $user = User::where('phone', $request->{$this->username()})->first();
 
+    
+
     if ($user) {
 
-    $otp = mt_rand(100000, 999999);
+        // dd($request->password);
 
-    Session::forget('OTP');
+        if (Hash::check($request->password,$user->password)) {
 
-    Session::forget('phone');
+            
+            // Check if the user has any of the specified roles
+            Auth::login($user);
 
-    Session::put('OTP', $otp);
+            $user = Auth::user(); 
 
-    Session::put('phone', $request->{$this->username()});
+            if ($user->hasAnyRoles(['admin', 'vendor', 'helpdesk', 'manager'])) {
 
-    $MSG91 = new MSG91();
-
-    $MSG91->sendDltSms('62385ab87f0231333a04e445', '91'.$request->phone, 'OTP', [$otp]);
-
-    return view('auth.verify-otp');
-
+                
+                return redirect('dashboard');
+            } else {
+                
+                return redirect('user_dashboard');
+            }
+    
     }
 
     else
     {
-        return back()->withErrors(['otp' => 'Invalid phoneno']);
+        return back()->withErrors(['otp' => 'Invalid password']);
     }
+    
+    }
+    else
+    {
+        return back()->withErrors(['otp' => 'Phone no does not exist']);
+    }
+    
 }
 
 public function verifyOTP(Request $request)

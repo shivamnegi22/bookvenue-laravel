@@ -45,15 +45,15 @@
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}"><i class="fa-solid fa-user-plus"></i>&nbsp;&nbsp;Sign Up</a>
-                                </li>
+                                </li> -->
                             @endif
 
                             @if (Route::has('login'))
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}"><i class="fa-solid fa-arrow-right-to-bracket fa-rotate-180"></i>&nbsp;&nbsp;Login</a>
-                                </li>
+                                </li> -->
                             @endif
 
                         @else

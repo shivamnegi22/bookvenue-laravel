@@ -87,6 +87,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/update-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateServiceView');
     Route::post('/update-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateService');
 
+
 });
 
 

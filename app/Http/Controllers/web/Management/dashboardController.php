@@ -21,7 +21,12 @@ class dashboardController extends Controller
     public function index()
     {
 
-        return view('Management.dashboard');
+        $approovedFacility = facility::where('verified','1')->count();
+        $pendingFacility = facility::where('status','Pending')->count();
+        $activeFacility = facility::where('status','Active')->count();
+        $deactiveFacility = facility::where('status','Deactive')->count();
+        $facility = facility::orderBy('created_at','desc')->take(5)->get();
+        return view('Management.dashboard',compact('approovedFacility','pendingFacility','activeFacility','deactiveFacility','facility'));
     }
 
 
@@ -351,5 +356,10 @@ class dashboardController extends Controller
         $service->update();
 
         return redirect()->back()->with('update','Service updated successfully.');
+    }
+
+    public function deleteService($id)
+    {
+        
     }
 }
