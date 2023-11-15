@@ -2,6 +2,15 @@
 @extends('layouts.aside')
 @section('content')
 
+<style>
+    .right-panel .navbar-header {
+        padding: 10px 1.25em 0 0;
+    }
+    .header-left {
+        margin-top: 10px;
+    }
+</style>
+
 @section('breadcrumb')
 <ul class="cd-breadcrumb">
     <li><a href="/dashboard">Dashboard</a></li>
@@ -123,6 +132,6 @@
 
 @section('script')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- <script src="{{asset('assest/js/addService.js')}}" defer></script> -->
+<script src="{{asset('assest/js/addService.js')}}" defer></script>
 
 @endsection
