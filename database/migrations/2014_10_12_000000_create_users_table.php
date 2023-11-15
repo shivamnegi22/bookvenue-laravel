@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('phone')->unique();
-            $table->longtext('one_time_password')->nullable();
+            $table->string('password')->nullable();
             $table->timestamp('mobile_verified_at')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->string('status')->default('Active')->nullable();

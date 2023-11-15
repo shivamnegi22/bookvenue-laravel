@@ -21,7 +21,12 @@ class dashboardController extends Controller
     public function index()
     {
 
-        return view('Management.dashboard');
+        $approovedFacility = facility::where('verified','1')->count();
+        $pendingFacility = facility::where('status','Pending')->count();
+        $activeFacility = facility::where('status','Active')->count();
+        $deactiveFacility = facility::where('status','Deactive')->count();
+        $facility = facility::orderBy('created_at','desc')->take(5)->get();
+        return view('Management.dashboard',compact('approovedFacility','pendingFacility','activeFacility','deactiveFacility','facility'));
     }
 
 
@@ -260,15 +265,6 @@ class dashboardController extends Controller
             return redirect()->back()->with('error', 'Category not found');
         }
 
-        // Check if there are related records in the related tables
-
-        $service = Service::where('service_category_id', $id)->count();
-        $facility = facility::where('service_category_id', $id)->count();
-
-        if ($service > 0 || $facility > 0 ) {
-            return redirect()->back()->with('error', 'Service category has related records and cannot be deleted');
-        }
-
         $category->delete();
 
         return redirect()->back()->with('delete', 'Service category have been deleted successfully.');
@@ -312,12 +308,6 @@ class dashboardController extends Controller
 
         // Check if there are related records in the related tables
 
-        $facility_service = Facility_service::where('service_id', $id)->count();
-
-        if ($facility_service > 0) {
-            return redirect()->back()->with('error', 'Service has related records and cannot be deleted');
-        }
-
         $service->delete();
 
         return redirect()->back()->with('delete', 'Service have been deleted successfully.');
@@ -351,5 +341,10 @@ class dashboardController extends Controller
         $service->update();
 
         return redirect()->back()->with('update','Service updated successfully.');
+    }
+
+    public function deleteService($id)
+    {
+        
     }
 }

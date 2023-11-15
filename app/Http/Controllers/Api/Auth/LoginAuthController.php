@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\MSG91;
-use App\Models\user;
+use App\Models\User;
 use Firebase\JWT\JWT;
 use Dotenv\Dotenv;
 use App\Models\Profile;
@@ -15,12 +15,12 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-use Illuminate\Foundation\Auth\Authenticatesusers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginAuthController extends Controller
 {
     
-    use Authenticatesusers;
+    use AuthenticatesUsers;
 
     protected $redirectTo = RouteServiceProvider::HOME;
 
@@ -34,137 +34,109 @@ class LoginAuthController extends Controller
         return 'mobile';
     }
 
-    public function login(Request $request)
-    {
-        try{
+public function login(Request $request)
+{
+    try {
+        $validator = Validator::make($request->all(), [
+            'mobile' => 'required|digits:10|regex:/^[0-9]{10}$/',
+        ]);
 
-            $validator = Validator::make($request->all(), [
-                'mobile' => 'required|max:10|exists:users,phone|regex:/^[0-9]{10}$/',
-            ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => 'Validation failed',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
 
-    if ($validator->fails()) {
-        return response()->json([
-            'error' => 'Validation failed',
-            'errors' => $validator->errors(),
-        ], 422); // 422 is the HTTP status code for unprocessable entity
-    }
-  
-    $user = user::where('phone', $request->{$this->username()})->first();
+        // Check if user exists with the provided mobile number
+        $user = User::where('phone', $request->mobile)->first();
 
-    if ($user) {
+        if (!$user) {
+            // If the user doesn't exist, create a new user
+            $user = new User;
 
-    $otp = mt_rand(100000, 999999);
+            $user->phone = $request->mobile;
+            $user->status = 'Active';
+            $user->save();
+        }
 
-    $MSG91 = new MSG91();
+        // Generate OTP
+        $otp = mt_rand(100000, 999999);
 
-    $otpStatus = $MSG91->sendDltSms('62385ab87f0231333a04e445', '91'.$request->mobile, 'OTP', [$otp]);
+        // Store OTP in Session
+        $request->session()->put('otp', $otp);
 
-    $user->one_time_password = Crypt::encrypt($otp);
-    $user->expires_at = now()->addMinutes(5);
+        // Additional steps for sending OTP via SMS...
+        $MSG91 = new MSG91();
+        $otpStatus = $MSG91->sendDltSms('62385ab87f0231333a04e445', '91' . $request->mobile, 'OTP', [$otp]);
 
-    if($user->update()){
-
-    return response([
-        'OTPStatus' => $otpStatus,
-        'mobile' => $request->mobile,
-        'message' => 'OTP send successfully.',
-    ],200);
-
-    }
-    
-    return response([
-        'error' => "Unable to update user.",
-    ],400);
-
-
-
-    }
-
-    return response([
-        'message' => "No user allocated with this Number.",
-    ],401);
-    
-    }  
-    catch(Exception $e){
-
+        // Respond with success message
         return response([
-            'errors' => $e->message(),
+            'OTPStatus' => $otpStatus,
+            'mobile' => $request->mobile,
+            'message' => 'OTP sent successfully.',
+        ], 200);
+    } catch(Exception $e) {
+        return response([
+            'errors' => $e->getMessage(),
             'message' => "Internal Server Error.",
-        ],500);
+        ], 500);
     }
-
 }
 
+    
 
-public function verifyOTP(Request $request)
-{
-    try{
-
-        $validator = Validator::make($request->all(), [
-            'mobile' => 'required|max:10|exists:users,phone|regex:/^[0-9]{10}$/',
-            'otp' => 'required|digits:6', 
-        ]);
- 
-
-    if ($validator->fails()) {
-        return response()->json([
-            'error' => 'Validation failed',
-            'errors' => $validator->errors(),
-        ], 422); // 422 is the HTTP status code for unprocessable entity
-    }
-
-    $user = user::where('phone',$request->mobile)->first();
-
-    if(!$user){
-        return response()->json([
-            'error' => 'user not varified yet.',
-        ], 401);
-    }
-
-    $expiresAt = $user->expires_at;
-
-    if (now() > $expiresAt) {
-
-        return response()->json([
-            'error' => 'OTP Expired',
-        ], 422); 
-
-    }
-
-    $encryptedOTP = $user->one_time_password;
-
-            // Decrypt the OTP
-    $decryptedOTP = Crypt::decrypt($encryptedOTP);
-
-
-    if ($decryptedOTP == $request->otp) {
-     
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        $user->update([
-            'one_time_password' => null,
-            'expires_at' => null,
-        ]);
-
-        return response([
-            'token' =>  $token,
-            'message' => 'user logged in successfully.'
-        ],200);
-  
-       
-    } 
-
-    return response()->json([
-        'message' => 'Invalid credentials'
-    ], 401);
-
-    }  
-    catch(Exception $e){
-        return response([
+    public function verifyOTP(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'mobile' => 'required|max:10|regex:/^[0-9]{10}$/',
+                'otp' => 'required|digits:6',
+            ]);
+    
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => 'Validation failed',
+                    'errors' => $validator->errors(),
+                ], 422);
+            }
+    
+            // Check if the user exists
+            $user = User::where('phone', $request->mobile)->first();
+    
+            if (!$user) {
+                // If the user doesn't exist, create a new user
+                $user = User::create([
+                    'phone' => $request->mobile,
+                    // Other user fields...
+                ]);
+            }
+    
+            $storedOTP = $request->session()->get('otp');
+    
+            if ($storedOTP == $request->otp) {
+                $token = $user->createToken('auth_token')->plainTextToken;
+    
+                // Clear the OTP from the session after successful login
+                $request->session()->forget('otp');
+    
+                return response([
+                    'token' =>  $token,
+                    'message' => 'User logged in successfully.'
+                ], 200);
+            }
+    
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 401);
+    
+        } catch(Exception $e) {
+            return response([
                 'errors' => $e->message(),
                 'message' => "Internal Server Error.",
-            ],500); 
+            ], 500);
+        }
     }
+    
+}
 
-}
-}

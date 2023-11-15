@@ -37,13 +37,13 @@
                         <td>Deactive</td>
                         @endif
                     
-                        <td><a href="{{url('update-service/'.$data->id)}}"><button class="tableButton Update">Edit</button></a>
-                        <button type="button" class="tableButton Delete" data-bs-toggle="modal"
-                                data-bs-target="#deleteModal">
+                        <td><a href="{{url('update-service/'.$data->id)}}"><button class="btn btn-success">Edit</button></a>
+                        <a href="{{url('delete-service/'.$data->id)}}"> <button type="button" class="btn btn-danger">
                                 Delete
-                            </button>
-                        </td>
+                            </button></a>
+                    </td>
                     </tr>
+
                    @endforeach
                 </tbody>
             </table>
@@ -51,20 +51,5 @@
     </div>
 </div>
 
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content blowup">
-            <p class="Heading">Delete</p>
-            <p class="Description">Are you sure you want to delete the entry.</p>
-            <div class="buttonContainer">
-                <a href="{{url('delete-service/'.$data->id)}}"><button type="button"
-                        class="acceptButton">Yes</button></a>
-                <button type="button" class="declineButton" data-bs-dismiss="modal">No</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Delete Modal End -->
 
 @endsection

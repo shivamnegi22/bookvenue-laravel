@@ -139,4 +139,5 @@ function handleSelectOption(placeId){
 		}
 	}
 
+
 // End Map.js

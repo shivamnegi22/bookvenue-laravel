@@ -30,7 +30,7 @@ class facilityController extends Controller
        $facility->service_category_id = $request->service_category_id;
        $facility->official_name = $request->name;
        $facility->alias = $request->alias;
-       $facility->amenities = $request->amenities;
+       $facility->amenities = json_encode($request->amenities);
        $slug = Str::slug($request->name);
        $randomString = Str::random(5);
        $facility->slug =  $randomString. '-' . $slug;
@@ -114,17 +114,11 @@ class facilityController extends Controller
 
         // Check if there are related records in the related tables
 
-        $facility_service = Facility_service::where('facility_id', $id)->count();
-        $BookingCount = Booking::where('facility_id', $id)->count();
-        $facilitySportCourtCount = facility_sports_court::where('facility_id', $id)->count();
-
-        if ($facility_service > 0 || $BookingCount > 0 ) {
-            return redirect()->back()->with('error', 'Facility has related records and cannot be deleted');
-        }
-
         $facility->delete();
 
         return redirect()->back()->with('delete', 'Facility have been deleted successfully.');
 
     }
+
+  
 }

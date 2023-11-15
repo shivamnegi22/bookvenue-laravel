@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // routes/web.php
@@ -52,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/createFacility', 'App\Http\Controllers\web\Facility\facilityController@createFacility');
     Route::get('/update-facility/{id}/', 'App\Http\Controllers\web\Facility\facilityController@updateFacilityView');
     Route::post('/update-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@updateFacility');
-    Route::get('/daelete-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@deleteFacility');
+    Route::get('/delete-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@deleteFacility');
 
 
     //Sports CRUD
@@ -84,6 +86,7 @@ Route::middleware(['auth'])->group(function () {
         //update service category
     Route::get('/update-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateServiceView');
     Route::post('/update-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateService');
+
 
 });
 

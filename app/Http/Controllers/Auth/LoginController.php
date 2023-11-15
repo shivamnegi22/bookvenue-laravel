@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\Authenticatesusers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Crypt;
-use App\Models\user;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Session;
 use App\MSG91;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -27,7 +28,7 @@ class LoginController extends Controller
     |
     */
 
-    use Authenticatesusers;
+    use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
@@ -58,35 +59,48 @@ public function login(Request $request)
    
     $request->validate([
         'phone' => 'required|digits:10', 
+        'password' => 'required',
     ]);
 
     
-    $user = user::where('phone', $request->{$this->username()})->first();
+    $user = User::where('phone', $request->{$this->username()})->first();
+
+    
 
     if ($user) {
 
-    $otp = mt_rand(100000, 999999);
+        // dd($request->password);
 
-    Session::forget('OTP');
+        if (Hash::check($request->password,$user->password)) {
 
-    Session::forget('phone');
+            
+            // Check if the user has any of the specified roles
+            Auth::login($user);
 
-    Session::put('OTP', $otp);
+            $user = Auth::user(); 
 
-    Session::put('phone', $request->{$this->username()});
+            if ($user->hasAnyRoles(['admin', 'vendor', 'helpdesk', 'manager'])) {
 
-    $MSG91 = new MSG91();
-
-    $MSG91->sendDltSms('62385ab87f0231333a04e445', '91'.$request->phone, 'OTP', [$otp]);
-
-    return view('Auth.verify-otp');
-
+                
+                return redirect('dashboard');
+            } else {
+                
+                return redirect('dashboard');
+            }
+    
     }
 
     else
     {
-        return back()->withErrors(['otp' => 'Invalid phoneno']);
+        return back()->withErrors(['otp' => 'Invalid password']);
     }
+    
+    }
+    else
+    {
+        return back()->withErrors(['otp' => 'Phone no does not exist']);
+    }
+    
 }
 
 public function verifyOTP(Request $request)
@@ -103,7 +117,7 @@ public function verifyOTP(Request $request)
 
     if ($savedOTP == $request->otp) {
 
-        $user = user::where('phone', $phone)->first();
+        $user = User::where('phone', $phone)->first();
 
         Auth::login($user);
         
@@ -123,5 +137,11 @@ public function verifyOTP(Request $request)
         return back()->withErrors(['otp' => 'Invalid OTP']);
     }
 }
+
+public function logout(Request $request) {
+  
+    Auth::logout();
+    return redirect('/');
+  }
 
 }
