@@ -1,41 +1,47 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="container loginSection">
+<div class="container login_page">
     <form class="forms" method="POST" action="{{ route('login.submit') }}">
         @csrf
-        <div class="row">
-            <div class="col-md-12 loginHeading">
-                <h2>~ Login to BookVenue ~</h2>
-                <sub>Please enter your mobile number and password</sub>
+        <div class="d-flex flex row g-0">
+            <div class="col-md-6 mt-3">
+                <div class="card card2">
+                    <img src="image/favicon.png" height="100" width="100" />
+                    <div class="image">
+                        <img src="image/Bookvenue-text.png">
+                    </div>
+                </div>
             </div>
-            <div class="col-md-12">
-                <input id="phone" type="text" class="inputField @error('phone') is-invalid @enderror" name="phone" onkeypress='validate(event)'
-                    value="{{ old('phone') }}" placeholder="Enter Mobile Number" autocomplete="off" required autofocus>
-                @error('phone')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <div class="col-md-12">
-                <input id="password" type="password" class="inputField @error('password') is-invalid @enderror" name="password"
-                    value="{{ old('password') }}" placeholder="Enter Password" required autofocus>
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <div class="col-md-12">
-                <button type="submit" class="loginButton">Log in&nbsp;<i class="fa-solid fa-circle-plus"></i></button>
-            </div>
-            <div class="col-md-12">
-                @if (Route::has('password.request'))
-                <a class="btn btn-link" href="{{ route('password.request') }}">
-                    {{ __('Forgot Your Password?') }}
-                </a>
-                @endif
+            <div class="col-md-6 mt-3">
+                <div class="card card1">
+                    <div class="d-flex flex-column"> <span class="login">~ Login to BookVenue ~</span> </div>
+                    <div class="input-field d-flex flex-column mt-3">
+                        <span>Mobile Number</span>
+                        @error('phone')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                        <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" 
+                onkeypress='validate(event)' value="{{ old('phone') }}" placeholder="Enter Mobile Number" autocomplete="off" required autofocus>
+                        <span class="mt-3">Password</span>
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" placeholder="Enter Your Password" autofocus>
+                        <button type="submit" class="mt-4 login_btn d-flex justify-content-center align-items-center">Login</button>
+                        <div class="mt-3 text1">
+                            @if (Route::has('password.request'))
+                            <a class="forget" href="{{ route('password.request') }}">
+                                {{ __('Forgot Your Password?') }}
+                            </a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </form>

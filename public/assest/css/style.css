@@ -2472,6 +2472,7 @@ footer.site-footer {
     right: 0;
     bottom: 0;
     width: 100%;
+    z-index: 9;
 }
 
 footer.site-footer .footer-inner {
