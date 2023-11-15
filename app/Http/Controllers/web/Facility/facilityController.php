@@ -114,17 +114,11 @@ class facilityController extends Controller
 
         // Check if there are related records in the related tables
 
-        $facility_service = Facility_service::where('facility_id', $id)->count();
-        $BookingCount = Booking::where('facility_id', $id)->count();
-        $facilitySportCourtCount = facility_sports_court::where('facility_id', $id)->count();
-
-        if ($facility_service > 0 || $BookingCount > 0 ) {
-            return redirect()->back()->with('error', 'Facility has related records and cannot be deleted');
-        }
-
         $facility->delete();
 
         return redirect()->back()->with('delete', 'Facility have been deleted successfully.');
 
     }
+
+  
 }

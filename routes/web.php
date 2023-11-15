@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/createFacility', 'App\Http\Controllers\web\Facility\facilityController@createFacility');
     Route::get('/update-facility/{id}/', 'App\Http\Controllers\web\Facility\facilityController@updateFacilityView');
     Route::post('/update-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@updateFacility');
-    Route::get('/daelete-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@deleteFacility');
+    Route::get('/delete-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@deleteFacility');
 
 
     //Sports CRUD
