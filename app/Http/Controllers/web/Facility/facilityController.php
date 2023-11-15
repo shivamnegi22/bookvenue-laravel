@@ -30,7 +30,7 @@ class facilityController extends Controller
        $facility->service_category_id = $request->service_category_id;
        $facility->official_name = $request->name;
        $facility->alias = $request->alias;
-       $facility->amenities = $request->amenities;
+       $facility->amenities = json_encode($request->amenities);
        $slug = Str::slug($request->name);
        $randomString = Str::random(5);
        $facility->slug =  $randomString. '-' . $slug;

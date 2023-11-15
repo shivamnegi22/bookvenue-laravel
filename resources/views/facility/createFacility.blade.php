@@ -37,7 +37,7 @@
             <div class="col-md-6">
                 <label>Amenities</label>
                 <!-- <input type="text" name="amenities" placeholder="Amenities" class="inputField"> -->
-                <select class="inputField" name="amenities" id="amenity" multiple="multiple">
+                <select class="inputField" name="amenities[]" id="amenity" multiple="multiple">
                     <option value="">Choose Amenities</option>
                     @foreach($amenities as $amenity)
                     <option value="{{ $amenity->id }}">{{ $amenity->name }}</option>

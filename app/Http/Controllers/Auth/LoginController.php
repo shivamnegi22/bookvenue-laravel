@@ -85,7 +85,7 @@ public function login(Request $request)
                 return redirect('dashboard');
             } else {
                 
-                return redirect('user_dashboard');
+                return redirect('dashboard');
             }
     
     }
