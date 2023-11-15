@@ -268,13 +268,13 @@
         <footer class="site-footer">
             <div class="footer-inner bg-white">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 d-flex align-items-center">
                         Copyright &copy; <script>
                         document.write(new Date().getFullYear())
                         </script>
                     </div>
-                    <div class="col-sm-6 d-flex justify-content-end">
-                        Designed by <a href="#">&nbsp;GIKS India Private Limited</a>
+                    <div class="col-sm-6 d-flex justify-content-end align-items-center">
+                        Powered by <a href="#">&nbsp;<img src="{{asset('image/giks-black.png')}}" height="30px"></a>
                     </div>
                 </div>
             </div>
