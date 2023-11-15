@@ -28,14 +28,14 @@
                     <tr>
                         <td>{{\App\Models\Service_category::where('id',$data->service_category_id)->value('name')}}</td>
                         <td>{{$data->official_name}}</td>
-                        <td>{{$data->address}}</td>
+                        <td>{{ substr($data->address, 0, 20) }}</td>
                         @if($data->status == '1')
                         <td>Active</td>
                         @else
                         <td>Deactive</td>
                         @endif
-                        <td><a href="{{url('update-facility/'.$data->id)}}"><button class="btn btn-success">Edit</button></a>
-                        <a href="{{url('delete-facility/'.$data->id)}}"><button class="btn btn-danger">Delete</button></a></td>
+                        <td><a href="{{url('update-facility/'.$data->id)}}"><button class="tableButton Update">Edit</button></a>
+                        <a href="{{url('delete-facility/'.$data->id)}}"><button class="tableButton Delete">Delete</button></a></td>
                     </tr>
                     @endforeach
                 </tbody>

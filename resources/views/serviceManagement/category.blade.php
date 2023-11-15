@@ -33,7 +33,7 @@
                         @else
                         <td>Deactive</td>
                         @endif
-                        <td>{{ $data->description }}</td>
+                        <td>{{ substr($data->description, 0, 40) }}</td>
                         <td><a href="{{url('update-service-category/'.$data->id)}}"><button
                                     class="tableButton Update">Edit</button></a>
                             <button type="button" class="tableButton Delete" data-bs-toggle="modal"
