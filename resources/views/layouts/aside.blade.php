@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{{asset('assest/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('assest/css/form.css')}}">
     <link rel="stylesheet" href="{{asset('assest/css/table.css')}}">
+    @yield('head')
 </head>
 
 <body>
