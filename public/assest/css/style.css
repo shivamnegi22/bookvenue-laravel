@@ -1073,6 +1073,7 @@ aside.left-panel:hover {
 .open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .sub-menu.show{
     display: block;
     position: absolute;
+    background-color: #fff;
 }
 
 .open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .sub-menu li a {
@@ -2466,9 +2467,12 @@ header .form-inline .search-form.close {
 }
 
 /* Footer */
-/* footer.site-footer {
-    padding: 0 1.875em;
-} */
+footer.site-footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+}
 
 footer.site-footer .footer-inner {
     color: #78909c;
@@ -2841,12 +2845,8 @@ footer.site-footer .footer-inner a {
         height: 63px;
     }
 
-    footer.site-footer {
-        padding: 0 1.125em;
-    }
-
     footer.site-footer .footer-inner {
-        padding: 1.75em 1em;
+        padding: .75em 1em;
     }
 }
 
