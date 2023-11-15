@@ -1,5 +1,8 @@
 @extends('layouts.aside')
-@section('content')
+
+@section('head')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
 
 @section('breadcrumb')
 <ul class="cd-breadcrumb">
@@ -9,6 +12,7 @@
 </ul>
 @endsection
 
+@section('content')
 <form method="post" action="{{url('createFacility')}}" enctype="multipart/form-data">
     @csrf
     <div class="container">
@@ -108,4 +112,10 @@
 <script src="{{asset('assest/js/map.js')}}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCaUv3ZKC-Zlo0Jjt3_AJ6Obs2vFc6w0&libraries=places&callback=initMap"
         async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    jQuery(document).ready(function($) {
+        $('#amenity').select2();
+});
+</script>
 @endsection
