@@ -71,7 +71,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/get-service-category/{facility_id}', 'App\Http\Controllers\web\Management\dashboardController@getServiceCategory');
 
-    Route::get('/get-service/{service_category_id}', 'App\Http\Controllers\web\Management\dashboardController@getService');
+    Route::get('/get-service/{facility_id}', 'App\Http\Controllers\web\Management\dashboardController@getService');
 
     // delete service category
     Route::get('/delete-service-category/{id}', 'App\Http\Controllers\web\Management\dashboardController@deleteServiceCategory');

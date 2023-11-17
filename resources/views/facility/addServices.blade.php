@@ -19,7 +19,7 @@
                 <select class="inputField" name="facility_id" id="facility_id" required>
                     <option value="" hidden>Choose Facility</option>
                     @foreach($facility as $facilities)
-                    <option value="{{$facilities->service_category_id}}">{{$facilities->official_name}}</option>
+                    <option value="{{$facilities->id}}">{{$facilities->official_name}}</option>
                     @endforeach
                 </select>
             </div>
