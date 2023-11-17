@@ -7,6 +7,8 @@
     <meta name="description" content="Giks">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="icon" type="image/png" href="{{asset('/image/favicon.png')}}" sizes="32x32">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
         integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -27,6 +29,7 @@
     <link rel="stylesheet" href="{{asset('assest/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('assest/css/form.css')}}">
     <link rel="stylesheet" href="{{asset('assest/css/table.css')}}">
+    @yield('head')
 </head>
 
 <body>
@@ -96,7 +99,7 @@
                                     href="{{url('create-amenities')}}">Create Amenities</a></li>
                         </ul>
                     </li>
-                    <li class="menu-title">Booking Management</li>
+                    <!-- <li class="menu-title">Booking Management</li>
                     <li
                         class="menu-item-has-children dropdown {{ Request::is('book-facility','allBooking','') ? 'active show' : '' }}">
                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
@@ -109,19 +112,11 @@
                             <li class="{{ Request::is('allBooking') ? 'sub_active' : '' }}"><a
                                     href="#">All Booking</a></li>
                         </ul>
-                    </li>
-                    <li class="menu-title">Files Upload</li>
+                    </li> -->
+                    <!-- <li class="menu-title">Files Upload</li>
                     <li class="{{ Request::is('uploads') ? 'active' : '' }}"><a href="{{url('uploads')}}">
                             <i class="menu-icon fa-solid fa-file-arrow-up"></i>Images Uploads</a></li>
-                    <!-- <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa-solid fa-th"></i>Forms</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa-solid fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
-                            <li><i class="menu-icon fa-solid fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
-                        </ul>
-                    </li> -->
-                </ul>
+                </ul> -->
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside>
@@ -267,13 +262,10 @@
         <footer class="site-footer">
             <div class="footer-inner bg-white">
                 <div class="row">
-                    <div class="col-sm-6">
-                        Copyright &copy; <script>
+                    <div class="col-sm-12 d-flex justify-content-end align-items-center">
+                    Copyright &copy; <script>
                         document.write(new Date().getFullYear())
-                        </script>
-                    </div>
-                    <div class="col-sm-6 d-flex justify-content-end">
-                        Designed by <a href="#">&nbsp;GIKS India Private Limited</a>
+                        </script> || Powered by <a href="#">&nbsp;<img src="{{asset('image/giks-black.png')}}" height="30px"></a>
                     </div>
                 </div>
             </div>
