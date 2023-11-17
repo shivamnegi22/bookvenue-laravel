@@ -250,11 +250,9 @@ class dashboardController extends Controller
         }
     }
 
-    public function getService($facility_id)
+    public function getService($service_category_id)
     {
-        $services_category_id = facility::where('id',$facility_id)->select('id','name')->value('service_category_id');
-
-        $services = Service::where('service_category_id',$services_category_id)->select('id','name')->get();
+        $services = Service::where('service_category_id',$service_category_id)->select('id','name')->get();
 
         return $services;
     }

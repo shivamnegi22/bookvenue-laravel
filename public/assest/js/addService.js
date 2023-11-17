@@ -22,7 +22,8 @@ jQuery(document).ready(function($) {
 
 
     $('#facility_id').change(function(){
-        ajaxGetRequest(`/get-service/${$(this).val()}`, function(response) {
+        var serviceCategoryId = $(this).find(':selected').data('service-category');
+        ajaxGetRequest(`/get-service/${serviceCategoryId}`, function(response) {
             if (response.error === false) {
                 // Handle success'
                 renderServices(response.data);
