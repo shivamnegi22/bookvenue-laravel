@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('lng')->nullable();
             $table->string('featured_image')->nullable();
             $table->longText('description')->nullable();
-            $table->string('status')->default(true);
+            $table->string('status')->nullable();
             $table->boolean('verified')->default(false);
             $table->timestamp('verified_at')->nullable();
             $table->unsignedBigInteger('verified_by')->nullable();

@@ -278,6 +278,7 @@ class dashboardController extends Controller
 
     public function updateServiceCategory($id, Request $request)
     {
+        // dd($request);
         $service_cat = Service_category::where('id',$id)->first();
 
         $service_cat->name = $request->name;

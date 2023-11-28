@@ -56,6 +56,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/update-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@updateFacility');
     Route::get('/delete-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@deleteFacility');
 
+    //all courts
+    Route::get('/all-courts', 'App\Http\Controllers\web\Facility\facilityController@allCourts');
+
+    //delete court
+    Route::get('/disable-courts/{court_id}', 'App\Http\Controllers\web\Facility\facilityController@desableCourts');
 
     //Sports CRUD
     Route::get('/category', 'App\Http\Controllers\web\Management\dashboardController@categoryView');
@@ -86,6 +91,8 @@ Route::middleware(['auth'])->group(function () {
         //update service category
     Route::get('/update-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateServiceView');
     Route::post('/update-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateService');
+
+
 
 
 });

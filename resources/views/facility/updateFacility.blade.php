@@ -9,7 +9,7 @@
 </ul>
 @endsection
 
-<form method="post" action="{{url('createFacility')}}" enctype="multipart/form-data">
+<form method="post" action="{{url('update-facility/'.$facility->id)}}" enctype="multipart/form-data">
     @csrf
     <div class="container">
         <div class="row form">
@@ -67,7 +67,7 @@
                 <textarea name="description" placeholder="Description" class="inputField" rows="5">{{$facility->description}}</textarea>
             </div>
             <div class="col-md-12">
-                <button type="submit" class="formButton submit" name="submit">Update</button>
+                <button type="submit" class="formButton submit" value="submit" name="submit">Update</button>
             </div>
         </div>
     </div>

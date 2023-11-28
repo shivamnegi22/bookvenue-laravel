@@ -9,6 +9,7 @@ use App\Models\Facility_service;
 use App\Models\Service;
 use App\Models\Amenities;
 use App\Models\Booking;
+use App\Models\Court;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -35,6 +36,7 @@ class facilityController extends Controller
        $randomString = Str::random(5);
        $facility->slug =  $randomString. '-' . $slug;
        $facility->address = $request->address;
+       $facility->status = 'Active';
        $facility->lat = $request->lat;
        $facility->lng = $request->lng;
     //    if ($request->hasFile('images')) {
@@ -66,7 +68,7 @@ class facilityController extends Controller
 
     public function allFacility()
     {
-        $facility = facility::where('status','1')->get();
+        $facility = facility::where('status','Active')->get();
         return view('facility.allFacility',compact('facility'));
     }
 
@@ -80,9 +82,12 @@ class facilityController extends Controller
 
     public function updateFacility($id,Request $request)
     {
+        // dd($request);
         $facility = facility::where('id',$id)->first();
 
-        $facility->service_category_id = $request->Service_category_id;
+        // dd($facility);
+
+        $facility->service_category_id = $request->service_category_id;
         $facility->official_name = $request->name;
         $facility->alias = $request->alias;
         $facility->amenities = $request->amenities;
@@ -120,5 +125,52 @@ class facilityController extends Controller
 
     }
 
-  
+    public function allCourts()
+    {
+        $courts = Court::where('status','1')->get();
+
+        $courtData = [];
+
+        if($courts)
+        {
+            
+            foreach($courts as $value)
+            {
+                
+                $obj = new \stdClass();
+                $facility_id =  Facility_service::where('id',$value->facility_service_id)->value('facility_id');
+
+                $obj->facility_name = facility::where('id',$facility_id)->value('official_name');
+
+                $service_id = Facility_service::where('id',$value->facility_service_id)->value('service_id');
+                $obj->service_name = Service::where('id',$service_id)->value('name');
+                $obj->court_id = $value->id;
+                $obj->court = $value->court_name;
+                $obj->start_time = $value->start_time;
+                $obj->end_time = $value->end_time;
+                $obj->duration = $value->duration;
+                $obj->price = $value->slot_price;
+
+                $courtData[] = $obj;
+
+            
+            }
+
+            // dd($courtData);
+
+        }
+        return view('facility.allCourts',compact('courts','courtData'));
+    }
+
+    public function desableCourts($court_id)
+    {
+        $court = Court::where('id',$court_id)->first();
+
+        $court->status = '0';
+
+        $court->update();
+
+        return back()->with('disable','The court have been dactivated.');
+    }
+
 }

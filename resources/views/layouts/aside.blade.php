@@ -86,6 +86,9 @@
                                     href="{{url('allFacility')}}">All Facility</a></li>
                             <li class="{{ Request::is('addServices') ? 'sub_active' : '' }}"><a
                                     href="{{url('addServices')}}">Add Services</a></li>
+
+                             <li class="{{ Request::is('all-courts') ? 'sub_active' : '' }}"><a
+                                    href="{{url('all-courts')}}">All Courts</a></li>
                         </ul>
                     </li>
                     <li

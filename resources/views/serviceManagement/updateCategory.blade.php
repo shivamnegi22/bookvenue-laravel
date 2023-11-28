@@ -31,7 +31,7 @@
                 <textarea name="description" placeholder="Description" class="inputField">{{$category->description}}</textarea>
             </div>
             <div class="col-md-12">
-                <button type="submit" class="formButton submit" name="submit">Update</button>
+                <button type="submit" class="formButton submit" value="submit" name="submit">Update</button>
             </div>
         </div>
     </div>
