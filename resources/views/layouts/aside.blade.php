@@ -92,7 +92,7 @@
                         </ul>
                     </li>
                     <li
-                        class="menu-item-has-children dropdown {{ Request::is('','create-amenities','') ? 'active show': '' }}">
+                        class="menu-item-has-children dropdown {{ Request::is('','create-amenities','all-amenities') ? 'active show': '' }}">
                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="{{ Request::is('','create-amenities','') ? 'false' : 'true' }}"> <i
                                 class="menu-icon fa-solid fa-cog"></i>Configuration</a>
@@ -100,6 +100,8 @@
                             class="sub-menu children dropdown-menu {{ Request::is('','create-amenities','') ? 'show' : '' }}">
                             <li class="{{ Request::is('create-amenities') ? 'sub_active' : '' }}"><a
                                     href="{{url('create-amenities')}}">Create Amenities</a></li>
+                            <li class="{{ Request::is('all-amenities') ? 'sub_active' : '' }}"><a
+                                    href="{{url('all-amenities')}}">All Amenities</a></li>
                         </ul>
                     </li>
                     <!-- <li class="menu-title">Booking Management</li>

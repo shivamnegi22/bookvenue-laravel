@@ -147,6 +147,11 @@ class dashboardController extends Controller
         }
     }
 
+    public function updateCourts(Request $request,$id)
+    {
+
+    }
+
     public function createServicesView()
     {
         $service_category = Service_category::get();
@@ -344,8 +349,50 @@ class dashboardController extends Controller
         return redirect()->back()->with('update','Service updated successfully.');
     }
 
-    public function deleteService($id)
+    public function allAmenities()
     {
-        
+        $amenity = Amenities::orderBy('created_at','desc')->get();
+        // dd($amenity);
+        return view('configuration.allAmenities',compact('amenity'));
     }
+
+    public function updateAmenitiesView($amenity_id)
+    {
+        $amenity = Amenities::where('id',$amenity_id)->first();
+        return view('configuration.updateAminity',compact('amenity'));
+    }
+
+    public function updateAmenities($amenity_id,Request $request)
+    {
+        $amenity = Amenities::where('id',$amenity_id)->first();
+
+        $amenity->name = $request->name;
+      
+        if ($request->hasFile('icon')) {
+          $url = $request->icon->store('public/facility');
+          $amenity->icon = str_replace('public','storage',$url);
+      }
+       
+        $amenity->description = $request->description;
+        $amenity->created_by = Auth::user()->id;
+  
+        $amenity->update();
+  
+        return redirect()->back();
+    }
+
+    public function deleteAmenities($id)
+    {
+        $aminity = Amenities::find($id);
+
+        if (!$aminity) {
+            return redirect()->back()->with('error', 'Aminity not found');
+        }
+
+        $aminity->delete();
+
+        return redirect()->back()->with('delete', 'Aminity have been deleted successfully.');
+    }
+
+
 }

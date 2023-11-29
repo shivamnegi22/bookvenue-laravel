@@ -1,6 +1,8 @@
 @extends('layouts.aside')
 @section('content')
-
+@section('head')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
 @section('breadcrumb')
 <ul class="cd-breadcrumb">
     <li><a href="#0">Dashboard</a></li>
@@ -15,7 +17,7 @@
         <div class="row form">
             <div class="col-md-6">
                 <label>Facility Type</label>
-                <select class="inputField" name="service_category_id" required>
+                <select class="inputField" name="service_category_id"  required>
                     <option value='' hidden>Select Type</option>
                     @foreach($service_category as $type)
                     <option value="{{$type->id}}">{{$type->name}}</option>
@@ -33,7 +35,7 @@
             <div class="col-md-6">
                 <label>Amenities</label>
                 <!-- <input type="text" name="amenities" placeholder="Amenities" class="inputField"> -->
-                <select class="inputField" name="amenities" id="amenity" multiple="multiple">
+                <select class="inputField" name="amenities[]" id="amenity" multiple="multiple" >
                     <option value="">Choose Amenities</option>
                     @foreach($amenities as $amenity)
                     <option value="{{ $amenity->id }}">{{ $amenity->name }}</option>
@@ -108,10 +110,13 @@
 <script src="{{asset('assest/js/map.js')}}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCaUv3ZKC-Zlo0Jjt3_AJ6Obs2vFc6w0&libraries=places&callback=initMap"
         async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-$(document).ready(function() {
-    $("#amenity").select2();
+    jQuery(document).ready(function($) {
 
+        $('#amenity').select2({
+            placeholder: "Choose Amenities",
+        });
 });
 </script>
 @endsection

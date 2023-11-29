@@ -71,6 +71,12 @@ use App\Http\Controllers\Api\Booking\bookingController;
     //booking api
     Route::post('/booking', [bookingController::class, 'Booking']);
 
+    Route::post('/get-slots-of-court', [managementController::class, 'getSlotsOfCourt']);
+
+    //create spaces
+      // delete facility route
+    Route::post('/create-spaces', [facilityController::class, 'addServices']);
+
 Route::middleware('auth:sanctum')->group(function () {
 
 

@@ -79,7 +79,9 @@ button:hover:after {
                         <td>{{$court->start_time}} to {{$court->end_time}}</td>
                         <td>{{$court->duration}}</td>
                         <td>{{$court->price}}</td>
-                        <td><a href="{{url('disable-courts/'.$court->court_id)}}"><button class="btn btn-danger">Deactive</button></a></td>
+
+                        <td><a href="{{url('update-courts/'.$court->court_id)}}"><button class="tableButton Update">Edit</button></a>
+                        <a href="{{url('disable-courts/'.$court->court_id)}}"><button class="tableButton Delete">Delete</button></a></td>
                     </tr>
                    
                     @endforeach

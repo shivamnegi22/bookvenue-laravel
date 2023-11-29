@@ -28,7 +28,7 @@ class facilityController extends Controller
     {
        $facility = new facility;
 
-       $facility->service_category_id = $request->service_category_id;
+       $facility->service_category_id = json_encode($request->service_category_id);
        $facility->official_name = $request->name;
        $facility->alias = $request->alias;
        $facility->amenities = json_encode($request->amenities);
@@ -82,15 +82,12 @@ class facilityController extends Controller
 
     public function updateFacility($id,Request $request)
     {
-        // dd($request);
         $facility = facility::where('id',$id)->first();
 
-        // dd($facility);
-
-        $facility->service_category_id = $request->service_category_id;
+        $facility->service_category_id = json_encode($request->service_category_id);
         $facility->official_name = $request->name;
         $facility->alias = $request->alias;
-        $facility->amenities = $request->amenities;
+        $facility->amenities = json_encode($request->amenities);
         $slug = Str::slug($request->name);
         $randomString = Str::random(5);
         $facility->slug = $slug . '-' . $randomString;
@@ -173,4 +170,5 @@ class facilityController extends Controller
         return back()->with('disable','The court have been dactivated.');
     }
 
+    
 }

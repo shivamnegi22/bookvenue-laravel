@@ -89,6 +89,7 @@ public function login(Request $request)
     public function verifyOTP(Request $request)
     {
         try {
+            
             $validator = Validator::make($request->all(), [
                 'mobile' => 'required|max:10|regex:/^[0-9]{10}$/',
                 'otp' => 'required|digits:6',
