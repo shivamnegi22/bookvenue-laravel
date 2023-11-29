@@ -81,7 +81,7 @@
                     </div>
                     <div class="col-md-4 hideForm d-none">
                         <label>Description</label>
-                        <textarea class="inputField h-auto" rows="5" name="court_description[0]" placeholder="description"></textarea>
+                        <textarea class="inputField h-auto" rows="5" name="court_description[0]" placeholder="Description"></textarea>
                     </div>
                     <div class="col-md-8 hideForm d-none">
                         <div class="row">

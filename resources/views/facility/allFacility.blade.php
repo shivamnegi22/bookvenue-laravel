@@ -4,8 +4,8 @@
 @section('breadcrumb')
 <ul class="cd-breadcrumb">
     <li><a href="#0">Dashboard</a></li>
-    <li><a href="#0">Booking Management</a></li>
-    <li><a href="#0">Booking</a></li>
+    <li><a href="#0">Facility Management</a></li>
+    <li class="current"><em>All Facility</em></li>
 </ul>
 @endsection
 
