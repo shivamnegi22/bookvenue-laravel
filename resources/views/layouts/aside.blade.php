@@ -256,7 +256,7 @@
         <!-- Content -->
         <div class="content">
             <!-- Animated -->
-            <div class="animated fadeIn">
+            <div class="animated fadeIn mb-5">
                 @yield('content')
             </div>
             <!-- .animated -->
