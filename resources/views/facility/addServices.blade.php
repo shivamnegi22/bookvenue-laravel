@@ -28,7 +28,7 @@
                 <select class="inputField" name="facility_id" id="facility_id" required>
                     <option value="" hidden>Choose Facility</option>
                     @foreach($facility as $facilities)
-                    <option value="{{$facilities->service_category_id}}">{{$facilities->official_name}}</option>
+                    <option value="{{$facilities->id}}" data-service-category="{{$facilities->service_category_id}}">{{$facilities->official_name}}</option>
                     @endforeach
                 </select>
             </div>
@@ -81,21 +81,21 @@
                     </div>
                     <div class="col-md-4 hideForm d-none">
                         <label>Description</label>
-                        <textarea class="inputField h-auto" rows="5" name="court_description[0]" placeholder="Description"></textarea>
+                        <textarea class="inputField h-auto" rows="5" name="court_description[0]" placeholder="description"></textarea>
                     </div>
                     <div class="col-md-8 hideForm d-none">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-between">
                                     <label>Price</label>
-                                    <span class="font10 text-danger d-none" id="priceError">Required</span>
+                                    <span class="font10 text-danger d-none" id="priceError">required</span>
                                 </div>
                                 <input type="number" class="inputField" name="price[0]" id="price" required/>
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-between">
                                     <label>Duration</label>
-                                    <span class="font10 text-danger d-none" id="durationError">Required</span>
+                                    <span class="font10 text-danger d-none" id="durationError">required</span>
                                 </div>
                                 <input type="number" class="inputField" name="duration[0]" id="duration" required/>
                             </div>

@@ -40,7 +40,7 @@
                 <textarea name="description" placeholder="Description" class="inputField">{{$service->description}}</textarea>
             </div>
             <div class="col-md-12">
-                <button type="submit" class="formButton submit" name="submit">Save</button>
+                <button type="submit" class="formButton submit" value="submit" name="submit">Save</button>
             </div>
         </div>
     </div>

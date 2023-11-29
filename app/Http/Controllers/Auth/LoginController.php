@@ -85,7 +85,7 @@ public function login(Request $request)
                 return redirect('dashboard');
             } else {
                 
-                return redirect('dashboard');
+                return view('errors.401');
             }
     
     }
@@ -103,40 +103,6 @@ public function login(Request $request)
     
 }
 
-public function verifyOTP(Request $request)
-{
-
-    $request->validate([
- 
-        'otp' => 'required|digits:6', 
-    ]);
-
-    $savedOTP = Session::get('OTP');
-
-    $phone = Session::get('phone');
-
-    if ($savedOTP == $request->otp) {
-
-        $user = User::where('phone', $phone)->first();
-
-        Auth::login($user);
-        
-        $user = Auth::user(); 
-
-        if ($user->hasAnyRoles(['admin', 'vendor', 'helpdesk', 'manager'])) {
-          
-            return redirect('dashboard');
-
-        } else {
-     
-            return redirect('dashboard');
-        }
-    } 
-    else {
-      
-        return back()->withErrors(['otp' => 'Invalid OTP']);
-    }
-}
 
 public function logout(Request $request) {
   
