@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('facility', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('service_category_id');
+            $table->string('service_category_id')->nullable();
             $table->text('amenities')->nullable();
             $table->string('official_name')->nullable();
             $table->string('slug')->nullable()->unique();
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('lng')->nullable();
             $table->string('featured_image')->nullable();
             $table->longText('description')->nullable();
-            $table->string('status')->default(true);
+            $table->string('status')->nullable();
             $table->boolean('verified')->default(false);
             $table->timestamp('verified_at')->nullable();
             $table->unsignedBigInteger('verified_by')->nullable();
@@ -33,7 +33,6 @@ return new class extends Migration
 
             $table->foreign('verified_by')->references('id')->on('users');
             $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('Service_category_id')->references('id')->on('service_category');
 
         });
     }

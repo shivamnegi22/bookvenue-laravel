@@ -35,8 +35,8 @@
                         @endif
                         <td>{{ substr($data->description, 0, 40) }}</td>
                         <td><a href="{{url('update-service-category/'.$data->id)}}"><button
-                                    class="btn btn-success">Edit</button></a>
-                            <a href="{{url('delete-service-category/'.$data->id)}}"><button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    class="tableButton Update">Edit</button></a>
+                            <a href="{{url('delete-service-category/'.$data->id)}}"><button type="button" class="tableButton Delete" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal">
                                 Delete
                             </button></a>

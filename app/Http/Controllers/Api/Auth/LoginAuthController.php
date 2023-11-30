@@ -64,7 +64,7 @@ public function login(Request $request)
         $otp = mt_rand(100000, 999999);
 
         // Store OTP in Session
-        $request->session()->put('otp', $otp);
+        cache(['otp_'.$request->mobile => $otp], now()->addMinutes(5));
 
         // Additional steps for sending OTP via SMS...
         $MSG91 = new MSG91();
@@ -89,6 +89,7 @@ public function login(Request $request)
     public function verifyOTP(Request $request)
     {
         try {
+            
             $validator = Validator::make($request->all(), [
                 'mobile' => 'required|max:10|regex:/^[0-9]{10}$/',
                 'otp' => 'required|digits:6',
@@ -112,13 +113,13 @@ public function login(Request $request)
                 ]);
             }
     
-            $storedOTP = $request->session()->get('otp');
+            $storedOTP = cache('otp_'.$request->mobile);
     
             if ($storedOTP == $request->otp) {
                 $token = $user->createToken('auth_token')->plainTextToken;
     
                 // Clear the OTP from the session after successful login
-                $request->session()->forget('otp');
+                cache()->forget('otp_'.$request->mobile);
     
                 return response([
                     'token' =>  $token,

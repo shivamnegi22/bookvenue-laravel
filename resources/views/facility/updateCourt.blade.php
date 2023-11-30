@@ -2,20 +2,11 @@
 @extends('layouts.aside')
 @section('content')
 
-<style>
-    .right-panel .navbar-header {
-        padding: 10px 1.25em 0 0;
-    }
-    .header-left {
-        margin-top: 10px;
-    }
-</style>
-
 @section('breadcrumb')
 <ul class="cd-breadcrumb">
     <li><a href="/dashboard">Dashboard</a></li>
     <li><a href="#0">Facility Management</a></li>
-    <li class="current"><em>Add Services</em></li>
+    <li class="current"><em>Update Services</em></li>
 </ul>
 @endsection
 
@@ -81,7 +72,7 @@
                     </div>
                     <div class="col-md-4 hideForm d-none">
                         <label>Description</label>
-                        <textarea class="inputField h-auto" rows="5" name="court_description[0]" placeholder="Description"></textarea>
+                        <textarea class="inputField h-auto" rows="5" name="court_description[0]" placeholder="description"></textarea>
                     </div>
                     <div class="col-md-8 hideForm d-none">
                         <div class="row">

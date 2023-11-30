@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/addServices', 'App\Http\Controllers\web\Management\dashboardController@addServicesView');
     Route::Post('/addServices', 'App\Http\Controllers\web\Management\dashboardController@addServices');
 
+    Route::get('/update-courts/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateCourts');
 
     Route::get('/createServices', 'App\Http\Controllers\web\Management\dashboardController@createServicesView');
     Route::post('/createServices', 'App\Http\Controllers\web\Management\dashboardController@createServices'); 
@@ -56,6 +57,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/update-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@updateFacility');
     Route::get('/delete-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@deleteFacility');
 
+    //all courts
+    Route::get('/all-courts', 'App\Http\Controllers\web\Facility\facilityController@allCourts');
+
+    //delete court
+    Route::get('/disable-courts/{court_id}', 'App\Http\Controllers\web\Facility\facilityController@desableCourts');
 
     //Sports CRUD
     Route::get('/category', 'App\Http\Controllers\web\Management\dashboardController@categoryView');
@@ -67,6 +73,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/create-amenities', 'App\Http\Controllers\web\Management\dashboardController@createAmenitiesView');
     Route::post('/create-amenities', 'App\Http\Controllers\web\Management\dashboardController@createAmenities');
+
+    Route::get('/all-amenities', 'App\Http\Controllers\web\Management\dashboardController@allAmenities');
+    Route::get('delete-aminity/{amenity_id}', 'App\Http\Controllers\web\Management\dashboardController@deleteAmenities');
+    Route::get('/update-aminity/{amenity_id}', 'App\Http\Controllers\web\Management\dashboardController@updateAmenitiesView');
+    Route::post('/update-aminity/{amenity_id}', 'App\Http\Controllers\web\Management\dashboardController@updateAmenities');
 
 
     Route::get('/get-service-category/{facility_id}', 'App\Http\Controllers\web\Management\dashboardController@getServiceCategory');
@@ -86,6 +97,8 @@ Route::middleware(['auth'])->group(function () {
         //update service category
     Route::get('/update-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateServiceView');
     Route::post('/update-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateService');
+
+
 
 
 });

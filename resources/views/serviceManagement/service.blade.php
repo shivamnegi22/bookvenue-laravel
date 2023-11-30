@@ -37,8 +37,8 @@
                         <td>Deactive</td>
                         @endif
                     
-                        <td><a href="{{url('update-service/'.$data->id)}}"><button class="btn btn-success">Edit</button></a>
-                        <a href="{{url('delete-service/'.$data->id)}}"> <button type="button" class="btn btn-danger">
+                        <td><a href="{{url('update-service/'.$data->id)}}"><button class="tableButton Update">Edit</button></a>
+                        <a href="{{url('delete-service/'.$data->id)}}"> <button type="button" class="tableButton Delete">
                                 Delete
                             </button></a>
                     </td>
