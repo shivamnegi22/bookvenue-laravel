@@ -19,7 +19,7 @@
         <div class="row form">
             <div class="col-md-6">
                 <label>Facility Type</label>
-                <select class="inputField" name="service_category_id" required>
+                <select class="inputField" name="service_category_id[]" id="facility_type" multiple required>
                     <option value='' hidden>Select Type</option>
                     @foreach($service_category as $type)
                     <option value="{{$type->id}}">{{$type->name}}</option>
@@ -120,7 +120,9 @@
             placeholder: "Choose Amenities",
         });
 
-        
+        $('#facility_type').select2({
+            placeholder: "Choose Type",
+        });
 
 });
 </script>

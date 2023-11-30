@@ -114,8 +114,6 @@ class facilityController extends Controller
             return redirect()->back()->with('error', 'Facility not found');
         }
 
-        // Check if there are related records in the related tables
-
         $facility->delete();
 
         return redirect()->back()->with('delete', 'Facility have been deleted successfully.');
@@ -149,11 +147,8 @@ class facilityController extends Controller
                 $obj->price = $value->slot_price;
 
                 $courtData[] = $obj;
-
             
             }
-
-            // dd($courtData);
 
         }
         return view('facility.allCourts',compact('courts','courtData'));

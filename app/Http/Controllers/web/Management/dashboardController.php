@@ -257,11 +257,16 @@ class dashboardController extends Controller
 
     public function getService($service_category_id)
     {
-        $services = Service::where('service_category_id',$service_category_id)->select('id','name')->get();
-
+        
+        $service_category_ids = explode(',', $service_category_id);
+    
+        $services = Service::whereIn('service_category_id', $service_category_ids)
+                           ->select('id', 'name')
+                           ->get();
+    
         return $services;
     }
-
+    
     public function deleteServiceCategory($id)
     {
         $category = Service_category::find($id);
