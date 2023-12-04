@@ -9,6 +9,9 @@ use App\Models\Service;
 use App\Models\Facility_service;
 use App\Models\Service_category;
 use App\Models\Court;
+use App\Models\Amenities;
+use Laravel\Sanctum\PersonalAccessToken;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
@@ -109,12 +112,13 @@ class facilityController extends Controller
     public function createFacility(Request $request)
     {
         try{
+            
 
             $validator = Validator::make($request->all(), [
-                'name' => 'required',
+                'officialName' => 'required',
                 'service_category_id' => 'required',
-                'lat' => 'required',
-                'lng' => 'required',
+                'latitude' => 'required',
+                'longitude' => 'required',
                 'featured_image' => 'required',
             ]);
 
@@ -126,37 +130,32 @@ class facilityController extends Controller
     }
         $facility = new facility;
 
+
+
        $facility->service_category_id = $request->service_category_id;
-       $facility->official_name = $request->name;
+       $facility->official_name = $request->officialName ;
        $facility->alias = $request->alias;
-       $facility->amenities = json_encode($request->amenities);
-       $slug = Str::slug($request->name);
+       $facility->amenities = $request->amenities;
+       $slug = Str::slug($request->officialName);
        $randomString = Str::random(5);
        $facility->slug =  $randomString. '-' . $slug;
        $facility->address = $request->address;
-       $facility->lat = $request->lat;
-       $facility->lng = $request->lng;
-    //    if ($request->hasFile('images')) {
-    //     $images = [];
-    
-    //     foreach ($request->file('images') as $image) {
-    //         $path = $image->store('public/facility');
-    //         $images[] = json_encode(str_replace('public','storage',$path));
-    //     }
-    
-    //     // Encode the entire array as JSON without escaping slashes
-    //     $facility->images = json_encode($images, JSON_UNESCAPED_SLASHES);
-    // }
+       $facility->lat = $request->latitude;
+       $facility->lng = $request->longitude;
+       $facility->status = 'Pending';
     
        if ($request->hasFile('featured_image')) {
 
         $url = $request->featured_image->store('public/facility');
         $facility->featured_image = str_replace('public','storage',$url);
         }
-      
+
+        $token = PersonalAccessToken::findToken($request->bearerToken());
+        $userId = $token->tokenable->id;
+
        $facility->description = $request->description;
-       $facility->created_by = 1;
-       $facility->verified_by = 1;
+       $facility->created_by =  $userId;
+       
 
          if($facility->save())
          {

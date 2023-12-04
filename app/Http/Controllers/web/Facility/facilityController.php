@@ -29,6 +29,7 @@ class facilityController extends Controller
        $facility = new facility;
 
        $facility->service_category_id = json_encode($request->service_category_id);
+       
        $facility->official_name = $request->name;
        $facility->alias = $request->alias;
        $facility->amenities = json_encode($request->amenities);
@@ -43,7 +44,7 @@ class facilityController extends Controller
     //     $images = [];
     
     //     foreach ($request->file('images') as $image) {
-    //         $path = $image->store('public/facility');
+    //         $path = $image->store('public/facility');  
     //         $images[] = json_encode(str_replace('public','storage',$path));
     //     }
     
@@ -58,6 +59,7 @@ class facilityController extends Controller
         }
       
        $facility->description = $request->description;
+       $facility->verified = '1';
        $facility->created_by = Auth::user()->id;
        $facility->verified_by = Auth::user()->id;
        $facility->save();
@@ -70,6 +72,12 @@ class facilityController extends Controller
     {
         $facility = facility::where('status','Active')->get();
         return view('facility.allFacility',compact('facility'));
+    }
+
+    public function pendingFacility()
+    {
+        $facility = facility::where('status','Pending')->get();
+        return view('facility.pendingFacility',compact('facility'));
     }
 
     public function updateFacilityView($id)
@@ -104,6 +112,30 @@ class facilityController extends Controller
         $facility->update();
  
          return redirect()->back();
+    }
+
+    public function aprovedFacility($id)
+    {
+        $facility = facility::where('id',$id)->first();
+
+        $facility->status = 'active';
+        $facility->verified_by = Auth::user()->id;
+
+        $facility->update();
+
+        return redirect('pending/facility');
+    }
+
+    public function unaprovedFacility($id)
+    {
+        $facility = facility::where('id',$id)->first();
+
+        $facility->status = 'Pending';
+        $facility->verified_by = Auth::user()->id;
+
+        $facility->update();
+
+        return redirect('aprooved/facility');
     }
 
     public function deleteFacility($id)

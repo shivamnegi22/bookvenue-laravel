@@ -40,7 +40,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/addServices', 'App\Http\Controllers\web\Management\dashboardController@addServicesView');
     Route::Post('/addServices', 'App\Http\Controllers\web\Management\dashboardController@addServices');
 
-    Route::get('/update-courts/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateCourts');
+    Route::get('/update-courts/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateCourtsView');
+    Route::post('/update-courts/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateCourts');
 
     Route::get('/createServices', 'App\Http\Controllers\web\Management\dashboardController@createServicesView');
     Route::post('/createServices', 'App\Http\Controllers\web\Management\dashboardController@createServices'); 
@@ -50,12 +51,15 @@ Route::middleware(['auth'])->group(function () {
 
 
     //Faciltity CRUD
-    Route::get('/allFacility', 'App\Http\Controllers\web\Facility\facilityController@allFacility');
+    Route::get('aprooved/facility', 'App\Http\Controllers\web\Facility\facilityController@allFacility');
+    Route::get('pending/facility', 'App\Http\Controllers\web\Facility\facilityController@pendingFacility');
     Route::get('/createFacility', 'App\Http\Controllers\web\Facility\facilityController@createFacilityView');
     Route::post('/createFacility', 'App\Http\Controllers\web\Facility\facilityController@createFacility');
     Route::get('/update-facility/{id}/', 'App\Http\Controllers\web\Facility\facilityController@updateFacilityView');
     Route::post('/update-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@updateFacility');
     Route::get('/delete-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@deleteFacility');
+    Route::get('approved/{id}', 'App\Http\Controllers\web\Facility\facilityController@aprovedFacility');
+    Route::get('/unapproved-facility/{id}', 'App\Http\Controllers\web\Facility\facilityController@unaprovedFacility');
 
     //all courts
     Route::get('/all-courts', 'App\Http\Controllers\web\Facility\facilityController@allCourts');

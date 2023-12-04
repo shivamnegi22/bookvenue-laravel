@@ -50,6 +50,9 @@ table {
     background-color: red;
 }
 
+.tableButton.aproove {
+    background-color: rgb(13, 116, 25);
+}
 
 @media (max-width:767.98px) {
     .tableStyle #myTable_wrapper .dt-row .col-sm-12 {

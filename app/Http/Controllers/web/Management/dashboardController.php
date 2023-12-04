@@ -147,9 +147,56 @@ class dashboardController extends Controller
         }
     }
 
-    public function updateCourts(Request $request,$id)
+    public function updateCourtsView(Request $request,$id)
     {
+        $service_category = Service_category::get();
+        $service = Service::get();
+        $facility = facility::get();
 
+        $court = Court::where('id',$id)->first();
+        
+        return view('facility.updateCourt',compact('service_category','service','facility','court'));
+    }
+
+    public function updateCourts($court_id,Request $request)
+    { 
+        // dd($request->break_end);
+        $court = Court::where('id',$court_id)->first();
+
+        $court->court_name = $request->courtName;
+        $court->start_time = $request->startTime;
+        $court->end_time = $request->endTime;
+        $court->description = $request->court_description;
+        $court->slot_price = $request->price;
+       
+
+      
+        $breakStart = $request->break_start;
+        $breakEnd = $request->break_end;
+    
+        $breakData = [];
+        // Ensure both arrays have the same length
+        if (count($breakStart) === count($breakEnd)) {
+            foreach ($breakStart as $key => $start) {
+            
+                $breakObject = new \stdClass();
+    
+                $breakObject->start_time = $start;
+                $breakObject->end_time = $breakEnd[$key];
+    
+                $breakData[] = $breakObject;
+            }
+            
+        }
+    
+            // dd($breakData);
+       
+        $court->breaks = json_encode($breakData);
+        
+        $court->created_by = Auth::user()->id;
+        $court->update();
+
+        return redirect()->back();
     }
 
     public function createServicesView()
