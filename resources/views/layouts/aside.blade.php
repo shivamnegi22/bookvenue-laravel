@@ -79,11 +79,13 @@
                             aria-expanded="{{ Request::is('createFacility','addServices','') ? 'false' : 'true' }}"> <i
                                 class="menu-icon fa-solid fa-calendar"></i>Facility Management</a>
                         <ul
-                            class="sub-menu children dropdown-menu {{ Request::is('createFacility','addServices','allFacility') ? 'show' : '' }}">
+                            class="sub-menu children dropdown-menu {{ Request::is('createFacility','addServices','aprooved/facility','pending/facility') ? 'show' : '' }}">
                             <li class="{{ Request::is('createFacility') ? 'sub_active' : '' }}"><a
                                     href="{{url('createFacility')}}">Create Facility</a></li>
-                            <li class="{{ Request::is('allFacility') ? 'sub_active' : '' }}"><a
-                                    href="{{url('allFacility')}}">All Facility</a></li>
+                            <li class="{{ Request::is('aprooved/facility') ? 'sub_active' : '' }}"><a
+                                    href="{{url('aprooved/facility')}}">Aprooved Facility</a></li>
+                            <li class="{{ Request::is('pending/facility') ? 'sub_active' : '' }}"><a
+                                    href="{{url('pending/facility')}}">Pending Facility</a></li>
                             <li class="{{ Request::is('addServices') ? 'sub_active' : '' }}"><a
                                     href="{{url('addServices')}}">Add Services</a></li>
 

@@ -57,6 +57,8 @@ use App\Http\Controllers\Api\Booking\bookingController;
 
     //get all facility 
     Route::get('/get-all-services', [managementController::class, 'getAllServices']);
+
+    Route::get('/get-service-by-id/{facility_id}', [managementController::class, 'getServiceById']);
     
 
     //get categoriezed facility 
@@ -64,6 +66,8 @@ use App\Http\Controllers\Api\Booking\bookingController;
 
     //get all amenities
     Route::get('/get-all-amenities', [managementController::class, 'getAllAmenities']);
+
+    Route::get('/get-all-service-category', [managementController::class, 'getAllServiceCategory']);
 
      //get  slots
      Route::post('/get-slots-of-court', [managementController::class, 'getSlotsOfCourt']);
@@ -74,7 +78,7 @@ use App\Http\Controllers\Api\Booking\bookingController;
     Route::post('/get-slots-of-court', [managementController::class, 'getSlotsOfCourt']);
 
     //create spaces
-      // delete facility route
+      
     Route::post('/create-spaces', [facilityController::class, 'addServices']);
 
 Route::middleware('auth:sanctum')->group(function () {

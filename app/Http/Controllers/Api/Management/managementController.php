@@ -71,6 +71,30 @@ class managementController extends Controller
         }
     }
 
+    public function getServiceById($facility_id){
+        
+
+        try{
+
+                
+                $service_category_ids = facility::where('id',$facility_id)->value('service_category_id');
+    
+                $services = Service::whereIn('service_category_id', json_decode($service_category_ids,true))
+                                   ->select('id', 'name')
+                                   ->get();
+            
+                return response([
+                    'services' => $services,
+                ],200);
+
+        }
+        catch(Exception $e){
+
+            return response([
+                'message' => "Internal Server Error.",
+            ],500);
+        }
+    }
 
     public function getUserRole(Request $request)
     {
@@ -287,7 +311,25 @@ class managementController extends Controller
         }
 
        
-        
+    }
+
+    public function getAllServiceCategory()
+    {
+        try{
+
+            $service_category = Service_category::get();
+
+            return response([
+                'service_category' => $service_category,
+            ],200);
+
+        }
+        catch(Exception $e){
+
+            return response([
+                'message' => "Internal Server Error.",
+            ],500);
+        }
     }
 
    }
