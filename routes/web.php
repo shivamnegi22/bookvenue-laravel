@@ -68,7 +68,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/disable-courts/{court_id}', 'App\Http\Controllers\web\Facility\facilityController@desableCourts');
 
     //Sports CRUD
-    Route::get('/category', 'App\Http\Controllers\web\Management\dashboardController@categoryView');
+    Route::get('/categories', 'App\Http\Controllers\web\Management\dashboardController@categoryView');
+
     Route::get('/servicesCategory', 'App\Http\Controllers\web\Management\dashboardController@createServicesCategoryView');
     Route::post('/servicesCategory', 'App\Http\Controllers\web\Management\dashboardController@createServicesCategory');
 

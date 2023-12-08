@@ -63,10 +63,10 @@ class facilityController extends Controller
             //     ],401); 
             // } 
 
-            $facility = facility::orderBy('created_at','desc')->where('status','1')->take($count)->get();
+            $facility = facility::orderBy('created_at','desc')->where('status','Active')->take($count)->get();
 
             return response([
-                'facility'  => $facility,
+                'recentFacility'  => $facility,
             ],200);
 
          }
@@ -93,7 +93,7 @@ class facilityController extends Controller
             //     ],401); 
             // } 
 
-            $facility = facility::where('status','1')->inRandomOrder()->take($count)->get();
+            $facility = facility::where('status','Active')->inRandomOrder()->take($count)->get();
 
             return response([
                 'facility'  => $facility,
@@ -151,7 +151,19 @@ class facilityController extends Controller
         }
 
         $token = PersonalAccessToken::findToken($request->bearerToken());
-        $userId = $token->tokenable->id;
+
+
+        if(empty($token)){
+            return response([
+                'message' => "Token expired please login again to continue.",
+            ],401); 
+        } 
+        else
+        {
+            $userId = $token->tokenable->id;
+        }
+
+        
 
        $facility->description = $request->description;
        $facility->created_by =  $userId;
@@ -332,7 +344,7 @@ class facilityController extends Controller
             }
             else
             {
-                $facility = facility::where ('status','1')->orderBy('created_at','desc')->get();
+                $facility = facility::where ('status','Active')->orderBy('created_at','desc')->get();
 
 
             }
