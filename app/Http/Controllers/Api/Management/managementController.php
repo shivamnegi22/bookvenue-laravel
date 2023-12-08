@@ -181,7 +181,7 @@ class managementController extends Controller
 
 
             return response([
-                'services' => $services,
+                'allServices' => $services,
             ],200);
 
         }

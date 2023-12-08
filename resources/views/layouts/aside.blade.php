@@ -66,9 +66,9 @@
                             aria-expanded="{{ Request::is('category','service') ? 'false' : 'true' }}">
                             <i class="menu-icon fa-solid fa-laptop-file"></i>Service Management</a>
                         <ul
-                            class="sub-menu children dropdown-menu {{ Request::is('category','service') ? 'show' : '' }}">
-                            <li class="{{ Request::is('category') ? 'sub_active' : '' }}"><a
-                                    href="{{url('category')}}">Category</a></li>
+                            class="sub-menu children dropdown-menu {{ Request::is('categories','service') ? 'show' : '' }}">
+                            <li class="{{ Request::is('categories') ? 'sub_active' : '' }}"><a
+                                    href="{{url('categories')}}">Category</a></li>
                             <li class="{{ Request::is('service') ? 'sub_active' : '' }}"><a
                                     href="{{url('service')}}">Service</a></li>
                         </ul>

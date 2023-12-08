@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('featured_image')->nullable();
             $table->string('icon')->nullable();
             $table->longText('description')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default(true);
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
             $table->softDeletes();

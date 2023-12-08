@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\Booking\bookingController;
 |
 */
 
+
     //login route
     Route::post('/login', [LoginAuthController::class, 'login']);
     Route::post('/verify-otp', [LoginAuthController::class, 'verifyOTP']);
@@ -29,15 +30,21 @@ use App\Http\Controllers\Api\Booking\bookingController;
     Route::post('/verify-register-user', [RegisterController::class, 'verifyuser']);
     Route::post('/searchLocation', [SearchController::class, 'searchLocation']);
 
+
      //facility get route
     Route::get('/get-all-facility', [facilityController::class, 'getAllFacility']);
     Route::get('/get-recent-facility/{count}', [facilityController::class, 'recentFacility']);
     Route::get('/get-featured-facility/{count}', [facilityController::class, 'featuredFacility']);
     Route::get('/get-facility-by-slug/{slug}', [facilityController::class, 'getFacilityBySlug']);
 
- 
-     // create facility route
+
+    Route::middleware('auth:sanctum')->group(function () {
+
+         // create facility route
      Route::post('/create-facility', [facilityController::class, 'createFacility']);
+     
+    });
+    
  
      //update facility route
      Route::post('/update-facility', [facilityController::class, 'updateFacility']);
@@ -81,10 +88,5 @@ use App\Http\Controllers\Api\Booking\bookingController;
       
     Route::post('/create-spaces', [facilityController::class, 'addServices']);
 
-Route::middleware('auth:sanctum')->group(function () {
-
-
-
-});
 
 
