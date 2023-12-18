@@ -15,25 +15,24 @@
             <table id="myTable" class="display table table-bordered responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>User</th>
+                        <th>Booked by</th>
                         <th>Facility</th>
-                        <th>Facility Type</th>
-                        <th>Sport</th>
                         <th>Court</th>
-                        <th>Start Time</th>
                         <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($booking as $data)
                     <tr>
+                        <td>{{$data->booked_by}}</td>
                         <td>{{\App\Models\Profile::where('user_id',$data->user_id)->value('name')}}</td>
                         <td>{{\App\Models\facility::where('id',$data->facility_id)->value('official_name')}}</td>
-                        <td>{{$data->facility_type}}</td>
-                        <td>{{\App\Models\sports::where('id',$data->sport_id)->value('name')}}</td>
-                        <td>{{\App\Models\facility_sports_court::where('id',$data->sport_court_id)->value('name')}}</td>
-                        <td>{{$data->start_time}}</td>
+                        <td>{{\App\Models\Court::where('id',$data->court_id)->value('name')}}</td>
                         <td>{{$data->date}}</td>
+                        <td>{{$data->start_time}} to {{$data->end_time}}</td>
+                        <td>{{$data->status}}</td>
                     </tr>
                     @endforeach
                 </tbody>

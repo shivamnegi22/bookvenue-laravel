@@ -85,7 +85,7 @@
                             <li class="{{ Request::is('aprooved/facility') ? 'sub_active' : '' }}"><a
                                     href="{{url('aprooved/facility')}}">Aprooved Facility</a></li>
                             <li class="{{ Request::is('pending/facility') ? 'sub_active' : '' }}"><a
-                                    href="{{url('pending/facility')}}">Pending Facility</a></li>
+                                    href="{{url('pending/facility')}}">Facility Request</a></li>
                             <li class="{{ Request::is('addServices') ? 'sub_active' : '' }}"><a
                                     href="{{url('addServices')}}">Add Services</a></li>
 
@@ -106,7 +106,7 @@
                                     href="{{url('all-amenities')}}">All Amenities</a></li>
                         </ul>
                     </li>
-                    <!-- <li class="menu-title">Booking Management</li>
+                    <li class="menu-title">Booking Management</li>
                     <li
                         class="menu-item-has-children dropdown {{ Request::is('book-facility','allBooking','') ? 'active show' : '' }}">
                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
@@ -114,16 +114,16 @@
                                 class="menu-icon fa-solid fa-book"></i>Booking</a>
                         <ul
                             class="sub-menu children dropdown-menu {{ Request::is('book-facility','allBooking','') ? 'show' : '' }}">
-                            <li class="{{ Request::is('book-facility') ? 'sub_active' : '' }}"><a
-                                    href="#">Create Booking</a></li>
+                            <!-- <li class="{{ Request::is('book-facility') ? 'sub_active' : '' }}"><a
+                                    href="#">Create Booking</a></li> -->
                             <li class="{{ Request::is('allBooking') ? 'sub_active' : '' }}"><a
-                                    href="#">All Booking</a></li>
+                                    href="{{url('allBooking')}}">All Booking</a></li>
                         </ul>
-                    </li> -->
+                    </li> 
                     <!-- <li class="menu-title">Files Upload</li>
                     <li class="{{ Request::is('uploads') ? 'active' : '' }}"><a href="{{url('uploads')}}">
                             <i class="menu-icon fa-solid fa-file-arrow-up"></i>Images Uploads</a></li>
-                </ul> -->
+                </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside>
@@ -240,7 +240,7 @@
                                         class="fa-solid fa- user"></i>{{Auth::user()->getRoleNames()->first()}}</a>
 
                                 <a class="nav-link" href="#"><i class="fa-solid fa- user"></i>Notifications <span
-                                        class="count">13</span></a>
+                                        class="count">0</span></a>
 
                                 <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
