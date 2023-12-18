@@ -105,6 +105,9 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+    //all bookings
+    Route::get('allBooking', 'App\Http\Controllers\web\Management\dashboardController@allBooking');
+
 
 });
 

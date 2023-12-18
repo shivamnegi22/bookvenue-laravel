@@ -208,7 +208,7 @@ class facilityController extends Controller
         return response()->json([
             'error' => 'Validation failed',
             'errors' => $validator->errors(),
-        ], 422); // 422 is the HTTP status code for unprocessable entity
+        ], 422); 
     }
         $facility = facility::where('id',$id)->where('status','1')->first();
 
@@ -344,7 +344,7 @@ class facilityController extends Controller
             }
             else
             {
-                $facility = facility::where ('status','Active')->orderBy('created_at','desc')->get();
+                $facility = facility::where('status','Active')->orderBy('created_at','desc')->get();
 
 
             }
@@ -387,7 +387,7 @@ class facilityController extends Controller
             $validator = Validator::make($request->all(), [
                 'facility_id' => 'required',
                 'services_id' => 'required',
-                'service_category_id' => 'required',
+                
             ]);
 
             if ($validator->fails()) {
@@ -435,15 +435,13 @@ class facilityController extends Controller
 
                 $court = new Court;
             
-                // Set the attributes based on the data from the array
                 $court->facility_service_id = $facility_service->id;
                 $court->court_name = $data['name'];
                 $court->start_time = $data['startTime'];
                 $court->end_time = $data['endTime'];
-                $court->slot_price = $data['prize']; // You might want to adjust this based on your data.
+                $court->slot_price = $data['prize']; 
                 $court->duration = $data['duration'];
             
-                // The 'breaks' attribute might need some custom handling
                 $breaks = [];
                 foreach ($data['breaks'] as $break) {
                     $breaks[] = [

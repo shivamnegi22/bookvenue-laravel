@@ -9,6 +9,7 @@ use App\Models\Service;
 use App\Models\Facility_service;
 use App\Models\Court;
 use App\Models\Amenities;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -446,5 +447,10 @@ class dashboardController extends Controller
         return redirect()->back()->with('delete', 'Aminity have been deleted successfully.');
     }
 
+    public function allBooking()
+    {
+        $booking = Booking::get();
+        return view('facility.allBooking',compact('booking'));
+    }
 
 }
