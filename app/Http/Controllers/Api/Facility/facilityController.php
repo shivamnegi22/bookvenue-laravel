@@ -344,7 +344,7 @@ class facilityController extends Controller
             }
             else
             {
-                $facility = facility::where('status','Active')->orderBy('created_at','desc')->get();
+                $facility = facility::where('status','Active')->get();
 
 
             }
@@ -396,9 +396,6 @@ class facilityController extends Controller
                     'errors' => $validator->errors(),
                 ], 422); // 422 is the HTTP status code for unprocessable entity
             }
-
-        $courtsDataJSON = $request->input('courts_data');
-        $courtsData = json_decode($courtsDataJSON, true);
     
         // return $courtData;
 
@@ -431,35 +428,10 @@ class facilityController extends Controller
         if($facility_service->save())
         {
 
-            foreach ($courtsData as $data) {
-
-                $court = new Court;
-            
-                $court->facility_service_id = $facility_service->id;
-                $court->court_name = $data['name'];
-                $court->start_time = $data['startTime'];
-                $court->end_time = $data['endTime'];
-                $court->slot_price = $data['prize']; 
-                $court->duration = $data['duration'];
-            
-                $breaks = [];
-                foreach ($data['breaks'] as $break) {
-                    $breaks[] = [
-                        'start' => $break['start_Time'],
-                        'end' => $break['end_Time'],
-                    ];
-                }
-                $court->breaks = json_encode($breaks);
-                $court->created_by = '1';
-            
-                // Save the court
-                if($court->save())
-                {
-                    return response([
-                        'message' => "Court created successfully.",
-                    ],200); 
-                }
-            }
+            return response([
+                'message' => "Service created successfully.",
+                'facility_service_id' => $facility_service->id,
+            ],200); 
 
             
         }
@@ -474,5 +446,150 @@ class facilityController extends Controller
    
 }
 
+
+    public function createCourt(Request $request)
+    {
+        
+    try{
+
+        $validator = Validator::make($request->all(), [
+            'facility_service_id' => 'required',
+            
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => 'Validation failed',
+                'errors' => $validator->errors(),
+            ], 422); // 422 is the HTTP status code for unprocessable entity
+        }
+
+        $courtsDataJSON = $request->input('courts_data');
+        $courtsData = json_decode($courtsDataJSON, true);
+
+        foreach ($courtsData as $data) {
+
+            $court = new Court;
+        
+            $court->facility_service_id = $request->facility_service_id;
+            $court->court_name = $data['courtName'];
+            $court->start_time = $data['startTime'];
+            $court->end_time = $data['endTime'];
+            $court->slot_price = $data['price']; 
+            $court->duration = $data['duration'];
+        
+            $breaks = [];
+            foreach ($data['breakTimes'] as $break) {
+                $breaks[] = [
+                    'start' => $break['start'],
+                    'end' => $break['end'],
+                ];
+            }
+            $court->breaks = json_encode($breaks);
+            $court->created_by = '1';
+        
+            // Save the court
+            if($court->save())
+            {
+                return response([
+                    'message' => "Court created successfully.",
+                ],200); 
+            }
+        }
+
+    }
+    catch(Exception $e){
+
+        return response([
+            'errors' => $e->message(),
+            'message' => "Internal Server Error.",
+        ],500);
+    }
+
+    }
+
+
+    public function allProviderData(Request $request)
+    {
+        try{
+
+            $token = PersonalAccessToken::findToken($request->bearerToken());
+
+            if(empty($token)){
+                return response([
+                    'message' => "Token expired please login again to continue.",
+                ],401); 
+            } 
+
+            $userId = $token->tokenable->id;
+
+            $facility = facility::where('created_by',userId)->get();
+
+            $provider = [];
+    
+            foreach($facility as  $value)
+            {
+                
+                $obj = new \stdClass();
+    
+                $obj->facility_name = $value->offcial_name;
+                $obj->alias = $value->alias;
+                $obj->address = $value->address;
+                $obj->featured_image = $value->featured_image;
+                $obj->status = $value->status;
+                $obj->service = array();
+                
+                $service_id= Facility_service::where('facility_id',$value->id)->value('service_id');
+                $facility_service_id= Facility_service::where('facility_id',$value->id)->value('id');
+                $service = Service::where('id',$service_id)->get();
+    
+                foreach($service as $serviceData)
+                {
+                      $service_data = new \stdClass();
+                      $service_data->service_name = $serviceData->name;
+                      $service_data->service_category = Service_category::where('id',$serviceData->service_category_id)->value('name');
+                      $service_data->icon = $serviceData->icon;
+                      $service_data->featured_image = $serviceData->featured_image;
+                      $service_data->description = $serviceData->description;
+                      $service_data->courtData = array();
+    
+                      $court = Court::where('facility_service_id',$facility_service_id)->get();
+    
+                      foreach($court as $courtData)
+                      {
+                        $court_data = new \stdClass();
+    
+                        $court_data->court_name = $courtData->court_name;
+                        $court_data->start_time = $courtData->start_time;
+                        $court_data->end_time = $courtData->end_time;
+                        $court_data->slot_price = $courtData->slot_price;
+                        $court_data->duration = $courtData->duration;
+                        $court_data->breaks = $courtData->breaks;
+                        $court_data->description = $courtData->description;
+    
+                        array_push($service_data->courtData,   $court_data);
+                      }
+    
+                      array_push($obj->service,$service_data);
+    
+                }
+    
+                $provider[] = $obj;
+            
+    
+                return response([
+                    'providerData' => $provider,
+                ],200); 
+            }
+    
+            
+        }catch(Exception $e){
+
+            return response([
+                'errors' => $e->message(),
+                'message' => "Internal Server Error.",
+            ],500);
+        }
+    }
    
 }

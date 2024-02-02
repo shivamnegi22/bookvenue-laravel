@@ -20,6 +20,8 @@ use App\Http\Controllers\Api\Booking\bookingController;
 |
 */
 
+Route::prefix('app')->group(function () {
+
 
     //login route
     Route::post('/login', [LoginAuthController::class, 'login']);
@@ -42,10 +44,14 @@ use App\Http\Controllers\Api\Booking\bookingController;
 
          // create facility route
      Route::post('/create-facility', [facilityController::class, 'createFacility']);
+
+   
+      //provider api
+      Route::get('/get-provider-data', [facilityController::class, 'allProviderData']);
+      
      
     });
-    
- 
+  
      //update facility route
      Route::post('/update-facility', [facilityController::class, 'updateFacility']);
      
@@ -67,7 +73,6 @@ use App\Http\Controllers\Api\Booking\bookingController;
 
     Route::get('/get-service-by-id/{facility_id}', [managementController::class, 'getServiceById']);
     
-
     //get categoriezed facility 
     Route::get('/get-facility-by-category/{cat}/{service}', [managementController::class, 'getFacilityByCategory']);
 
@@ -84,9 +89,13 @@ use App\Http\Controllers\Api\Booking\bookingController;
 
     Route::post('/get-slots-of-court', [managementController::class, 'getSlotsOfCourt']);
 
-    //create spaces
-      
-    Route::post('/create-spaces', [facilityController::class, 'addServices']);
+    //add service api
+    Route::post('/add-service', [facilityController::class, 'addServices']);
+
+    //add court api
+    Route::post('/create-court', [facilityController::class, 'createCourt']);
+
+  });
 
 
 

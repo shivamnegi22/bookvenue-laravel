@@ -69,7 +69,7 @@ public function login(Request $request)
 
     if ($user) {
 
-        // dd($request->password);
+      
 
         if (Hash::check($request->password,$user->password)) {
 
@@ -82,7 +82,8 @@ public function login(Request $request)
             if ($user->hasAnyRoles(['admin', 'vendor', 'helpdesk', 'manager'])) {
 
                 
-                return redirect('dashboard');
+                return redirect('app/dashboard');
+                
             } else {
                 
                 return view('errors.401');
@@ -107,7 +108,7 @@ public function login(Request $request)
 public function logout(Request $request) {
   
     Auth::logout();
-    return redirect('/');
+    return redirect('app/');
   }
 
 }

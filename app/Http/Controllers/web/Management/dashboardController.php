@@ -90,6 +90,7 @@ class dashboardController extends Controller
 
     public function addServices(Request $request)
     {
+        
         $facility_service = new Facility_service;
 
         $facility_service->facility_id = $request->facility_id;
@@ -452,5 +453,6 @@ class dashboardController extends Controller
         $booking = Booking::get();
         return view('facility.allBooking',compact('booking'));
     }
+
 
 }
