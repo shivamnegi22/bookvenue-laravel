@@ -123,7 +123,7 @@ class facilityController extends Controller
 
         $facility->update();
 
-        return redirect('pending/facility');
+        return redirect('app/pending/facility');
     }
 
     public function unaprovedFacility($id)
@@ -135,7 +135,7 @@ class facilityController extends Controller
 
         $facility->update();
 
-        return redirect('aprooved/facility');
+        return redirect('app/aprooved/facility');
     }
 
     public function deleteFacility($id)
@@ -253,7 +253,7 @@ class facilityController extends Controller
             $provider[] = $obj;
         }
 
-        dd($provider);
+        // dd($provider);
         
     }
     

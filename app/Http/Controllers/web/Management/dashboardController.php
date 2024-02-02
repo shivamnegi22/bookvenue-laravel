@@ -406,7 +406,6 @@ class dashboardController extends Controller
     public function allAmenities()
     {
         $amenity = Amenities::orderBy('created_at','desc')->get();
-        // dd($amenity);
         return view('configuration.allAmenities',compact('amenity'));
     }
 
