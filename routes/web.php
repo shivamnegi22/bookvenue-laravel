@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::prefix('app')->group(function () {
+
 
 Route::get('/', function () {
     return view('auth.login');
@@ -33,6 +35,7 @@ Route::post('/verify-otp', 'App\Http\Controllers\Auth\LoginController@verifyOTP'
 
 
 Route::middleware(['auth'])->group(function () {
+    
     Route::get('/dashboard', 'App\Http\Controllers\web\Management\dashboardController@index');
 
     Route::get('/service', 'App\Http\Controllers\web\Management\dashboardController@serviceView');
@@ -65,7 +68,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/all-courts', 'App\Http\Controllers\web\Facility\facilityController@allCourts');
 
     //delete court
-    Route::get('/disable-courts/{court_id}', 'App\Http\Controllers\web\Facility\facilityController@desableCourts');
+    Route::get('providerData', 'App\Http\Controllers\web\Facility\facilityController@providerData');
+
+        //delete court
+        Route::get('/disable-courts/{court_id}', 'App\Http\Controllers\web\Facility\facilityController@desableCourts');
 
     //Sports CRUD
     Route::get('/categories', 'App\Http\Controllers\web\Management\dashboardController@categoryView');
@@ -112,4 +118,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-
+});

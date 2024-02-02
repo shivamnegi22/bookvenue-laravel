@@ -38,8 +38,8 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
-                        <a href="{{url('dashboard')}}"><i class="menu-icon fa-solid fa-laptop"></i>Dashboard </a>
+                    <li class="{{ Request::is('app/dashboard') ? 'active' : '' }}">
+                        <a href="{{url('app/dashboard')}}"><i class="menu-icon fa-solid fa-laptop"></i>Dashboard </a>
                     </li>
                     <li class="menu-title">Facility Management</li><!-- /.menu-title -->
                     <!-- <li class="menu-item-has-children dropdown">
@@ -61,63 +61,63 @@
                     </li> -->
 
                     <li
-                        class="menu-item-has-children dropdown {{ Request::is('category','service') ? 'active show' : '' }}">
+                        class="menu-item-has-children dropdown {{ Request::is('app/category','app/service') ? 'active show' : '' }}">
                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="{{ Request::is('category','service') ? 'false' : 'true' }}">
+                            aria-expanded="{{ Request::is('app/category','app/service') ? 'false' : 'true' }}">
                             <i class="menu-icon fa-solid fa-laptop-file"></i>Service Management</a>
                         <ul
-                            class="sub-menu children dropdown-menu {{ Request::is('categories','service') ? 'show' : '' }}">
-                            <li class="{{ Request::is('categories') ? 'sub_active' : '' }}"><a
-                                    href="{{url('categories')}}">Category</a></li>
-                            <li class="{{ Request::is('service') ? 'sub_active' : '' }}"><a
-                                    href="{{url('service')}}">Service</a></li>
+                            class="sub-menu children dropdown-menu {{ Request::is('app/categories','app/service') ? 'show' : '' }}">
+                            <li class="{{ Request::is('app/categories') ? 'sub_active' : '' }}"><a
+                                    href="{{url('app/categories')}}">Category</a></li>
+                            <li class="{{ Request::is('app/service') ? 'sub_active' : '' }}"><a
+                                    href="{{url('app/service')}}">Service</a></li>
                         </ul>
                     </li>
                     <li
-                        class="menu-item-has-children dropdown {{ Request::is('createFacility','addServices','') ? 'active show': '' }}">
+                        class="menu-item-has-children dropdown {{ Request::is('app/createFacility','app/addServices','') ? 'active show': '' }}">
                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="{{ Request::is('createFacility','addServices','') ? 'false' : 'true' }}"> <i
+                            aria-expanded="{{ Request::is('app/createFacility','app/addServices','') ? 'false' : 'true' }}"> <i
                                 class="menu-icon fa-solid fa-calendar"></i>Facility Management</a>
                         <ul
-                            class="sub-menu children dropdown-menu {{ Request::is('createFacility','addServices','aprooved/facility','pending/facility') ? 'show' : '' }}">
-                            <li class="{{ Request::is('createFacility') ? 'sub_active' : '' }}"><a
-                                    href="{{url('createFacility')}}">Create Facility</a></li>
-                            <li class="{{ Request::is('aprooved/facility') ? 'sub_active' : '' }}"><a
-                                    href="{{url('aprooved/facility')}}">Aprooved Facility</a></li>
-                            <li class="{{ Request::is('pending/facility') ? 'sub_active' : '' }}"><a
-                                    href="{{url('pending/facility')}}">Facility Request</a></li>
-                            <li class="{{ Request::is('addServices') ? 'sub_active' : '' }}"><a
-                                    href="{{url('addServices')}}">Add Services</a></li>
+                            class="sub-menu children dropdown-menu {{ Request::is('app/createFacility','app/addServices','app/aprooved/facility','app/pending/facility') ? 'show' : '' }}">
+                            <li class="{{ Request::is('app/createFacility') ? 'sub_active' : '' }}"><a
+                                    href="{{url('app/createFacility')}}">Create Facility</a></li>
+                            <li class="{{ Request::is('app/aprooved/facility') ? 'sub_active' : '' }}"><a
+                                    href="{{url('app/aprooved/facility')}}">Aprooved Facility</a></li>
+                            <li class="{{ Request::is('app/pending/facility') ? 'sub_active' : '' }}"><a
+                                    href="{{url('app/pending/facility')}}">Facility Request</a></li>
+                            <li class="{{ Request::is('app/addServices') ? 'sub_active' : '' }}"><a
+                                    href="{{url('app/addServices')}}">Add Services</a></li>
 
-                             <li class="{{ Request::is('all-courts') ? 'sub_active' : '' }}"><a
-                                    href="{{url('all-courts')}}">All Courts</a></li>
+                             <li class="{{ Request::is('app/all-courts') ? 'sub_active' : '' }}"><a
+                                    href="{{url('app/all-courts')}}">All Courts</a></li>
                         </ul>
                     </li>
                     <li
-                        class="menu-item-has-children dropdown {{ Request::is('','create-amenities','all-amenities') ? 'active show': '' }}">
+                        class="menu-item-has-children dropdown {{ Request::is('','app/create-amenities','app/all-amenities') ? 'active show': '' }}">
                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="{{ Request::is('','create-amenities','') ? 'false' : 'true' }}"> <i
+                            aria-expanded="{{ Request::is('','app/create-amenities','') ? 'false' : 'true' }}"> <i
                                 class="menu-icon fa-solid fa-cog"></i>Configuration</a>
                         <ul
-                            class="sub-menu children dropdown-menu {{ Request::is('','create-amenities','') ? 'show' : '' }}">
-                            <li class="{{ Request::is('create-amenities') ? 'sub_active' : '' }}"><a
-                                    href="{{url('create-amenities')}}">Create Amenities</a></li>
-                            <li class="{{ Request::is('all-amenities') ? 'sub_active' : '' }}"><a
-                                    href="{{url('all-amenities')}}">All Amenities</a></li>
+                            class="sub-menu children dropdown-menu {{ Request::is('','app/create-amenities','') ? 'show' : '' }}">
+                            <li class="{{ Request::is('app/create-amenities') ? 'sub_active' : '' }}"><a
+                                    href="{{url('app/create-amenities')}}">Create Amenities</a></li>
+                            <li class="{{ Request::is('app/all-amenities') ? 'sub_active' : '' }}"><a
+                                    href="{{url('app/all-amenities')}}">All Amenities</a></li>
                         </ul>
                     </li>
                     <li class="menu-title">Booking Management</li>
                     <li
-                        class="menu-item-has-children dropdown {{ Request::is('book-facility','allBooking','') ? 'active show' : '' }}">
+                        class="menu-item-has-children dropdown {{ Request::is('app/book-facility','app/allBooking','') ? 'active show' : '' }}">
                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="{{ Request::is('book-facility','allBooking','') ? 'false' : 'true' }}"> <i
+                            aria-expanded="{{ Request::is('app/book-facility','app/allBooking','') ? 'false' : 'true' }}"> <i
                                 class="menu-icon fa-solid fa-book"></i>Booking</a>
                         <ul
-                            class="sub-menu children dropdown-menu {{ Request::is('book-facility','allBooking','') ? 'show' : '' }}">
+                            class="sub-menu children dropdown-menu {{ Request::is('app/book-facility','app/allBooking','') ? 'show' : '' }}">
                             <!-- <li class="{{ Request::is('book-facility') ? 'sub_active' : '' }}"><a
                                     href="#">Create Booking</a></li> -->
-                            <li class="{{ Request::is('allBooking') ? 'sub_active' : '' }}"><a
-                                    href="{{url('allBooking')}}">All Booking</a></li>
+                            <li class="{{ Request::is('app/allBooking') ? 'sub_active' : '' }}"><a
+                                    href="{{url('app/allBooking')}}">All Booking</a></li>
                         </ul>
                     </li> 
                     <!-- <li class="menu-title">Files Upload</li>
