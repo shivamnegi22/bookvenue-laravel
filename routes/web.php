@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::prefix('app')->group(function () {
-
 
 Route::get('/', function () {
     return view('auth.login');
@@ -35,7 +33,6 @@ Route::post('/verify-otp', 'App\Http\Controllers\Auth\LoginController@verifyOTP'
 
 
 Route::middleware(['auth'])->group(function () {
-    
     Route::get('/dashboard', 'App\Http\Controllers\web\Management\dashboardController@index');
 
     Route::get('/service', 'App\Http\Controllers\web\Management\dashboardController@serviceView');
@@ -118,4 +115,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-});
+

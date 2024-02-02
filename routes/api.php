@@ -20,8 +20,6 @@ use App\Http\Controllers\Api\Booking\bookingController;
 |
 */
 
-Route::prefix('app')->group(function () {
-
 
     //login route
     Route::post('/login', [LoginAuthController::class, 'login']);
@@ -95,7 +93,6 @@ Route::prefix('app')->group(function () {
     //add court api
     Route::post('/create-court', [facilityController::class, 'createCourt']);
 
-  });
-
+  
 
 
