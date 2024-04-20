@@ -39,6 +39,7 @@ use App\Http\Controllers\Api\Booking\bookingController;
 
 
     Route::middleware('auth:sanctum')->group(function () {
+    });
 
          // create facility route
      Route::post('/create-facility', [facilityController::class, 'createFacility']);
@@ -48,7 +49,7 @@ use App\Http\Controllers\Api\Booking\bookingController;
       Route::get('/get-provider-data', [facilityController::class, 'allProviderData']);
       
      
-    });
+    
   
      //update facility route
      Route::post('/update-facility', [facilityController::class, 'updateFacility']);

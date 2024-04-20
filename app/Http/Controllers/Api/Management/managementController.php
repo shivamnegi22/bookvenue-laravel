@@ -259,10 +259,12 @@ class managementController extends Controller
         
         try{
 
+            
 
              $slots = [];
 
              $court = Court::where('id', $request->court_id)->first();
+
 
                 if ($court) {
                     $start_time = strtotime($court->start_time);
@@ -272,6 +274,7 @@ class managementController extends Controller
                     $breaks = json_decode($court->breaks,true);
 
                     foreach (range($start_time, $end_time - $duration, $duration) as $time) {
+
                         $slot = new \stdClass();
                         $slot->start_time = date("H:i", $time);
                         $slot->end_time = date("H:i", $time + $duration);
@@ -282,19 +285,27 @@ class managementController extends Controller
                         ->where('end_time', $slot->end_time)
                         ->exists();
 
+                       
+
                         $isBreak = false;
+
                         foreach ($breaks as $break) {
-                            $breakStart = strtotime($break['start']);
-                            $breakEnd = strtotime($break['end']);
+
+                            $breakStart = strtotime($break['start_time']);
+
+                            $breakEnd = strtotime($break['end_time']);
                             if ($time >= $breakStart && $time + $duration <= $breakEnd) {
                                 $isBreak = true;
                                 break;
                             }
+                          
                         }
 
                         $slot->status = $isBreak ? "Breaktime" : ($booking ? "Booked" : "Available");
 
                         $slots[] = $slot;
+
+                        
                     }
                 }
 
