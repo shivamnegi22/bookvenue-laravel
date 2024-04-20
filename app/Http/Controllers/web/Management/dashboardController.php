@@ -297,7 +297,7 @@ class dashboardController extends Controller
         {
             foreach($facility as $item)
             {
-                $service_category = Service_category::where('id',$item->service_category_id)->pluck('id','name');
+                $service_category = Service_category::whereIn('id',$item->service_category_id)->pluck('id','name');
             }
 
             return $service_category;

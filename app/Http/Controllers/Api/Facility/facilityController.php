@@ -111,8 +111,7 @@ class facilityController extends Controller
 
     public function createFacility(Request $request)
     {
-        try{
-            
+        try{   
 
             $validator = Validator::make($request->all(), [
                 'officialName' => 'required',
