@@ -54,6 +54,47 @@ class bookingController extends Controller
 
             if($booking->save())
             {
+
+                // $mailData = [
+
+                //     'recipient'=>"$markerGmail",
+
+                //     'fromMail'=>'info@bookvenue.app',
+
+                //     'fromName'=>'Bookvenue',
+
+                //     'subject'=>'Booking Update',
+
+                //     'bookingDate'=>"$request->date",
+
+                //     'court_name'=>"$courtName",
+
+                //     'time'=>"$time",
+
+                //     'courtUse'=>"$request->court_use",
+
+                //     'markerName'=>"$markerName",
+
+                //     'markerContact'=>"$markerContact",
+
+                //     'player'=>"$booking->players"
+
+                 
+
+                //     ];
+                    
+
+                // Mail::send('mail_templates/markerBooking_template',$mailData, function($message) use ($mailData){
+
+                //     $message->to($mailData['recipient'])
+
+                //     ->from($mailData['fromMail'],$mailData['fromName'])
+
+                //     ->subject($mailData['subject']);
+
+                //   });
+
+
                 return response([
                     'message' => "Slot is booked successfully.",
                 ],200); 
