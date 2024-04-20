@@ -197,64 +197,62 @@ class facilityController extends Controller
         return back()->with('disable','The court have been dactivated.');
     }
 
-    public function providerData()
-    {
-        $facility = facility::where('created_by','6')->get();
+    // public function providerData()
+    // {
+    //     $facility = facility::where('created_by','6')->get();
 
-        $provider = [];
+    //     $provider = [];
 
-        foreach($facility as  $value)
-        {
+    //     foreach($facility as  $value)
+    //     {
             
-            $obj = new \stdClass();
+    //         $obj = new \stdClass();
 
-            $obj->facility_name = $value->offcial_name;
-            $obj->alias = $value->alias;
-            $obj->address = $value->address;
-            $obj->featured_image = $value->featured_image;
-            $obj->status = $value->status;
-            $obj->service = array();
+    //         $obj->facility_name = $value->offcial_name;
+    //         $obj->alias = $value->alias;
+    //         $obj->address = $value->address;
+    //         $obj->featured_image = $value->featured_image;
+    //         $obj->status = $value->status;
+    //         $obj->service = array();
             
-            $service_id= Facility_service::where('facility_id',$value->id)->value('service_id');
-            $facility_service_id= Facility_service::where('facility_id',$value->id)->value('id');
-            $service = Service::where('id',$service_id)->get();
+    //         $service_id= Facility_service::where('facility_id',$value->id)->value('service_id');
+    //         $facility_service_id= Facility_service::where('facility_id',$value->id)->value('id');
+    //         $service = Service::where('id',$service_id)->get();
 
-            foreach($service as $serviceData)
-            {
-                  $service_data = new \stdClass();
-                  $service_data->service_name = $serviceData->name;
-                  $service_data->service_category = Service_category::where('id',$serviceData->service_category_id)->value('name');
-                  $service_data->icon = $serviceData->icon;
-                  $service_data->featured_image = $serviceData->featured_image;
-                  $service_data->description = $serviceData->description;
-                  $service_data->courtData = array();
+    //         foreach($service as $serviceData)
+    //         {
+    //               $service_data = new \stdClass();
+    //               $service_data->service_name = $serviceData->name;
+    //               $service_data->service_category = Service_category::where('id',$serviceData->service_category_id)->value('name');
+    //               $service_data->icon = $serviceData->icon;
+    //               $service_data->featured_image = $serviceData->featured_image;
+    //               $service_data->description = $serviceData->description;
+    //               $service_data->courtData = array();
 
-                  $court = Court::where('facility_service_id',$facility_service_id)->get();
+    //               $court = Court::where('facility_service_id',$facility_service_id)->get();
 
-                  foreach($court as $courtData)
-                  {
-                    $court_data = new \stdClass();
+    //               foreach($court as $courtData)
+    //               {
+    //                 $court_data = new \stdClass();
 
-                    $court_data->court_name = $courtData->court_name;
-                    $court_data->start_time = $courtData->start_time;
-                    $court_data->end_time = $courtData->end_time;
-                    $court_data->slot_price = $courtData->slot_price;
-                    $court_data->duration = $courtData->duration;
-                    $court_data->breaks = $courtData->breaks;
-                    $court_data->description = $courtData->description;
+    //                 $court_data->court_name = $courtData->court_name;
+    //                 $court_data->start_time = $courtData->start_time;
+    //                 $court_data->end_time = $courtData->end_time;
+    //                 $court_data->slot_price = $courtData->slot_price;
+    //                 $court_data->duration = $courtData->duration;
+    //                 $court_data->breaks = $courtData->breaks;
+    //                 $court_data->description = $courtData->description;
 
-                    array_push($service_data->courtData,   $court_data);
-                  }
+    //                 array_push($service_data->courtData,   $court_data);
+    //               }
 
-                  array_push($obj->service,$service_data);
+    //               array_push($obj->service,$service_data);
 
-            }
+    //         }
 
-            $provider[] = $obj;
-        }
+    //         $provider[] = $obj;
+    //     }
 
-        dd($provider);
-        
-    }
+    // }
     
 }
