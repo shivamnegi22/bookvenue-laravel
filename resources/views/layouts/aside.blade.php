@@ -83,7 +83,9 @@
                             <li class="{{ Request::is('createFacility') ? 'sub_active' : '' }}"><a
                                     href="{{url('createFacility')}}">Create Facility</a></li>
                             <li class="{{ Request::is('aprooved/facility') ? 'sub_active' : '' }}"><a
-                                    href="{{url('aprooved/facility')}}">Aprooved Facility</a></li>
+                                    href="{{url('aprooved/facility')}}">Active Facility</a></li>
+                            <li class="{{ Request::is('deactive/facility') ? 'sub_active' : '' }}"><a
+                                    href="{{url('deactive/facility')}}">Deactive Facility</a></li>
                             <li class="{{ Request::is('pending/facility') ? 'sub_active' : '' }}"><a
                                     href="{{url('pending/facility')}}">Facility Request</a></li>
                             <li class="{{ Request::is('addServices') ? 'sub_active' : '' }}"><a

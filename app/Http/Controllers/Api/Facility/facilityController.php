@@ -10,10 +10,12 @@ use App\Models\Facility_service;
 use App\Models\Service_category;
 use App\Models\Court;
 use App\Models\Amenities;
+use App\Models\Profile;
 use Laravel\Sanctum\PersonalAccessToken;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class facilityController extends Controller
 {
@@ -166,10 +168,43 @@ class facilityController extends Controller
 
        $facility->description = $request->description;
        $facility->created_by =  $userId;
+       $email = Profile::where('user_id',$userId)->value('email');
        
 
          if($facility->save())
          {
+
+            if($email)
+            {
+
+                $mailData = [
+
+                    'recipient'=>"$email",
+
+                    'fromMail'=>'info@bookvenue.app',
+
+                    'fromName'=>'Bookvenue',
+
+                    'subject'=>'Facility Update',
+
+                    'facility_name'=>$facility->official_name,           
+
+                    ];
+                    
+
+                Mail::send('mail_templates/user_facility_template',$mailData, function($message) use ($mailData){
+
+                    $message->to($mailData['recipient'])
+
+                    ->from($mailData['fromMail'],$mailData['fromName'])
+
+                    ->subject($mailData['subject']);
+
+                  });
+                
+            }
+
+
             $response = [
                 'message' => 'Facility have been created successfully.',
             ];

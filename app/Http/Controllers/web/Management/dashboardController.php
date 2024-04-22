@@ -22,12 +22,12 @@ class dashboardController extends Controller
     public function index()
     {
 
-        $approovedFacility = facility::where('verified','1')->count();
+        $bookings = Booking::where('status','Success')->count();
         $pendingFacility = facility::where('status','Pending')->count();
         $activeFacility = facility::where('status','Active')->count();
         $deactiveFacility = facility::where('status','Deactive')->count();
         $facility = facility::orderBy('created_at','desc')->take(5)->get();
-        return view('Management.dashboard',compact('approovedFacility','pendingFacility','activeFacility','deactiveFacility','facility'));
+        return view('Management.dashboard',compact('bookings','pendingFacility','activeFacility','deactiveFacility','facility'));
     }
 
 

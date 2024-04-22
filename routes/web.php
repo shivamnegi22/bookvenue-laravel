@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
 
     //Faciltity CRUD
     Route::get('aprooved/facility', 'App\Http\Controllers\web\Facility\facilityController@allFacility');
+    Route::get('deactive/facility', 'App\Http\Controllers\web\Facility\facilityController@deactiveFacility');
     Route::get('pending/facility', 'App\Http\Controllers\web\Facility\facilityController@pendingFacility');
     Route::get('/createFacility', 'App\Http\Controllers\web\Facility\facilityController@createFacilityView');
     Route::post('/createFacility', 'App\Http\Controllers\web\Facility\facilityController@createFacility');

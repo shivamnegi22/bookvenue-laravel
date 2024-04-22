@@ -19,8 +19,8 @@
                     </div>
                     <div class="stat-content">
                         <div class="text-left dib">
-                            <div class="stat-text"><span class="count">{{ $approovedFacility }}</span></div>
-                            <div class="stat-heading">Approoved Facility</div>
+                            <div class="stat-text"><span class="count">{{ $bookings }}</span></div>
+                            <div class="stat-heading">Total Bookings</div>
                         </div>
                     </div>
                 </div>
@@ -96,20 +96,17 @@
                         <table class="table ">
                             <thead>
                                 <tr>
-                                    <th class="avatar">Service Category</th>
                                     <th>Name</th>
                                     <th>status</th>
-                                    <th>address</th>
+                                    <th>Address</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($facility as $data)
                                 <tr>
-                                 
-                                    <td> {{\App\Models\Service_category::where('id',$data->service_category_id)->value('name')}} </td>
                                     <td> <span class="name">{{ $data->official_name }}</span> </td>
                                     <td> <span class="product">{{ $data->status }}</span> </td>
-                                    <td><span class="count">{{ $data->address }}</span></td>
+                                    <td>{{ $data->address }}</></td>
                                 
                                 </tr>
                                 <tr>

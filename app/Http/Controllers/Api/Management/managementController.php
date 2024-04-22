@@ -9,6 +9,7 @@ use App\Models\Court;
 use App\Models\role_user;
 use App\Models\Service;
 use App\Models\Amenities;
+use App\Models\Contact;
 use App\Models\Booking;
 use App\Models\Service_category;
 use App\Models\Facility_service;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Session;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 use Exception;
 
 class managementController extends Controller
@@ -312,6 +314,7 @@ class managementController extends Controller
 
                 return response()->json([
                     'slots' => $slots,
+                    'message' => 'these are the slots',
                 ], 200);
                 
 
@@ -340,6 +343,57 @@ class managementController extends Controller
             return response([
                 'message' => "Internal Server Error.",
             ],500);
+        }
+    }
+
+    public function contactUs(Request $request)
+    {
+        $contact = new Contact;
+
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $conatct->mobile = $request->mobile;
+        $conatct->message = $request->message;
+
+        if($contact->save())
+        {
+
+            if($request->email)
+            {
+                $mailData = [
+
+                    'recipient'=>"info@bookvenue.app",
+
+                    'fromMail'=> $email,
+
+                    'fromName'=>'Bookvenue',
+
+                    'subject'=>'Inquiry via Contact Us Form',
+
+                    'name'=>'$request->name',
+
+                    'mobile'=>'$request->mobile',
+
+                    'message'=>'$request->message',
+          
+
+                    ];
+                    
+
+                Mail::send('mail_templates/conatct_mail_template',$mailData, function($message) use ($mailData){
+
+                    $message->to($mailData['recipient'])
+
+                    ->from($mailData['fromMail'],$mailData['fromName'])
+
+                    ->subject($mailData['subject']);
+
+                  });
+            }
+
+            return response([
+                'message' => 'Your message has been successfully submitted. We appreciate your inquiry and will get back to you as soon as possible.',
+            ],200);
         }
     }
 
