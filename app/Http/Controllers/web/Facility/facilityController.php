@@ -74,6 +74,12 @@ class facilityController extends Controller
         return view('facility.allFacility',compact('facility'));
     }
 
+    public function deactiveFacility()
+    {
+        $facility = facility::where('status','Deactive')->get();
+        return view('facility.deactiveFacility',compact('facility'));
+    }
+
     public function pendingFacility()
     {
         $facility = facility::where('status','Pending')->get();
@@ -118,7 +124,7 @@ class facilityController extends Controller
     {
         $facility = facility::where('id',$id)->first();
 
-        $facility->status = 'active';
+        $facility->status = 'Active';
         $facility->verified_by = Auth::user()->id;
 
         $facility->update();
@@ -130,7 +136,7 @@ class facilityController extends Controller
     {
         $facility = facility::where('id',$id)->first();
 
-        $facility->status = 'Pending';
+        $facility->status = 'Deactive';
         $facility->verified_by = Auth::user()->id;
 
         $facility->update();

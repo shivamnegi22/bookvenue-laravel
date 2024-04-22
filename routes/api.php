@@ -25,6 +25,9 @@ use App\Http\Controllers\Api\Booking\bookingController;
     Route::post('/login', [LoginAuthController::class, 'login']);
     Route::post('/verify-otp', [LoginAuthController::class, 'verifyOTP']);
 
+    Route::post('/login-via-email', [LoginAuthController::class, 'loginEmail']);
+    Route::post('/verify-otp-via-email', [LoginAuthController::class, 'verifyOTPEmail']);
+
     //signup route
     Route::post('/register', [RegisterController::class, 'register']);
     Route::post('/verify-register-user', [RegisterController::class, 'verifyuser']);
@@ -93,6 +96,9 @@ use App\Http\Controllers\Api\Booking\bookingController;
 
     //add court api
     Route::post('/create-court', [facilityController::class, 'createCourt']);
+
+    //add court api
+    Route::post('/contact-us', [facilityController::class, 'contactUs']);
 
   
 

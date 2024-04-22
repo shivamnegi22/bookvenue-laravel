@@ -5,7 +5,7 @@
 <ul class="cd-breadcrumb">
     <li><a href="#0">Dashboard</a></li>
     <li><a href="#0">Facility Management</a></li>
-    <li class="current"><em>Pending Facility</em></li>
+    <li class="current"><em>Facility Request</em></li>
 </ul>
 @endsection
 
@@ -35,7 +35,7 @@
                         <td>{{ $data->status }}</td>
                         <td><a href="{{url('update-facility/'.$data->id)}}"><button class="tableButton Update">Edit</button></a>
                         <a href="{{url('delete-facility/'.$data->id)}}"><button class="tableButton Delete">Delete</button></a>
-                        <a href="{{url('approved/'.$data->id)}}"><button class="tableButton aproove">Approove</button></a></td>
+                        <a href="{{url('approved/'.$data->id)}}"><button class="tableButton aproove">Active</button></a></td>
                     </tr>
                     @endforeach
                 </tbody>

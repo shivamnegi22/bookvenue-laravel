@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Sanctum\PersonalAccessToken;
 
 class bookingController extends Controller
@@ -44,56 +45,64 @@ class bookingController extends Controller
             $booking->user_id = $userId;
             $booking->facility_id = $request->facility_id;
             $booking->court_id = $request->court_id;
-            $booking->slot_time = $request->slot_time;
+            $booking->start_time = $request->start_time;
+            $booking->end_time = $request->end_time;
             $booking->duration = $request->duration;
             $booking->total_price = $request->total_price;
             $booking->date = $request->date;
             $booking->booked_by = $userId;
             $booking->payment_type = $request->payment_type;
-            $booking->status = 'Pending';
+            $booking->status = 'Success';
+
+            $email = Profile::where('user_id',$userId)->value('email');
+            $name = Profile::where('user_id',$userId)->value('name');
+            $court_name = Court::where('id',$request->court_id)->value('court_name');
+            $facility_name = facility::where('id',$booking->facility_id)->value('official_name');
 
             if($booking->save())
             {
+                if($email)
 
-                // $mailData = [
+                {
 
-                //     'recipient'=>"$markerGmail",
+                $mailData = [
 
-                //     'fromMail'=>'info@bookvenue.app',
+                    'recipient'=>$email,
 
-                //     'fromName'=>'Bookvenue',
+                    'fromMail'=>'info@bookvenue.app',
 
-                //     'subject'=>'Booking Update',
+                    'fromName'=>'Bookvenue',
 
-                //     'bookingDate'=>"$request->date",
+                    'subject'=>'Booking Update',
 
-                //     'court_name'=>"$courtName",
+                    'bookingDate'=>$request->date,
 
-                //     'time'=>"$time",
+                    'facility'=>$facility_name,
 
-                //     'courtUse'=>"$request->court_use",
+                    'start_time'=> $request->start_time,
 
-                //     'markerName'=>"$markerName",
+                    'end_time'=> $request->end_time,
 
-                //     'markerContact'=>"$markerContact",
+                    'name'=>$name,
 
-                //     'player'=>"$booking->players"
+                    'court_name' => $court_name,
 
                  
 
-                //     ];
+                    ];
                     
 
-                // Mail::send('mail_templates/markerBooking_template',$mailData, function($message) use ($mailData){
+                Mail::send('mail_templates/user_booking_template',$mailData, function($message) use ($mailData){
 
-                //     $message->to($mailData['recipient'])
+                    $message->to($mailData['recipient'])
 
-                //     ->from($mailData['fromMail'],$mailData['fromName'])
+                    ->from($mailData['fromMail'],$mailData['fromName'])
 
-                //     ->subject($mailData['subject']);
+                    ->subject($mailData['subject']);
 
-                //   });
+                  });
 
+                }
 
                 return response([
                     'message' => "Slot is booked successfully.",
