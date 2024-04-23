@@ -10,6 +10,7 @@ use App\Models\Booking;
 use App\Models\Facility_service;
 use App\Models\Service_category;
 use App\Models\Court;
+use App\Models\Profile;
 use Exception;
 use Illuminate\Support\Str;
 use App\Providers\RouteServiceProvider;
@@ -22,12 +23,11 @@ class bookingController extends Controller
 {
     public function Booking(Request $request)
     {
-        try{
+        // try{
 
             $validator = Validator::make($request->all(), [
                 'facility_id' => 'required',
                 'court_id' => 'required',
-                'slot_time' => 'required',
                 'date' => 'required',
             ]);
 
@@ -35,15 +35,30 @@ class bookingController extends Controller
                 return response()->json([
                     'error' => 'Validation failed',
                     'errors' => $validator->errors(),
-                ], 422); // 422 is the HTTP status code for unprocessable entity
+                ], 422); 
             }
 
-            $userId = $token->tokenable->id;
+            $bearerToken = $request->header('Authorization');
 
+            if (!$bearerToken || strpos($bearerToken, 'Bearer ') !== 0) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+        
+            $token = substr($bearerToken, 7); 
+        
+            $tokenParts = explode('|', $token);
+        
+            if (count($tokenParts) !== 2) {
+                return response()->json(['error' => 'Invalid token format'], 400);
+            }
+        
+            $userId = $tokenParts[0]; 
+       
             $booking = new Booking;
 
             $booking->user_id = $userId;
             $booking->facility_id = $request->facility_id;
+
             $booking->court_id = $request->court_id;
             $booking->start_time = $request->start_time;
             $booking->end_time = $request->end_time;
@@ -51,7 +66,7 @@ class bookingController extends Controller
             $booking->total_price = $request->total_price;
             $booking->date = $request->date;
             $booking->booked_by = $userId;
-            $booking->payment_type = $request->payment_type;
+            $booking->payment_type = '';
             $booking->status = 'Success';
 
             $email = Profile::where('user_id',$userId)->value('email');
@@ -109,10 +124,11 @@ class bookingController extends Controller
                 ],200); 
             }
 
-        } catch(\Exception $e){
-            return response([
-                    'message' => "something went wrong please try again.",
-                ],500); 
-        }
+        // } catch(\Exception $e){
+        //     return response([
+        //             'error' => $e,
+        //             'message' => "something went wrong please try again.",
+        //         ],500); 
+        // }
     }
 }

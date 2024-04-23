@@ -26,10 +26,9 @@
                 <tbody>
                     @foreach($booking as $data)
                     <tr>
-                        <td>{{$data->booked_by}}</td>
                         <td>{{\App\Models\Profile::where('user_id',$data->user_id)->value('name')}}</td>
                         <td>{{\App\Models\facility::where('id',$data->facility_id)->value('official_name')}}</td>
-                        <td>{{\App\Models\Court::where('id',$data->court_id)->value('name')}}</td>
+                        <td>{{\App\Models\Court::where('id',$data->court_id)->value('court_name')}}</td>
                         <td>{{$data->date}}</td>
                         <td>{{$data->start_time}} to {{$data->end_time}}</td>
                         <td>{{$data->status}}</td>
