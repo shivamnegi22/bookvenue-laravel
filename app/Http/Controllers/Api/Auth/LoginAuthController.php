@@ -59,6 +59,13 @@ public function login(Request $request)
             $user->phone = $request->mobile;
             $user->status = 'Active';
             $user->save();
+            
+                $profile = new Profile;
+                $profile->user_id = $user->id;
+                $profile->contact = $request->mobile;
+                $profile->status = 'Active';
+                $profile->save();
+            
         }
 
         // Generate OTP
