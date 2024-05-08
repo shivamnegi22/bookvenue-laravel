@@ -50,8 +50,6 @@ use App\Http\Controllers\Api\Booking\bookingController;
    
       //provider api
       Route::get('/get-provider-data', [facilityController::class, 'allProviderData']);
-      
-     
     
   
      //update facility route
@@ -98,8 +96,17 @@ use App\Http\Controllers\Api\Booking\bookingController;
     Route::post('/create-court', [facilityController::class, 'createCourt']);
 
     //add court api
-    Route::post('/contact-us', [facilityController::class, 'contactUs']);
+    Route::post('/contact-us', [managementController::class, 'contactUs']);
 
+    //booking api
+    Route::get('/my-bookings', [bookingController::class, 'myBooking']);     
+
+    //payment response api
+    Route::post('/payment-success', [bookingController::class, 'paymentSuccess']);
+
+    //payment response api
+    Route::get('/payment-failure', [bookingController::class, 'paymentFailure']);
   
+
 
 

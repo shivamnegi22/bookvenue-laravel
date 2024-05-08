@@ -30,7 +30,28 @@ class managementController extends Controller
     {
         try{
 
+            // $bearerToken = $request->header('Authorization');
+
             $token = PersonalAccessToken::findToken($request->bearerToken());
+            $userId = $token->tokenable->id;
+
+            // return response([
+            //     'userId' => "$userId",
+            // ],200); 
+
+            // if (!$bearerToken || strpos($bearerToken, 'Bearer ') !== 0) {
+            //     return response()->json(['error' => 'Unauthorized'], 401);
+            // }
+        
+            // $token = substr($bearerToken, 7); 
+        
+            // $tokenParts = explode('|', $token);
+        
+            // if (count($tokenParts) !== 2) {
+            //     return response()->json(['error' => 'Invalid token format'], 400);
+            // }
+        
+            // $userId = $tokenParts[0]; 
 
             if(empty($token)){
                 return response([
@@ -38,13 +59,13 @@ class managementController extends Controller
                 ],401); 
             } 
 
-            $userId = $token->tokenable->id;
-
+         
             if($userId){
 
                 $userData = Profile::where('user_id',$userId)->first();
 
-                $userData->name = $request->official_name;
+
+                $userData->name = $request->name;
                 $userData->email = $request->email;
                 $userData->contact = $request->contact;
                 $userData->landline = $request->landline;
@@ -77,7 +98,6 @@ class managementController extends Controller
         
 
         try{
-
                 
                 $service_category_ids = facility::where('id',$facility_id)->value('service_category_id');
     
@@ -261,8 +281,6 @@ class managementController extends Controller
         
         try{
 
-            
-
              $slots = [];
 
              $court = Court::where('id', $request->court_id)->first();
@@ -348,53 +366,57 @@ class managementController extends Controller
 
     public function contactUs(Request $request)
     {
+
         $contact = new Contact;
 
         $contact->name = $request->name;
         $contact->email = $request->email;
-        $conatct->mobile = $request->mobile;
-        $conatct->message = $request->message;
+        $contact->mobile = $request->mobile;
+        $contact->message = $request->message;
 
         if($contact->save())
         {
 
-            if($request->email)
-            {
-                $mailData = [
+            // if($request->email)
+            // {
+            //     $mailData = [
 
-                    'recipient'=>"info@bookvenue.app",
+            //         'recipient'=>"info@bookvenue.app",
 
-                    'fromMail'=> $email,
+            //         'fromMail'=> "$request->email",
 
-                    'fromName'=>'Bookvenue',
+            //         'fromName'=>'Bookvenue',
 
-                    'subject'=>'Inquiry via Contact Us Form',
+            //         'subject'=>'Inquiry via contact Us Form',
 
-                    'name'=>'$request->name',
+            //         'name'=>"$request->name",
 
-                    'mobile'=>'$request->mobile',
+            //         'mobile'=>"$request->mobile",
 
-                    'message'=>'$request->message',
+            //         'message'=>"$request->message",
           
 
-                    ];
+            //         ];
                     
 
-                Mail::send('mail_templates/conatct_mail_template',$mailData, function($message) use ($mailData){
+            //     Mail::send('mail_templates/contact_mail_template',$mailData, function($message) use ($mailData){
 
-                    $message->to($mailData['recipient'])
+            //         $message->to($mailData['recipient'])
 
-                    ->from($mailData['fromMail'],$mailData['fromName'])
+            //         ->from($mailData['fromMail'],$mailData['fromName'])
 
-                    ->subject($mailData['subject']);
+            //         ->subject($mailData['subject']);
 
-                  });
-            }
+            //       });
 
             return response([
                 'message' => 'Your message has been successfully submitted. We appreciate your inquiry and will get back to you as soon as possible.',
             ],200);
-        }
-    }
 
-   }
+            }
+
+          
+        }
+}
+
+   
