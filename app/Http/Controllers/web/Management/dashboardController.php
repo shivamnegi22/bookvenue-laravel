@@ -9,12 +9,13 @@ use App\Models\Service;
 use App\Models\Facility_service;
 use App\Models\Court;
 use App\Models\Amenities;
+use App\Models\Availability;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Service_category;
-
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 
 class dashboardController extends Controller
@@ -454,5 +455,49 @@ class dashboardController extends Controller
         return view('facility.allBooking',compact('booking'));
     }
 
+    public function availability()
+    {
+        $facility = facility::get();
+        return view('facility.availability',compact('facility'));
+    }
 
+    public function getCourt($facility_id)
+    {
+        $facility_service_id = Facility_service::where('facility_id',$facility_id)->value('id');
+        $courts = Court::where('facility_service_id',$facility_service_id)->get();
+
+        $courts_with_slots = $courts->map(function ($court) {
+            $slots = [];
+            $start_time = Carbon::parse($court->start_time);
+            $end_time = Carbon::parse($court->end_time);
+            $duration = $court->duration;
+    
+            while ($start_time->addMinutes($duration)->lte($end_time)) {
+                $slot_start = $start_time->clone()->subMinutes($duration)->format('h:i A');
+                $slot_end = $start_time->format('h:i A');
+                $slots[] = $slot_start . ' - ' . $slot_end;
+            }
+    
+            $court->slots = $slots;
+            return $court;
+        });
+    
+        return response()->json($courts_with_slots);
+    }
+
+    public function setAvailability(Request $request)
+    {
+        $obj = new Availability;
+
+        $obj->facility_id = $request->facility;
+        $obj->court_id = $request->court;
+        $obj->start_date = $request->start_date;
+        $obj->end_date = $request->end_date;
+        $obj->slots = $request->slots;
+
+        $obj->save();
+
+        return redirect()->back();
+
+    }
 }

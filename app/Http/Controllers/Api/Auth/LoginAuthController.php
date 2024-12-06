@@ -80,6 +80,7 @@ public function login(Request $request)
 
         // Respond with success message
         return response([
+            'otp' => $otp,
             'OTPStatus' => $otpStatus,
             'mobile' => $request->mobile,
             'message' => 'OTP sent successfully.',

@@ -60,18 +60,17 @@ class MSG91 {
     public function sendDltSms($flowID, $mobileNumber, $action, $var) {
         $isError = 0;
         $errorMessage = true;
-
+    
         $curl = curl_init();
         
         $string = "";
-        if ($action === 'OTP') { // for OTP
+        if ($action === 'OTP') {
             $string = "\"otp\": \"$var[0]\"\n";
         }
-        if ($action === 'FORGOT') { // for Forgot Password
+        if ($action === 'FORGOT') {
             $string = "\"token\": \"$var[0]\"\n";
         }
-        
-
+    
         curl_setopt_array($curl, [
             CURLOPT_URL => "https://api.msg91.com/api/v5/flow/",
             CURLOPT_RETURNTRANSFER => true,
@@ -85,21 +84,25 @@ class MSG91 {
                 "authkey: $this->API_KEY",
                 "content-type: application/JSON"
             ],
+            // Uncomment these lines for debugging (remove for production)
+            // CURLOPT_SSL_VERIFYHOST => 0,
+            // CURLOPT_SSL_VERIFYPEER => 0,
         ]);
         
         $response = curl_exec($curl);
         if (curl_errno($curl)) {
             $isError = true;
-            $errorMessage = curl_error($ch);
+            $errorMessage = curl_error($curl);
         }
         
         curl_close($curl);
         
-        if($isError){
+        if ($isError) {
             return array('error' => 1 , 'message' => $errorMessage);
-        }else{
-            return array('error' => 0 );
+        } else {
+            return array('error' => 0, 'response' => $response);
         }
     }
+    
 }
 ?>

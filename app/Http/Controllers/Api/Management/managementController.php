@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use Exception;
+use App\Models\Availability;
 
 class managementController extends Controller
 {
@@ -416,6 +417,25 @@ class managementController extends Controller
             }
 
           
+        }
+
+        public function courtAvailability($facility_id,$court_id)
+        {
+            try{
+
+                $data = Availability::where('facility_id',$facility_id)->where('court_id',$court_id)->get();
+    
+                return response([
+                    'data' => $data,
+                ],200);
+    
+            }
+            catch(Exception $e){
+    
+                return response([
+                    'message' => "Internal Server Error.",
+                ],500);
+            }
         }
 }
 

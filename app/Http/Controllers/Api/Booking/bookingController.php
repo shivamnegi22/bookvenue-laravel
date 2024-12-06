@@ -42,6 +42,9 @@ class bookingController extends Controller
                 ], 422); 
             }
 
+
+            // return response.status(200).json($request->bearerToken());
+
             $token = PersonalAccessToken::findToken($request->bearerToken());
             $userId = $token->tokenable->id;
 

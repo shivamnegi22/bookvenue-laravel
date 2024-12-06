@@ -107,10 +107,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/update-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateServiceView');
     Route::post('/update-service/{id}', 'App\Http\Controllers\web\Management\dashboardController@updateService');
 
+    Route::get('availability', 'App\Http\Controllers\web\Management\dashboardController@availability');
 
+    Route::post('availability', 'App\Http\Controllers\web\Management\dashboardController@setAvailability');
 
     //all bookings
-    Route::get('allBooking', 'App\Http\Controllers\web\Management\dashboardController@allBooking');
+    Route::get('get-courts/{facility_id}', 'App\Http\Controllers\web\Management\dashboardController@getCourt');
 
 
 });

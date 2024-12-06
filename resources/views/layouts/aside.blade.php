@@ -90,6 +90,8 @@
                                     href="{{url('pending/facility')}}">Facility Request</a></li>
                             <li class="{{ Request::is('addServices') ? 'sub_active' : '' }}"><a
                                     href="{{url('addServices')}}">Add Services</a></li>
+                            <li class="{{ Request::is('availability') ? 'sub_active' : '' }}"><a
+                                    href="{{url('availability')}}">Set Availability</a></li>
 
                              <li class="{{ Request::is('all-courts') ? 'sub_active' : '' }}"><a
                                     href="{{url('all-courts')}}">All Courts</a></li>

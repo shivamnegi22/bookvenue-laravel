@@ -106,6 +106,9 @@ use App\Http\Controllers\Api\Booking\bookingController;
 
     //payment response api
     Route::get('/payment-failure', [bookingController::class, 'paymentFailure']);
+
+    //availability
+    Route::post('/court-availability/{facility_id}/{court_id}', [managementController::class, 'courtAvailability']);
   
 
 
